@@ -9,9 +9,8 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet var Firstname: UILabel!
-    @IBOutlet var Email: UILabel!
-    @IBOutlet var id: UILabel!
+    
+    @IBOutlet var tabBar: UITabBar!
     @IBOutlet var Disconnect: UIButton!
     var connectedAsso: Asso?
     
@@ -22,10 +21,8 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         navigationItem.hidesBackButton = true;
-        self.Firstname.text = connectedAsso?.name
-        self.Email.text = connectedAsso?.email
-        self.id.text = connectedAsso?.idas?.description
         super.viewDidLoad()
+        tabBar.selectedItem = tabBar.items[0]
     }
     
     

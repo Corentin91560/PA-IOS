@@ -10,7 +10,8 @@ import UIKit
 
 class LoginViewController: UIViewController {
 
-    @IBOutlet var BasicLoginButton: UIButton!
+    @IBOutlet var SigninButton: UIButton!
+    @IBOutlet var SignupButton: UIButton!
     @IBOutlet var MailTF: UITextField!
     @IBOutlet var PasswordTF: UITextField!
     
@@ -18,6 +19,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    @IBAction func Signup(_ sender: Any) {
+        let signupForm = SignupViewController()
+        self.navigationController?.pushViewController(signupForm, animated: true)
+        
     }
     
     @IBAction func BasicLogin (_ sender: Any) {

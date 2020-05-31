@@ -3,6 +3,7 @@
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,9 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="Disconnect" destination="ELr-Af-V0Q" id="ZZa-Bl-hQl"/>
-                <outlet property="Email" destination="Hs6-jx-s9b" id="mFr-vo-HgB"/>
-                <outlet property="Firstname" destination="S2j-NJ-fWU" id="71w-Yz-cgb"/>
-                <outlet property="id" destination="opU-2X-ETc" id="WoU-eB-TeF"/>
+                <outlet property="tabBar" destination="mlw-qK-lZL" id="T9Y-KR-4KD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,24 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2j-NJ-fWU" userLabel="Firstname">
-                    <rect key="frame" x="465" y="50" width="94" height="48"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="opU-2X-ETc" userLabel="ID">
-                    <rect key="frame" x="465" y="118" width="94" height="48"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hs6-jx-s9b" userLabel="Email">
-                    <rect key="frame" x="465" y="186" width="94" height="48"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ELr-Af-V0Q" userLabel="Disconnect">
                     <rect key="frame" x="877" y="30" width="142" height="42"/>
                     <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -47,20 +28,32 @@
                         <action selector="Disconnect:" destination="-1" eventType="touchUpInside" id="B3a-W6-Ton"/>
                     </connections>
                 </button>
+                <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mlw-qK-lZL">
+                    <rect key="frame" x="0.0" y="1317" width="1024" height="49"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <items>
+                        <tabBarItem title="Page" id="crN-e4-me8" userLabel="Page">
+                            <color key="badgeColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        </tabBarItem>
+                        <tabBarItem title="Evénements" id="8ZN-jl-UJF" userLabel="Evénements"/>
+                        <tabBarItem title="Feedback" id="wlV-fK-6qM" userLabel="Feedback"/>
+                    </items>
+                    <color key="barTintColor" name="MantisGreen"/>
+                </tabBar>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="opU-2X-ETc" firstAttribute="top" secondItem="S2j-NJ-fWU" secondAttribute="bottom" constant="20" id="KYx-Hd-3qa"/>
                 <constraint firstItem="ELr-Af-V0Q" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="NPp-ke-gmj"/>
-                <constraint firstItem="S2j-NJ-fWU" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="QiQ-M4-xdi"/>
-                <constraint firstItem="S2j-NJ-fWU" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Qxb-QW-uBm"/>
-                <constraint firstItem="opU-2X-ETc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bKc-W8-Ohr"/>
-                <constraint firstItem="Hs6-jx-s9b" firstAttribute="top" secondItem="opU-2X-ETc" secondAttribute="bottom" constant="20" id="nql-GN-rNB"/>
                 <constraint firstAttribute="trailing" secondItem="ELr-Af-V0Q" secondAttribute="trailing" constant="5" id="sqe-Tq-0kd"/>
-                <constraint firstItem="Hs6-jx-s9b" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="trh-3N-2Kl"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.8671875" y="120.79062957540263"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="MantisGreen">
+            <color red="0.50999999046325684" green="0.76099997758865356" blue="0.4309999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+    </resources>
 </document>
