@@ -7,69 +7,27 @@
 //
 
 import UIKit
-import FBSDKLoginKit
-import FBSDKCoreKit
 
 class HomeViewController: UIViewController {
     @IBOutlet var Firstname: UILabel!
     @IBOutlet var Email: UILabel!
-    @IBOutlet var Picture: UIImageView!
     @IBOutlet var id: UILabel!
     @IBOutlet var Disconnect: UIButton!
-    var connectedUser: User?
-    var connectedWithFB : Int = 1
+    var connectedAsso: Asso?
     
     @IBAction func Disconnect(_ sender: Any) {
-        let LoginManager = FBSDKLoginKit.LoginManager()
-        LoginManager.logOut()
-
         let LoginPage = LoginViewController()
         self.navigationController?.pushViewController(LoginPage, animated: true)
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         navigationItem.hidesBackButton = true;
-        if (connectedWithFB == 1) {
-            guard let accessToken = FBSDKLoginKit.AccessToken.current else {return}
-            let graphRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                          parameters: ["fields": "id, email, name"],
-                                                          tokenString: accessToken.tokenString,
-                                                          version: nil,
-                                                          httpMethod: .get
-                                                          )
-            
-            graphRequest.start{ (connection, result, error) -> Void in
-                if (error == nil) {
-                   
-                    let dict: NSDictionary = result as! [String: AnyObject] as NSDictionary
-                    
-                    let userName = dict.object(forKey: "name") as! String
-                    self.Firstname.text = userName
-                    
-                    let id = dict.object(forKey: "id") as! String
-                    self.id.text = id
-                    
-                    
-                    let userMail = dict.object(forKey: "email") as! String
-                    self.Email.text = userMail
-                    
-                    let targetSize = CGSize.init(width: 450, height: 450)
-                    let facebookPictureURL = URL(string: "http://graph.facebook.com/\(id)/picture?type=large")! as URL
-                    if let imageData: NSData = NSData(contentsOf: facebookPictureURL) {
-                        self.Picture.image = self.resizeImage(image: UIImage(data: imageData as Data)!, targetSize: targetSize)
-                    }
-                    
-                } else {
-                   
-                }
-            }
-        } else {
-            self.Firstname.text = connectedUser?.firstName
-            self.Email.text = connectedUser?.email
-            self.id.text = connectedUser?.id?.description
-        }
+        self.Firstname.text = connectedAsso?.name
+        self.Email.text = connectedAsso?.email
+        self.id.text = connectedAsso?.idas?.description
+        super.viewDidLoad()
     }
+    
     
     func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
         let size = image.size

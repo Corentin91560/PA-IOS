@@ -10,7 +10,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="BasicLoginButton" destination="hqb-Nm-EaB" id="To2-dZ-dFc"/>
-                <outlet property="FBLoginButton" destination="Wjr-oI-p8Q" id="NR6-r0-bAD"/>
                 <outlet property="MailTF" destination="ssN-9a-3C4" id="FTr-lJ-nUv"/>
                 <outlet property="PasswordTF" destination="JUr-A4-VZg" id="3kw-W5-kb0"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -22,16 +21,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-Nm-EaB" userLabel="BasicLoginButton">
-                    <rect key="frame" x="250" y="1282" width="86" height="34"/>
+                    <rect key="frame" x="469" y="1282" width="86" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="Connexion"/>
                     <connections>
                         <action selector="BasicLogin:" destination="-1" eventType="touchUpInside" id="ncT-ke-MSs"/>
                     </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wjr-oI-p8Q" userLabel="FBLoginButton" customClass="FBSDKLoginButton">
-                    <rect key="frame" x="728" y="1286" width="46" height="30"/>
-                    <state key="normal" title="Button"/>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywQ-R8-AKd" userLabel="MailLabel">
                     <rect key="frame" x="300" y="300" width="106" height="42"/>
@@ -59,7 +54,6 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
                 <constraint firstItem="ssN-9a-3C4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="305" id="6cL-Rr-C8j"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wjr-oI-p8Q" secondAttribute="bottom" constant="50" id="7pD-vf-9wL"/>
                 <constraint firstItem="JUr-A4-VZg" firstAttribute="top" secondItem="ssN-9a-3C4" secondAttribute="bottom" constant="60" id="8Ao-ge-UFh"/>
                 <constraint firstItem="wJp-ND-sG6" firstAttribute="top" secondItem="ywQ-R8-AKd" secondAttribute="bottom" constant="50" id="AFV-Ki-VrN"/>
                 <constraint firstItem="wJp-ND-sG6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="AFx-VE-Neb"/>
@@ -69,8 +63,7 @@
                 <constraint firstItem="JUr-A4-VZg" firstAttribute="leading" secondItem="wJp-ND-sG6" secondAttribute="trailing" constant="25" id="X5U-1h-TDa"/>
                 <constraint firstItem="ywQ-R8-AKd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="300" id="d03-Cw-jni"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="50" id="fTg-1p-XLm"/>
-                <constraint firstItem="hqb-Nm-EaB" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="250" id="mRC-Uj-5Kw"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Wjr-oI-p8Q" secondAttribute="trailing" constant="250" id="mjL-Ua-klu"/>
+                <constraint firstItem="hqb-Nm-EaB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lMm-Yt-i1z"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JUr-A4-VZg" secondAttribute="trailing" constant="10" id="qDd-nO-AQX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
