@@ -15,14 +15,16 @@ class HomeViewController: UIViewController {
     var connectedAsso: Asso?
     
     @IBAction func Disconnect(_ sender: Any) {
-        let LoginPage = LoginViewController()
-        self.navigationController?.pushViewController(LoginPage, animated: true)
+//        let LoginPage = LoginViewController()
+//        self.navigationController?.pushViewController(LoginPage, animated: true)
+        // Returns the popped controller to the previous.
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
         navigationItem.hidesBackButton = true;
         super.viewDidLoad()
-        tabBar.selectedItem = tabBar.items[0]
+        tabBar.selectedItem = tabBar.items?[0]
     }
     
     

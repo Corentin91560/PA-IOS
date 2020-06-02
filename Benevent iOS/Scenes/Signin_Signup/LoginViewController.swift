@@ -18,6 +18,7 @@ class LoginViewController: UIViewController {
     let BeneventWS: BeneventWebService = BeneventWebService()
     
     override func viewDidLoad() {
+        navigationItem.hidesBackButton = true 
         super.viewDidLoad()
     }
     

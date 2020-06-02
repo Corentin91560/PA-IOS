@@ -21,14 +21,6 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-Nm-EaB" userLabel="SigninButton">
-                    <rect key="frame" x="469" y="1282" width="86" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="Connexion"/>
-                    <connections>
-                        <action selector="BasicLogin:" destination="-1" eventType="touchUpInside" id="ncT-ke-MSs"/>
-                    </connections>
-                </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywQ-R8-AKd" userLabel="MailLabel">
                     <rect key="frame" x="300" y="300" width="106" height="42"/>
                     <fontDescription key="fontDescription" type="system" pointSize="35"/>
@@ -52,18 +44,32 @@
                     <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                 </textField>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wi5-Oo-LNI" userLabel="SignupButton">
-                    <rect key="frame" x="100" y="1282" width="85" height="34"/>
+                    <rect key="frame" x="419" y="1282" width="186" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="Inscription"/>
+                    <state key="normal" title="S'inscrire sur Benevent"/>
                     <connections>
                         <action selector="Signup:" destination="-1" eventType="touchUpInside" id="VSk-QO-EuH"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zf-5V-7it">
+                    <rect key="frame" x="499.5" y="1207" width="25" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-Nm-EaB" userLabel="SigninButton">
+                    <rect key="frame" x="469" y="1148" width="86" height="34"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="Connexion"/>
+                    <connections>
+                        <action selector="BasicLogin:" destination="-1" eventType="touchUpInside" id="ncT-ke-MSs"/>
                     </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="100" id="3Ch-g5-am8"/>
                 <constraint firstItem="ssN-9a-3C4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="305" id="6cL-Rr-C8j"/>
+                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="top" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="100" id="84O-26-zFM"/>
                 <constraint firstItem="JUr-A4-VZg" firstAttribute="top" secondItem="ssN-9a-3C4" secondAttribute="bottom" constant="60" id="8Ao-ge-UFh"/>
                 <constraint firstItem="wJp-ND-sG6" firstAttribute="top" secondItem="ywQ-R8-AKd" secondAttribute="bottom" constant="50" id="AFV-Ki-VrN"/>
                 <constraint firstItem="wJp-ND-sG6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="AFx-VE-Neb"/>
@@ -72,10 +78,13 @@
                 <constraint firstItem="ssN-9a-3C4" firstAttribute="leading" secondItem="ywQ-R8-AKd" secondAttribute="trailing" constant="25" id="Rxb-sg-kau"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wi5-Oo-LNI" secondAttribute="bottom" constant="50" id="W1x-s3-iDu"/>
                 <constraint firstItem="JUr-A4-VZg" firstAttribute="leading" secondItem="wJp-ND-sG6" secondAttribute="trailing" constant="25" id="X5U-1h-TDa"/>
+                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bwd-DR-wmc"/>
                 <constraint firstItem="ywQ-R8-AKd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="300" id="d03-Cw-jni"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="50" id="fTg-1p-XLm"/>
+                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="top" secondItem="2zf-5V-7it" secondAttribute="bottom" constant="25" id="eWw-cY-KBv"/>
+                <constraint firstItem="2zf-5V-7it" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jrw-YU-lw4"/>
                 <constraint firstItem="hqb-Nm-EaB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lMm-Yt-i1z"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JUr-A4-VZg" secondAttribute="trailing" constant="10" id="qDd-nO-AQX"/>
+                <constraint firstItem="2zf-5V-7it" firstAttribute="top" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="25" id="qIC-tF-ft7"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140.625" y="153.73352855051243"/>
