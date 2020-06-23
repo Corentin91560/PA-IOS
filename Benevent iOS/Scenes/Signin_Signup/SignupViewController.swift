@@ -8,31 +8,71 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet var assoNameTF: UITextField!
     @IBOutlet var assoEmailTF: UITextField!
     @IBOutlet var assoPwdTF: UITextField!
-    @IBOutlet var assoConfirmPwdLabel: UITextField!
+    @IBOutlet var assoCatTF: UITextField!
+    @IBOutlet var errorTF: UILabel!
     @IBOutlet var validButton: UIButton!
     
+    let categoriesAsso = [ "Animalière",
+                           "Culturelle",
+                          "Environnementale",
+                          "Humanitaire",
+                          "Musicale",
+                          "Sportive",
+                          ]
+    var idCategorie = 0
+    let pickerView = UIPickerView()
+    let assoWS: AssociationWebService = AssociationWebService()
+    
     override func viewDidLoad() {
+        assoCatTF.inputView = pickerView
+        pickerView.delegate = self
+        errorTF.isHidden = true
+        validButton.layer.cornerRadius = validButton.bounds.height/2
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-    @IBAction func Confirm(_ sender: Any) {
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func Confirm(_ sender: Any) {
+        let email = assoEmailTF.text!
+        let pwd = assoPwdTF.text!
+        let name = assoNameTF.text!
+        
+        self.assoWS.Signup(name: name, email: email, password: pwd, idCategory: idCategorie ) { (sucess) in
+            DispatchQueue.main.async {
+                if(sucess) {
+                    let Login = LoginViewController()
+                    self.navigationController?.pushViewController(Login, animated: false)
+                } else {
+                    self.errorTF.isHidden = false
+                }
+            }
+        }
     }
-    */
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return  categoriesAsso.count
+    }
+    
+    func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoriesAsso[row]
+    }
 
+    func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        assoCatTF.text = categoriesAsso[row]
+        idCategorie = row + 1
+    }
+    
+    @IBAction func nameTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
+    @IBAction func mailTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
+    @IBAction func pwdTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
+    
+    
 }

@@ -3,16 +3,18 @@
     <device id="ipad12_9" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="MailTF" destination="ssN-9a-3C4" id="FTr-lJ-nUv"/>
-                <outlet property="PasswordTF" destination="JUr-A4-VZg" id="3kw-W5-kb0"/>
-                <outlet property="SigninButton" destination="hqb-Nm-EaB" id="rUu-Vs-chv"/>
-                <outlet property="SignupButton" destination="Wi5-Oo-LNI" id="5tU-zf-8YI"/>
+                <outlet property="MailTF" destination="h0M-gC-B5o" id="JTm-a1-JtO"/>
+                <outlet property="PasswordTF" destination="FIG-AR-gDF" id="F5O-0S-1HD"/>
+                <outlet property="SigninButton" destination="Zrk-fx-b8T" id="V5Y-3w-WrB"/>
+                <outlet property="SignupButton" destination="LZN-jG-70c" id="B11-cb-D7h"/>
+                <outlet property="errorTF" destination="Lfl-hO-aaN" id="WG2-fO-kKj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -21,73 +23,105 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ywQ-R8-AKd" userLabel="MailLabel">
-                    <rect key="frame" x="300" y="300" width="106" height="42"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="example@example.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ssN-9a-3C4" userLabel="MailTF">
-                    <rect key="frame" x="431" y="305" width="583" height="34"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="Qdz-aW-WVg">
+                    <rect key="frame" x="264" y="100" width="496" height="370"/>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adresse Mail" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-gC-B5o" userLabel="mailAddress">
+                    <rect key="frame" x="50" y="666" width="924" height="34"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mot de Passe : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJp-ND-sG6" userLabel="PasswordLabel">
-                    <rect key="frame" x="300" y="392" width="226" height="42"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="35"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JUr-A4-VZg" userLabel="PasswordTF">
-                    <rect key="frame" x="551" y="399" width="463" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wi5-Oo-LNI" userLabel="SignupButton">
-                    <rect key="frame" x="419" y="1282" width="186" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="S'inscrire sur Benevent"/>
+                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="username"/>
                     <connections>
-                        <action selector="Signup:" destination="-1" eventType="touchUpInside" id="VSk-QO-EuH"/>
+                        <action selector="mailTFClicked:" destination="-1" eventType="touchDown" id="0gH-nS-fo4"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FIG-AR-gDF" userLabel="password">
+                    <rect key="frame" x="50" y="730" width="924" height="34"/>
+                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
+                    <connections>
+                        <action selector="passwordTFClicked:" destination="-1" eventType="touchDown" id="W5V-Ay-6HK"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue sur Benevent " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvh-RJ-Jk1">
+                    <rect key="frame" x="293" y="520" width="438" height="46"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="50"/>
+                    <color key="textColor" name="EerieBlack"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrk-fx-b8T">
+                    <rect key="frame" x="300" y="914" width="424" height="40"/>
+                    <color key="backgroundColor" name="FlickrBlue"/>
+                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="30"/>
+                    <state key="normal" title="Connexion">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="Login:" destination="-1" eventType="touchUpInside" id="PiY-p4-4dd"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OU" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2zf-5V-7it">
-                    <rect key="frame" x="499.5" y="1207" width="25" height="50"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pas encore de compte ? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-Sd-r0b">
+                    <rect key="frame" x="325" y="1308" width="270" height="28"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="30"/>
+                    <color key="textColor" name="EerieBlack"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hqb-Nm-EaB" userLabel="SigninButton">
-                    <rect key="frame" x="469" y="1148" width="86" height="34"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="Connexion"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZN-jG-70c">
+                    <rect key="frame" x="600" y="1301" width="94" height="40"/>
+                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="30"/>
+                    <state key="normal" title="S'inscrire">
+                        <color key="titleColor" name="FlickrBlue"/>
+                    </state>
                     <connections>
-                        <action selector="BasicLogin:" destination="-1" eventType="touchUpInside" id="ncT-ke-MSs"/>
+                        <action selector="Signup:" destination="-1" eventType="touchUpInside" id="3Q1-eT-qZO"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adresse ou mot de passe incorrect !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfl-hO-aaN" userLabel="errorTF">
+                    <rect key="frame" x="316.5" y="576" width="391.5" height="80"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="AppleSymbols" family="Apple Symbols" pointSize="30"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="ssN-9a-3C4" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="305" id="6cL-Rr-C8j"/>
-                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="top" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="100" id="84O-26-zFM"/>
-                <constraint firstItem="JUr-A4-VZg" firstAttribute="top" secondItem="ssN-9a-3C4" secondAttribute="bottom" constant="60" id="8Ao-ge-UFh"/>
-                <constraint firstItem="wJp-ND-sG6" firstAttribute="top" secondItem="ywQ-R8-AKd" secondAttribute="bottom" constant="50" id="AFV-Ki-VrN"/>
-                <constraint firstItem="wJp-ND-sG6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="AFx-VE-Neb"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ssN-9a-3C4" secondAttribute="trailing" constant="10" id="F7Z-Eo-yNJ"/>
-                <constraint firstItem="ywQ-R8-AKd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="K1Y-64-A5y"/>
-                <constraint firstItem="ssN-9a-3C4" firstAttribute="leading" secondItem="ywQ-R8-AKd" secondAttribute="trailing" constant="25" id="Rxb-sg-kau"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Wi5-Oo-LNI" secondAttribute="bottom" constant="50" id="W1x-s3-iDu"/>
-                <constraint firstItem="JUr-A4-VZg" firstAttribute="leading" secondItem="wJp-ND-sG6" secondAttribute="trailing" constant="25" id="X5U-1h-TDa"/>
-                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="bwd-DR-wmc"/>
-                <constraint firstItem="ywQ-R8-AKd" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="300" id="d03-Cw-jni"/>
-                <constraint firstItem="Wi5-Oo-LNI" firstAttribute="top" secondItem="2zf-5V-7it" secondAttribute="bottom" constant="25" id="eWw-cY-KBv"/>
-                <constraint firstItem="2zf-5V-7it" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="jrw-YU-lw4"/>
-                <constraint firstItem="hqb-Nm-EaB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lMm-Yt-i1z"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JUr-A4-VZg" secondAttribute="trailing" constant="10" id="qDd-nO-AQX"/>
-                <constraint firstItem="2zf-5V-7it" firstAttribute="top" secondItem="hqb-Nm-EaB" secondAttribute="bottom" constant="25" id="qIC-tF-ft7"/>
+                <constraint firstItem="Lfl-hO-aaN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0Er-Ju-yhc"/>
+                <constraint firstItem="Zrk-fx-b8T" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="3Pw-l1-pww"/>
+                <constraint firstItem="Zrk-fx-b8T" firstAttribute="top" secondItem="FIG-AR-gDF" secondAttribute="bottom" constant="150" id="7zZ-eo-JBd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="LZN-jG-70c" secondAttribute="bottom" constant="25" id="CL8-GU-U7z"/>
+                <constraint firstItem="h0M-gC-B5o" firstAttribute="top" secondItem="Lfl-hO-aaN" secondAttribute="bottom" constant="10" id="H5X-m1-BUM"/>
+                <constraint firstItem="Lfl-hO-aaN" firstAttribute="top" secondItem="fvh-RJ-Jk1" secondAttribute="bottom" constant="10" id="JpT-Dg-giZ"/>
+                <constraint firstItem="FIG-AR-gDF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="O68-mA-QXY"/>
+                <constraint firstItem="FIG-AR-gDF" firstAttribute="top" secondItem="h0M-gC-B5o" secondAttribute="bottom" constant="30" id="Ozf-d9-oaL"/>
+                <constraint firstItem="Qdz-aW-WVg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="100" id="UCc-ol-WLZ"/>
+                <constraint firstItem="fvh-RJ-Jk1" firstAttribute="top" secondItem="Qdz-aW-WVg" secondAttribute="bottom" constant="50" id="Vn2-R8-brY"/>
+                <constraint firstItem="fvh-RJ-Jk1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Wjl-zi-ey1"/>
+                <constraint firstItem="h0M-gC-B5o" firstAttribute="top" secondItem="fvh-RJ-Jk1" secondAttribute="bottom" constant="100" id="baz-t5-WBG"/>
+                <constraint firstItem="Zrk-fx-b8T" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="c68-NW-ByA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Zrk-fx-b8T" secondAttribute="trailing" constant="300" id="cYv-q2-32t"/>
+                <constraint firstItem="LZN-jG-70c" firstAttribute="leading" secondItem="cTc-Sd-r0b" secondAttribute="trailing" constant="5" id="dYe-bm-40L"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="cTc-Sd-r0b" secondAttribute="bottom" constant="30" id="eHg-BI-4VH"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="h0M-gC-B5o" secondAttribute="trailing" constant="50" id="ekw-s5-NMD"/>
+                <constraint firstItem="Qdz-aW-WVg" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gFe-gC-fv0"/>
+                <constraint firstItem="cTc-Sd-r0b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="325" id="jcd-bq-j8a"/>
+                <constraint firstItem="h0M-gC-B5o" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="sxr-9y-sCn"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FIG-AR-gDF" secondAttribute="trailing" constant="50" id="xQ1-3G-WKX"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140.625" y="153.73352855051243"/>
         </view>
     </objects>
+    <resources>
+        <image name="AppIconImage" width="496" height="370"/>
+        <namedColor name="EerieBlack">
+            <color red="0.078000001609325409" green="0.078000001609325409" blue="0.078000001609325409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FlickrBlue">
+            <color red="0.082000002264976501" green="0.37599998712539673" blue="0.86699998378753662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

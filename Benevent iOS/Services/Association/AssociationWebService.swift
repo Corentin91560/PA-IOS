@@ -1,5 +1,5 @@
 //
-//  BeneventWebService.swift
+//  AssociationWebService.swift
 //  Benevent iOS
 //
 //  Created by Thomas MARTIN on 30/05/2020.
@@ -9,9 +9,9 @@
 import Foundation
 
 
-class BeneventWebService {
+class AssociationWebService {
     
-    func Login (mail: String, password: String, completion: @escaping ([Asso]) -> Void) -> Void {
+    func Login (mail: String, password: String, completion: @escaping ([Association]) -> Void) -> Void {
         let assoLoginURL = AppConfig.apiURL + "/signin/association"
         let parameters: [String: Any] = [
             "email": mail,
@@ -37,16 +37,46 @@ class BeneventWebService {
                         }
                     return
                 }
-                let asso = json.compactMap { (obj) -> Asso? in
+                let asso = json.compactMap { (obj) -> Association? in
                     guard let dict = obj as? [String: Any] else {
                         return nil
                     }
-                    return AssoFactory.assoFrom(dictionary: dict)
+                    return AssociationFactory.associationFrom(dictionary: dict)
                 }
                 DispatchQueue.main.sync {
                     completion(asso)
                 }
             }
+        task.resume()
+    }
+    
+    func Signup(name: String, email: String, password: String, idCategory: Int, completion: @escaping (Bool) -> Void) -> Void {
+        
+        let assoLoginURL = AppConfig.apiURL + "/signup/association"
+        let parameters: [String: Any] = [
+            "name": name,
+            "email": email,
+            "password": password,
+            "idcat": idCategory
+        ]
+        guard let apiURL = URL(string: assoLoginURL ) else {
+            return;
+        }
+        var request = URLRequest(url: apiURL)
+        request.httpMethod = "POST"
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted)
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 201)
+            }
+            completion(false)
+        }
         task.resume()
     }
 }

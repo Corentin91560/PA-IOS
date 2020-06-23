@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet var tabBar: UITabBar!
     @IBOutlet var Disconnect: UIButton!
-    var connectedAsso: Asso?
+    var connectedAsso: Association?
     
     @IBAction func Disconnect(_ sender: Any) {
 //        let LoginPage = LoginViewController()

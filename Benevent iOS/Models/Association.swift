@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 
-class Asso: CustomStringConvertible {
+class Association: CustomStringConvertible {
     var idas: Int?
     var name: String
     var logo: UIImage?
