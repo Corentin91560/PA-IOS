@@ -30,6 +30,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     let assoWS: AssociationWebService = AssociationWebService()
     
     override func viewDidLoad() {
+        self.hideKeyboardWhenTappedAround() 
         assoCatTF.inputView = pickerView
         pickerView.delegate = self
         errorTF.isHidden = true

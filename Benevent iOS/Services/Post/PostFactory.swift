@@ -20,7 +20,7 @@ class PostFactory {
         post.idpo = dictionary["idpo"] as? Int
         post.idu = dictionary["idu"] as? Int
         post.idas = dictionary["idas"] as? Int
-        post.idev = dictionary["idas"] as? Int
+        post.idev = dictionary["idev"] as? Int
         return post
     }
     
