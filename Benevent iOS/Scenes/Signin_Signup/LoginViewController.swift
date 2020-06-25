@@ -18,7 +18,9 @@ class LoginViewController: UIViewController {
     
     let assoWS : AssociationWebService = AssociationWebService()
     
+    
     override func viewDidLoad() {
+        self.navigationController?.navigationBar.barTintColor = UIColor.systemGray6
         SigninButton.layer.cornerRadius = SigninButton.bounds.size.height/2
         navigationItem.hidesBackButton = true
         errorTF.isHidden = true

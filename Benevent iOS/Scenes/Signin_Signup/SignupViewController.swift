@@ -16,6 +16,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet var assoCatTF: UITextField!
     @IBOutlet var errorTF: UILabel!
     @IBOutlet var validButton: UIButton!
+    @IBOutlet var connectButton: UIButton!
     
     let categoriesAsso = [ "Animalière",
                            "Culturelle",
@@ -51,6 +52,12 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                 }
             }
         }
+    }
+    
+    @IBAction func Connect(_ sender: Any) {
+        let loginVC = LoginViewController()
+        self.navigationController?.pushViewController(loginVC, animated: false)
+        //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

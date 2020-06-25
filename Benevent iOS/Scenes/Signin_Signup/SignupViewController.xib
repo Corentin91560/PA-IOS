@@ -14,6 +14,7 @@
                 <outlet property="assoEmailTF" destination="AbR-to-Qmr" id="eW5-hN-1mc"/>
                 <outlet property="assoNameTF" destination="b33-f5-sMN" id="m9L-0s-Yr6"/>
                 <outlet property="assoPwdTF" destination="tYH-l6-DlZ" id="edb-wq-TvH"/>
+                <outlet property="connectButton" destination="LrI-2e-00F" id="LGN-58-ZAF"/>
                 <outlet property="errorTF" destination="GKm-9Q-43K" id="Khk-Zv-wSo"/>
                 <outlet property="validButton" destination="u1w-VI-LWV" id="KGu-KD-l64"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -76,6 +77,9 @@
                     <state key="normal" title="Se connecter">
                         <color key="titleColor" name="FlickrBlue"/>
                     </state>
+                    <connections>
+                        <action selector="Connect:" destination="-1" eventType="touchUpInside" id="RhA-He-Ac2"/>
+                    </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tYH-l6-DlZ" userLabel="assoPassword">
                     <rect key="frame" x="50" y="694" width="924" height="34"/>
@@ -100,7 +104,7 @@
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="PLb-Nk-bJs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="325" id="0D2-q7-D79"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="LrI-2e-00F" secondAttribute="bottom" constant="25" id="0tW-iF-bHB"/>

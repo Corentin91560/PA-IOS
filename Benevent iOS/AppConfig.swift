@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct AppConfig {
     static var apiURL: String = "http://localhost:3000"
