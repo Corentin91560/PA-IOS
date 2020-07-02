@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
     
     enum Identifier: String {
         case posts
@@ -19,7 +19,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var posts: [Post]!
     var connectedAsso: Association? = nil
-    var postWS: PostWebService = PostWebService()
+    var eventWS: EventWebService = EventWebService()
 
     class func newInstance(posts: [Post]) -> HomeViewController {
         let hvc = HomeViewController()
@@ -29,13 +29,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround() 
+        self.hideKeyboardWhenTappedAround()
+        self.dataTableView.separatorStyle = .none
         viewDidLayoutSubviews()
         setupNavigationBar()
         tabBar.selectedItem = tabBar.items?[0]
         self.dataTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: Identifier.posts.rawValue)
         self.dataTableView.dataSource = self
         self.dataTableView.delegate = self
+        self.tabBar.delegate = self
     }
     
 
@@ -69,7 +71,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func addPost() {
-        //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche 
+        self.eventWS.getEventsByAssociation(idAsso: connectedAsso!.idas!) { (events) in
+            let CreatePostVC = CreatePostViewController.newInstance(events: events)
+            self.navigationController?.pushViewController(CreatePostVC, animated: true)
+        }
     }
     
     @objc func Profile() {
@@ -79,8 +84,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if (tabBar.selectedItem == tabBar.items?[1]) {
+            let eventVC = EventViewController()
+            navigationController?.pushViewController(eventVC, animated: false)
+        } else if (tabBar.selectedItem == tabBar.items?[2]) {
+            let feedbackVC = FeedbackViewController()
+            navigationController?.pushViewController(feedbackVC, animated: true)
+        }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("self.posts.count \(self.posts.count)")
         return self.posts.count
     }
     
@@ -89,13 +104,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let formatter = DateFormatter()
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.posts.rawValue, for: indexPath) as! HomeTableViewCell
         let post = self.posts[indexPath.row]
+        
+        formatter.dateFormat = "dd/MM/yyyy"
         cell.assoName.text = connectedAsso?.name
         cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
         cell.postMessage.text = post.message
         cell.dataView.layer.cornerRadius = 50
+        cell.assoProfilePicture.frame = CGRect(x: 20, y: 20, width: 75, height: 75)
         cell.assoProfilePicture.load(url: URL(string: (connectedAsso?.logo)!)!)
+        cell.postDate.text = "le \(formatter.string(from: post.date))"
+        self.eventWS.getEvent(idEvent: post.idev!) { (event) in
+            cell.eventName.text = event[0].name
+        }
         return cell
     }
 }

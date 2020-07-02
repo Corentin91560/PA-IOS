@@ -35,45 +35,45 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="Bxn-Lo-QEM" userLabel="assoLogo">
                     <rect key="frame" x="264" y="50" width="496" height="370"/>
                 </imageView>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nom de l'association" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-ys-tI9" userLabel="assoName">
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-ys-tI9" userLabel="assoName">
                     <rect key="frame" x="337.5" y="645" width="666.5" height="44.5"/>
-                    <color key="backgroundColor" name="BackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <action selector="assoNameClicked:" destination="-1" eventType="touchDown" id="UbC-6D-jSq"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Email de l'association" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tF9-Rm-10u" userLabel="assoMail">
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tF9-Rm-10u" userLabel="assoMail">
                     <rect key="frame" x="351.5" y="719.5" width="652.5" height="44.5"/>
-                    <color key="backgroundColor" name="BackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                     <connections>
                         <action selector="assoMailClicked:" destination="-1" eventType="touchDown" id="Bns-6w-ydJ"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Téléphone de l'association" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0JZ-jQ-Xkl" userLabel="assoPhone">
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0JZ-jQ-Xkl" userLabel="assoPhone">
                     <rect key="frame" x="418.5" y="794" width="585.5" height="44.5"/>
-                    <color key="backgroundColor" name="BackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                     <connections>
                         <action selector="assoPhoneClicked:" destination="-1" eventType="touchDown" id="AEk-cW-nxK"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Site internet de l'association" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cZM-iP-dpf" userLabel="assoWebsite">
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cZM-iP-dpf" userLabel="assoWebsite">
                     <rect key="frame" x="439.5" y="868.5" width="564.5" height="44.5"/>
-                    <color key="backgroundColor" name="BackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
                         <action selector="assoWebsiteClicked:" destination="-1" eventType="touchDown" id="2Dr-TE-x77"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Support de l'association" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HvA-9g-h8X" userLabel="assoSupport">
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HvA-9g-h8X" userLabel="assoSupport">
                     <rect key="frame" x="386.5" y="943" width="617.5" height="44.5"/>
-                    <color key="backgroundColor" name="BackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
                     <connections>
@@ -140,7 +140,7 @@
                     </connections>
                 </button>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="141-Pe-y6E" firstAttribute="top" secondItem="Bxn-Lo-QEM" secondAttribute="bottom" constant="225" id="0Re-sm-YLh"/>
                 <constraint firstItem="UDd-Zp-qVN" firstAttribute="top" secondItem="tPg-ys-tI9" secondAttribute="bottom" constant="35" id="0tO-On-2hq"/>
@@ -182,14 +182,11 @@
     </objects>
     <resources>
         <image name="AppIconImage" width="496" height="370"/>
-        <namedColor name="BackgroundColor">
-            <color red="0.8901960784313725" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="BackgroundGrey">
-            <color red="0.8901960784313725" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="BackgroundRed">
-            <color red="0.99215686274509807" green="0.42352941176470588" blue="0.42352941176470588" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.99199998378753662" green="0.42399999499320984" blue="0.42399999499320984" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

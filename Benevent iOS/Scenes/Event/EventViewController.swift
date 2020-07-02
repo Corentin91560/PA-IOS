@@ -9,7 +9,9 @@
 import UIKit
 
 class EventViewController: UIViewController {
-
+    
+    @IBOutlet var tabBar: UITabBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

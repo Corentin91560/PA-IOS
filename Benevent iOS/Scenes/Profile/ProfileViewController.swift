@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
         setupTextFields()
         setupNavigationBar()
         setupButtons()
+        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
     }
     
     func setupButtons() {

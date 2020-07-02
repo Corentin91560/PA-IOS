@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="monofonto.ttf">
+            <string>Monofonto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostViewController" customModule="Benevent_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="eventTextField" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
+                <outlet property="postMessageText" destination="hr3-7O-89v" id="aNC-QJ-pEG"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evénement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-nb-2vS">
+                    <rect key="frame" x="10" y="520" width="165" height="36"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-FS-2mr" userLabel="appLogo">
+                    <rect key="frame" x="264" y="50" width="496" height="370"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyD-8q-lrs">
+                    <rect key="frame" x="10" y="585.5" width="210" height="36"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqI-uf-fY6" userLabel="Validate">
+                    <rect key="frame" x="300" y="1198" width="424" height="48"/>
+                    <color key="backgroundColor" name="BackgroundGreen"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="Valider">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TaB-NJ-puR" userLabel="eventTF">
+                    <rect key="frame" x="185" y="520" width="829" height="45.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hr3-7O-89v">
+                    <rect key="frame" x="10" y="641.5" width="1004" height="536.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hr3-7O-89v" secondAttribute="trailing" constant="10" id="ILu-ah-qW8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SqI-uf-fY6" secondAttribute="trailing" constant="300" id="PK4-Vv-wwR"/>
+                <constraint firstItem="TaB-NJ-puR" firstAttribute="leading" secondItem="ejD-nb-2vS" secondAttribute="trailing" constant="10" id="Pqs-nW-aS0"/>
+                <constraint firstItem="gyD-8q-lrs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="X29-La-QMJ"/>
+                <constraint firstItem="SqI-uf-fY6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="ZHY-f1-j3T"/>
+                <constraint firstItem="SqI-uf-fY6" firstAttribute="top" secondItem="hr3-7O-89v" secondAttribute="bottom" constant="20" id="bek-Ex-nPX"/>
+                <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="clZ-dI-efd"/>
+                <constraint firstItem="SqI-uf-fY6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dR5-OB-3Pz"/>
+                <constraint firstItem="ejD-nb-2vS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="f9w-yI-F9G"/>
+                <constraint firstItem="6zh-FS-2mr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gZn-Fq-m1Z"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TaB-NJ-puR" secondAttribute="trailing" constant="10" id="gea-dq-5Wq"/>
+                <constraint firstItem="hr3-7O-89v" firstAttribute="top" secondItem="gyD-8q-lrs" secondAttribute="bottom" constant="20" id="mjq-tC-1hI"/>
+                <constraint firstItem="hr3-7O-89v" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="p5A-Y6-1fR"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SqI-uf-fY6" secondAttribute="bottom" constant="100" id="pOc-u9-Ij1"/>
+                <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="rdl-t8-9JQ"/>
+                <constraint firstItem="gyD-8q-lrs" firstAttribute="top" secondItem="TaB-NJ-puR" secondAttribute="bottom" constant="20" id="u64-X1-nks"/>
+                <constraint firstItem="6zh-FS-2mr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="z1b-5R-OgE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.8671875" y="122.98682284040994"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="AppIconImage" width="496" height="370"/>
+        <namedColor name="BackgroundGreen">
+            <color red="0.45899999141693115" green="0.83899998664855957" blue="0.45899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

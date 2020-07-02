@@ -15,6 +15,7 @@ class HomeTableViewCell: UITableViewCell, UITextViewDelegate {
     @IBOutlet var assoName: UILabel!
     @IBOutlet var postMessage: UILabel!
     @IBOutlet var eventName: UILabel!
+    @IBOutlet var postDate: UILabel!
     
     let connectedAsso: Association? = nil
     
