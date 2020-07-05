@@ -17,6 +17,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet var errorTF: UILabel!
     @IBOutlet var validButton: UIButton!
     @IBOutlet var connectButton: UIButton!
+    //TODO: Remplacer les categories en dure par le call API
     
     let categoriesAsso = [ "Animalière",
                            "Culturelle",
@@ -81,6 +82,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBAction func nameTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
     @IBAction func mailTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
     @IBAction func pwdTFClicked(_ sender: Any) {self.errorTF.isHidden = true}
+    //TODO: Gerer le nullable
     
     
 }
