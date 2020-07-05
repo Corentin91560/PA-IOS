@@ -1,21 +1,19 @@
 //
-//  HomeTableViewCell.swift
+//  EventTableViewCell.swift
 //  Benevent iOS
 //
-//  Created by Thomas MARTIN on 24/06/2020.
+//  Created by Thomas MARTIN on 04/07/2020.
 //  Copyright © 2020 Benevent. All rights reserved.
 //
 
 import UIKit
 
-class HomeTableViewCell: UITableViewCell, UITextViewDelegate {
+class EventTableViewCell: UITableViewCell {
 
-    @IBOutlet var assoProfilePicture: UIImageView!
     @IBOutlet var dataView: UIView!
-    @IBOutlet var assoName: UILabel!
-    @IBOutlet var postMessage: UILabel!
+    @IBOutlet var arrowImage: UIImageView!
     @IBOutlet var eventName: UILabel!
-    @IBOutlet var postDate: UILabel!
+    @IBOutlet var eventStartDate: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,4 +25,5 @@ class HomeTableViewCell: UITableViewCell, UITextViewDelegate {
 
         // Configure the view for the selected state
     }
+    
 }

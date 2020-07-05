@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="dataTableView" destination="PlP-FI-c0l" id="esP-lJ-zGc"/>
-                <outlet property="tabBar" destination="mlw-qK-lZL" id="Q9m-NI-b5k"/>
+                <outlet property="myTabBar" destination="mlw-qK-lZL" id="Q9m-NI-b5k"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -43,7 +43,6 @@
                     <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tabBar>
             </subviews>
-            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="mlw-qK-lZL" secondAttribute="bottom" id="I5N-38-DW5"/>
                 <constraint firstItem="mlw-qK-lZL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Q0Z-tC-Ztx"/>

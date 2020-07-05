@@ -79,5 +79,51 @@ class AssociationWebService {
         }
         task.resume()
     }
+    
+    func getAssociation(idAsso: Int, completion: @escaping ([Association]) -> Void) -> Void {
+          let getAssociationURL = AppConfig.apiURL + "/association/\(idAsso)"
+          guard let assoURL = URL(string: getAssociationURL) else {
+              return
+          }
+          let task = URLSession.shared.dataTask(with: assoURL) { (data, res, err) in
+              guard let bytes = data,
+              err == nil,
+                  let json = try? JSONSerialization.jsonObject(with: bytes, options: .allowFragments) as? [Any] else {
+                      DispatchQueue.main.sync {
+                          completion([])
+                      }
+                  return
+              }
+              let asso = json.compactMap { (obj) -> Association? in
+                  guard let dict = obj as? [String: Any] else {
+                      return  nil
+                  }
+                return AssociationFactory.associationFrom(dictionary: dict)
+              }
+              DispatchQueue.main.sync {
+                  completion(asso)
+              }
+          }
+          task.resume()
+      }
+    
+    func updateAsso(asso: Association, completion: @escaping (Bool) -> Void) -> Void {
+        let url = AppConfig.apiURL + "/association/\(asso.idas!)"
+        guard let updateAssoURL = URL(string: url) else {
+            return
+        }
+        
+        var request = URLRequest(url: updateAssoURL)
+        request.httpMethod = "PATCH"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: AssociationFactory.dictionnaryFrom(asso: asso), options: .fragmentsAllowed)
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 200)
+            }
+            completion(false)
+        })
+        task.resume()
+    }
 }
 

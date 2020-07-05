@@ -14,7 +14,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         case posts
     }
     
-    @IBOutlet var tabBar: UITabBar!
+    @IBOutlet var myTabBar: UITabBar!
     @IBOutlet var dataTableView: UITableView!
     
     var posts: [Post]!
@@ -33,18 +33,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.dataTableView.separatorStyle = .none
         viewDidLayoutSubviews()
         setupNavigationBar()
-        tabBar.selectedItem = tabBar.items?[0]
+        myTabBar.selectedItem = myTabBar.items?[0]
         self.dataTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: Identifier.posts.rawValue)
         self.dataTableView.dataSource = self
         self.dataTableView.delegate = self
-        self.tabBar.delegate = self
+        self.myTabBar.delegate = self
     }
     
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        tabBar.frame.size.height = 90
-        tabBar.frame.origin.y = view.frame.height - 90
+        myTabBar.frame.size.height = 90
+        myTabBar.frame.origin.y = view.frame.height - 90
     }
     
     func setupNavigationBar() {
@@ -73,6 +73,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @objc func addPost() {
         self.eventWS.getEventsByAssociation(idAsso: connectedAsso!.idas!) { (events) in
             let CreatePostVC = CreatePostViewController.newInstance(events: events)
+            CreatePostVC.connectedAsso = self.connectedAsso
             self.navigationController?.pushViewController(CreatePostVC, animated: true)
         }
     }
@@ -86,16 +87,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if (tabBar.selectedItem == tabBar.items?[1]) {
-            let eventVC = EventViewController()
-            navigationController?.pushViewController(eventVC, animated: false)
-        } else if (tabBar.selectedItem == tabBar.items?[2]) {
-            let feedbackVC = FeedbackViewController()
-            navigationController?.pushViewController(feedbackVC, animated: true)
+            self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idas!)!) { (eventsList) in
+                    let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
+                    self.navigationController?.pushViewController(EventVC, animated: false)
+                }
+            } else if (tabBar.selectedItem == tabBar.items?[2]) {
+                let feedbackVC = FeedbackViewController()
+                navigationController?.pushViewController(feedbackVC, animated: true)
+            }
         }
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("self.posts.count \(self.posts.count)")
         return self.posts.count
     }
     

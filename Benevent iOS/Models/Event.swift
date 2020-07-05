@@ -13,25 +13,25 @@ class Event : CustomStringConvertible {
     var idev: Int?
     var name: String
     var apercu: String
-    var date: Date
+    var startDate: Date
+    var endDate: Date
     var location: String
     var maxBenevole: Int
-    var duration: String
     var idcat: Int?
     var idas: Int?
     
-    init(name: String, apercu: String, date: Date, location: String, maxBenevole: Int, duration: String) {
+    init(name: String, apercu: String, startDate: Date, endDate: Date, location: String, maxBenevole: Int) {
         self.name = name
         self.apercu = apercu
-        self.date = date
+        self.startDate = startDate
+        self.endDate = endDate
         self.location = location
         self.maxBenevole = maxBenevole
-        self.duration = duration
     }
        
        
        var description: String {
-        return "{\(self.idev ?? 0) \(self.name) \(self.apercu) \(self.date)  \(self.location) \(self.maxBenevole) \(self.duration) \(self.idcat ?? 0) \(self.idas ?? 0)}"
+        return "{\(self.idev ?? 0) \(self.name) \(self.apercu) \(self.startDate) \(self.endDate)  \(self.location) \(self.maxBenevole) \(self.idcat ?? 0) \(self.idas ?? 0)}"
        }
     
 }

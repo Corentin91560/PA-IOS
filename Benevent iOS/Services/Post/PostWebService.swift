@@ -11,7 +11,7 @@ import Foundation
 class PostWebService {
     
     func getPosts(idAsso: Int, completion: @escaping ([Post]) -> Void) -> Void {
-        let getPostsURL = AppConfig.apiURL + "/post/asso/\(idAsso)"
+        let getPostsURL = AppConfig.apiURL + "/posts/asso/\(idAsso)"
         guard let postsURL = URL(string: getPostsURL) else {
             return
         }
@@ -36,4 +36,23 @@ class PostWebService {
         }
         task.resume()
     }
+    
+    func newPost(post: Post, completion: @escaping (Bool) -> Void) -> Void {
+        let url = AppConfig.apiURL + "/post/association"
+        guard let newPostURL = URL(string: url) else {
+            return
+        }
+        var request = URLRequest(url: newPostURL)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: PostFactory.dictionnaryFrom(post: post), options: .fragmentsAllowed)
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 200)
+            }
+            completion(false)
+        })
+        task.resume()
+    }
+    
 }

@@ -19,9 +19,11 @@ class ProfileViewController: UIViewController {
     @IBOutlet var assoAcronyme: UILabel!
     @IBOutlet var disconnectButton: UIButton!
     @IBOutlet var validateButton: UIButton!
+    @IBOutlet var errorTextField: UILabel!
     
     var connectedAsso: Association? = nil
     let assoWS: AssociationWebService = AssociationWebService()
+    let postWS: PostWebService = PostWebService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,37 +95,61 @@ class ProfileViewController: UIViewController {
     }
     
     @IBAction func Validate(_ sender: Any) {
-        
+        let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
+        newAsso.acronym = connectedAsso!.acronym
+        newAsso.idas = connectedAsso?.idas!
+        newAsso.idcat = connectedAsso?.idcat!
+        newAsso.logo = connectedAsso?.logo
+        newAsso.phone = assoPhone.text!
+        newAsso.support = assoSupport.text!
+        newAsso.website = assoWebsite.text!
+        self.assoWS.updateAsso(asso: newAsso) { (sucess) in
+            if (sucess) {
+                print("SUCESS : \(sucess)")
+                self.connectedAsso = newAsso
+                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
+                    let HomeVC = HomeViewController.newInstance(posts: posts)
+                    HomeVC.connectedAsso = self.connectedAsso
+                    self.navigationController?.pushViewController(HomeVC, animated: false)
+                }
+            }
+        }
+        //TODO : errorTextField always appears because of the callback 
+        self.errorTextField.isHidden = false
+          
     }
     
     @IBAction func assoNameClicked(_ sender: Any) {
         self.assoName.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
     
     @IBAction func assoMailClicked(_ sender: Any) {
         self.assoMail.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
     
     @IBAction func assoPhoneClicked(_ sender: Any) {
         self.assoPhone.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
     
     @IBAction func assoWebsiteClicked(_ sender: Any) { self.assoWebsite.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
     
     @IBAction func assoSupportClicked(_ sender: Any) { self.assoSupport.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
-    
-    
-    
+   
 }

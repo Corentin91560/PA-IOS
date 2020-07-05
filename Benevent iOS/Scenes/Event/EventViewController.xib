@@ -10,7 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="tabBar" destination="4c8-LU-ZcC" id="9n5-1R-eXU"/>
+                <outlet property="dataTableView" destination="utB-N1-1oQ" id="7Ee-r4-2fb"/>
+                <outlet property="myTabBar" destination="4c8-LU-ZcC" id="9n5-1R-eXU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,6 +20,10 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="utB-N1-1oQ" userLabel="dataTableView">
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="1286"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                </tableView>
                 <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4c8-LU-ZcC">
                     <rect key="frame" x="0.0" y="1296" width="1024" height="70"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -35,16 +40,22 @@
                     </items>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <color key="barTintColor" name="NavigationBackGroundColor"/>
+                    <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tabBar>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
+                <constraint firstItem="4c8-LU-ZcC" firstAttribute="top" secondItem="utB-N1-1oQ" secondAttribute="bottom" constant="10" id="8tp-YZ-YKM"/>
                 <constraint firstItem="4c8-LU-ZcC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="FhH-SZ-WTZ"/>
+                <constraint firstItem="utB-N1-1oQ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Nta-ru-fz7"/>
+                <constraint firstItem="utB-N1-1oQ" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="cRt-Ea-XqC"/>
+                <constraint firstItem="utB-N1-1oQ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="laQ-Vg-osy"/>
                 <constraint firstAttribute="bottom" secondItem="4c8-LU-ZcC" secondAttribute="bottom" id="m6N-jX-7Wp"/>
                 <constraint firstItem="4c8-LU-ZcC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="t19-Ti-Js6"/>
+                <constraint firstItem="utB-N1-1oQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="uVt-q9-GPS"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="138.8671875" y="153.73352855051243"/>
         </view>
     </objects>
     <resources>

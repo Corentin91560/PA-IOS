@@ -12,14 +12,13 @@ class EventFactory {
     static func eventFrom(dictionary: [String: Any]) -> Event? {
         guard let n = dictionary["name"] as? String,
               let a = dictionary["description"] as? String,
-              let d = dictionary["date"] as? String,
+              let dd = dictionary["dateDeb"] as? String,
+              let de = dictionary["dateFin"] as? String,
               let l = dictionary["location"] as? String,
-              let mB = dictionary["maxbenevole"] as? Int,
-              let dur = dictionary["duration"] as? String else {
+              let mB = dictionary["maxBenevole"] as? Int else {
                 return nil
         }
-            
-        let event = Event(name: n, apercu: a, date: dateConverter(dateMySQL: d)!, location: l, maxBenevole: mB, duration: dur)
+        let event = Event(name: n, apercu: a, startDate: dateConverter(dateMySQL: dd)!, endDate: dateConverter(dateMySQL: de)!, location: l, maxBenevole: mB)
         event.idas = dictionary["idas"] as? Int
         event.idcat = dictionary["idcat"] as? Int
         event.idev = dictionary["idev"] as? Int

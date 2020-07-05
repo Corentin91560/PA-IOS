@@ -26,8 +26,17 @@ class AssociationFactory {
         asso.phone = dictionary["phone"] as? String
         asso.website = dictionary["website"] as? String
         asso.support = dictionary["support"] as? String
-
         return asso
     }
+    
+    static func dictionnaryFrom(asso: Association) -> [String: Any] {
+          return [
+            "name": asso.name,
+            "email": asso.email,
+            "phone": asso.phone ?? "",
+            "website": asso.website ?? "",
+            "support": asso.support ?? "",
+        ]
+      }
     
 }

@@ -72,7 +72,6 @@
                         </constraints>
                     </view>
                 </subviews>
-                <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="7jk-x7-wzr" secondAttribute="trailing" constant="5" id="4Hj-hD-xUi"/>
                     <constraint firstItem="7jk-x7-wzr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="5" id="PcF-kO-zY3"/>

@@ -15,8 +15,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="errorTextField" destination="sTd-4L-8Jq" id="P5t-Iq-toq"/>
                 <outlet property="eventTextField" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
                 <outlet property="postMessageText" destination="hr3-7O-89v" id="aNC-QJ-pEG"/>
+                <outlet property="validButton" destination="SqI-uf-fY6" id="tgP-JN-6xL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -26,7 +28,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evénement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-nb-2vS">
-                    <rect key="frame" x="10" y="520" width="165" height="36"/>
+                    <rect key="frame" x="10" y="520" width="167" height="35"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -35,41 +37,53 @@
                     <rect key="frame" x="264" y="50" width="496" height="370"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyD-8q-lrs">
-                    <rect key="frame" x="10" y="585.5" width="210" height="36"/>
+                    <rect key="frame" x="10" y="584.5" width="174.5" height="35"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SqI-uf-fY6" userLabel="Validate">
-                    <rect key="frame" x="300" y="1198" width="424" height="48"/>
+                    <rect key="frame" x="300" y="1199" width="424" height="47"/>
                     <color key="backgroundColor" name="BackgroundGreen"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="Valider">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
+                    <connections>
+                        <action selector="Valid:" destination="-1" eventType="touchUpInside" id="iOc-0l-cof"/>
+                    </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TaB-NJ-puR" userLabel="eventTF">
-                    <rect key="frame" x="185" y="520" width="829" height="45.5"/>
+                    <rect key="frame" x="187" y="520" width="827" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hr3-7O-89v">
-                    <rect key="frame" x="10" y="641.5" width="1004" height="536.5"/>
+                    <rect key="frame" x="10" y="639.5" width="1004" height="539.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTd-4L-8Jq" userLabel="errorTF">
+                    <rect key="frame" x="353" y="430" width="318.5" height="80"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hr3-7O-89v" secondAttribute="trailing" constant="10" id="ILu-ah-qW8"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SqI-uf-fY6" secondAttribute="trailing" constant="300" id="PK4-Vv-wwR"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="leading" secondItem="ejD-nb-2vS" secondAttribute="trailing" constant="10" id="Pqs-nW-aS0"/>
+                <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="sTd-4L-8Jq" secondAttribute="bottom" constant="10" id="TBI-Zc-a4m"/>
                 <constraint firstItem="gyD-8q-lrs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="X29-La-QMJ"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="ZHY-f1-j3T"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="top" secondItem="hr3-7O-89v" secondAttribute="bottom" constant="20" id="bek-Ex-nPX"/>
+                <constraint firstItem="sTd-4L-8Jq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="caH-pf-6Ne"/>
                 <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="clZ-dI-efd"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dR5-OB-3Pz"/>
                 <constraint firstItem="ejD-nb-2vS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="f9w-yI-F9G"/>
@@ -78,6 +92,7 @@
                 <constraint firstItem="hr3-7O-89v" firstAttribute="top" secondItem="gyD-8q-lrs" secondAttribute="bottom" constant="20" id="mjq-tC-1hI"/>
                 <constraint firstItem="hr3-7O-89v" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="p5A-Y6-1fR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SqI-uf-fY6" secondAttribute="bottom" constant="100" id="pOc-u9-Ij1"/>
+                <constraint firstItem="sTd-4L-8Jq" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="10" id="qW5-Wp-R3D"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="rdl-t8-9JQ"/>
                 <constraint firstItem="gyD-8q-lrs" firstAttribute="top" secondItem="TaB-NJ-puR" secondAttribute="bottom" constant="20" id="u64-X1-nks"/>
                 <constraint firstItem="6zh-FS-2mr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="z1b-5R-OgE"/>

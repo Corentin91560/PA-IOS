@@ -11,12 +11,16 @@ import UIKit
 class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet var eventTextField: UITextField!
     @IBOutlet var postMessageText: UITextView!
+    @IBOutlet var validButton: UIButton!
+    @IBOutlet var errorTextField: UILabel!
+    
+    let postWS : PostWebService = PostWebService()
     
     var connectedAsso: Association? = nil
-    let eventWS: EventWebService = EventWebService()
     var eventList: [Event]!
     var eventPicker: UIPickerView!
     var eventNamesList: [String]? = nil
+    var selectedEvent: Event!
     
     class func newInstance(events: [Event]) -> CreatePostViewController {
         let newPostVC = CreatePostViewController()
@@ -27,22 +31,19 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     override func viewDidLoad() {
         setupNavigationBar()
         setupPicker()
+        validButton.layer.cornerRadius = validButton.bounds.size.height/2
+        self.hideKeyboardWhenTappedAround() 
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     func setupPicker() {
-        for e in eventList {
-            print(e.name)
-            eventNamesList?.append(e.name)
-        }
+        eventNamesList = eventList.map{ $0.name }
         eventPicker = UIPickerView()
         eventPicker.dataSource = self
         eventPicker.delegate = self
         eventTextField.inputView = eventPicker
-        print("EventNamesList[0] \(eventNamesList?[0])")
         eventTextField.text = self.eventNamesList?[0]
+        selectedEvent = eventList[0]
     }
     
     func setupNavigationBar() {
@@ -59,6 +60,25 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             target: self,
             action: #selector(Back))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+    }
+    
+    @IBAction func Valid(_ sender: Any) {
+        let postToCreate = Post(message: postMessageText.text, date: Date())
+        postToCreate.idev = selectedEvent.idev
+        postToCreate.idas = connectedAsso?.idas
+        self.postWS.newPost(post: postToCreate) { (sucess) in
+            if (sucess) {
+                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
+                    let HomeVC = HomeViewController.newInstance(posts: posts)
+                    HomeVC.connectedAsso = self.connectedAsso
+                    self.navigationController?.pushViewController(HomeVC, animated: false)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.errorTextField.isHidden = false
+                }
+            }
+        }
     }
     
     @objc func Back() {
@@ -79,6 +99,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventTextField.text = eventNamesList![row]
+        selectedEvent = eventList[row]
         self.view.endEditing(true)
     }
     
