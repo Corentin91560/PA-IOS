@@ -19,6 +19,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
     let eventsWS: EventWebService = EventWebService()
     let postsWS: PostWebService = PostWebService()
+    let categoryWS: CategoryWebService = CategoryWebService()
     
     @IBOutlet var myTabBar: UITabBar!
     @IBOutlet var dataTableView: UITableView!
@@ -75,13 +76,13 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func createEvent() {
-     
+        self.categoryWS.getCategories { (categories) in
+            self.navigationController?.pushViewController(CreateEventViewController.newInstance(categories: categories, connectedAsso: self.connectedAsso), animated: true)
+        }
     }
       
     @objc func Profile() {
-      let ProfileVC = ProfileViewController()
-      ProfileVC.connectedAsso = self.connectedAsso
-      self.navigationController?.pushViewController(ProfileVC, animated: false)
+        self.navigationController?.pushViewController(ProfileViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
       //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
@@ -89,16 +90,12 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
         print("ok")
        if (tabBar.selectedItem == tabBar.items?[0]) {
             self.postsWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
-                let Home = HomeViewController.newInstance(posts: posts)
-                Home.connectedAsso = self.connectedAsso
-                self.navigationController?.pushViewController(Home, animated: false)
+                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso), animated: false)
             }
         } else if (tabBar.selectedItem == tabBar.items?[2]) {
-            let feedbackVC = FeedbackViewController()
-            navigationController?.pushViewController(feedbackVC, animated: true)
+            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: true)
         }
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.events.count
@@ -122,19 +119,23 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.eventName.center.x = self.view.center.x
         
         if (event.startDate < now && event.endDate > now) {
-            //cell.dataView.backgroundColor = UIColor(named: "CellBackgroundGreen")
             cell.eventStartDate.text = "En cours depuis le \(formatter.string(from: event.startDate))"
         } else if (event.startDate > now) {
-            //cell.dataView.backgroundColor = UIColor(named: "CellBackgroundBlue")
             cell.eventStartDate.textColor = UIColor.systemGreen
             cell.eventStartDate.text = "Débutera le \(formatter.string(from: event.startDate))"
         } else {
-            //cell.dataView.backgroundColor = UIColor(named: "CellBackgroundRed")
             cell.eventStartDate.textColor = UIColor.systemRed
             cell.eventStartDate.text = "Evénement terminé le \(formatter.string(from: event.endDate))"
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.categoryWS.getCategories { (categories) in
+            self.navigationController?.pushViewController(EventDetailViewController.newInstance(connectedAsso: self.connectedAsso!, event: self.events[indexPath.row], categories: categories), animated: true)
+        }
+        
     }
 
 }

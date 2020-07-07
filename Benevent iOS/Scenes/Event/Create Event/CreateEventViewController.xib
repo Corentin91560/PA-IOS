@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="monofonto.ttf">
+            <string>Monofonto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateEventViewController" customModule="Benevent_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="ValidButton" destination="orw-fV-RIu" id="oHq-hB-xQz"/>
+                <outlet property="categoryTF" destination="rro-wh-kYQ" id="BHG-8k-cEk"/>
+                <outlet property="errorTF" destination="vmd-oX-QgO" id="seC-po-bu3"/>
+                <outlet property="eventDescriptionTF" destination="o0F-6h-yQP" id="bNu-lh-Ih1"/>
+                <outlet property="eventEndDateTF" destination="UGK-nY-fc3" id="4ms-7w-neh"/>
+                <outlet property="eventLocationTF" destination="Z1b-g4-w03" id="gEV-8w-5RK"/>
+                <outlet property="eventMaxBenevoleTF" destination="Jys-VG-vCf" id="FaL-wr-nuk"/>
+                <outlet property="eventNameTF" destination="TOJ-hF-Wju" id="NIC-ab-BXz"/>
+                <outlet property="eventStartDateTF" destination="o6L-N9-IE4" id="xEn-Kq-MF8"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="o0F-6h-yQP" userLabel="eventDescription">
+                    <rect key="frame" x="10" y="620" width="1004" height="201.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="J7l-U0-Lv0" userLabel="assoLogo">
+                    <rect key="frame" x="264" y="50" width="496" height="370"/>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOJ-hF-Wju" userLabel="eventTF">
+                    <rect key="frame" x="330" y="500" width="684" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom de l'événement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBe-lk-8s3">
+                    <rect key="frame" x="10" y="505" width="295" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="o6L-N9-IE4" userLabel="startDateTF">
+                    <rect key="frame" x="243" y="946" width="771" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date de début :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="715-Xh-6Yz">
+                    <rect key="frame" x="10" y="950.5" width="208" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UGK-nY-fc3" userLabel="endDateTF">
+                    <rect key="frame" x="206" y="1005.5" width="808" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date de fin : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFG-ZK-Djs">
+                    <rect key="frame" x="10" y="1008" width="171" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Z1b-g4-w03" userLabel="locationTF">
+                    <rect key="frame" x="212.5" y="1085" width="801.5" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localisation :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2GX-uC-Zq8">
+                    <rect key="frame" x="10" y="1087.5" width="177.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Jys-VG-vCf" userLabel="benevoleTF">
+                    <rect key="frame" x="421" y="1164.5" width="593" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre de bénévoles max : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3h5-NV-Kmx">
+                    <rect key="frame" x="10" y="1169" width="386" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="orw-fV-RIu" userLabel="Validate">
+                    <rect key="frame" x="300" y="1279" width="424" height="47"/>
+                    <color key="backgroundColor" name="BackgroundGreen"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="Valider">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="Valid:" destination="-1" eventType="touchDown" id="LOi-h8-U2x"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Création impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmd-oX-QgO" userLabel="errorTF">
+                    <rect key="frame" x="370.5" y="430" width="283" height="35"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3R-4m-3lP">
+                    <rect key="frame" x="10" y="580" width="178" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rro-wh-kYQ" userLabel="categoryTF">
+                    <rect key="frame" x="182.5" y="866.5" width="831.5" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Vb-Qk-gdh">
+                    <rect key="frame" x="10" y="869" width="147.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="715-Xh-6Yz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="1Bp-N1-3Xp"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TOJ-hF-Wju" secondAttribute="trailing" constant="10" id="1Zc-od-F2i"/>
+                <constraint firstItem="JBe-lk-8s3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="3ZC-5B-x1f"/>
+                <constraint firstItem="2GX-uC-Zq8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="7Hw-8s-gta"/>
+                <constraint firstItem="Z1b-g4-w03" firstAttribute="leading" secondItem="2GX-uC-Zq8" secondAttribute="trailing" constant="25" id="7Xz-9Y-jNB"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Z1b-g4-w03" secondAttribute="trailing" constant="10" id="7j6-Ab-qxJ"/>
+                <constraint firstItem="o6L-N9-IE4" firstAttribute="top" secondItem="rro-wh-kYQ" secondAttribute="bottom" constant="35" id="7pS-Tg-TC6"/>
+                <constraint firstItem="orw-fV-RIu" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7rr-oK-sYm"/>
+                <constraint firstItem="C3R-4m-3lP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="8e0-ia-Edi"/>
+                <constraint firstItem="UGK-nY-fc3" firstAttribute="top" secondItem="o6L-N9-IE4" secondAttribute="bottom" constant="15" id="9ia-V1-mqA"/>
+                <constraint firstItem="7Vb-Qk-gdh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="BHD-Vd-7OZ"/>
+                <constraint firstItem="orw-fV-RIu" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="Bgw-3P-5oK"/>
+                <constraint firstItem="3h5-NV-Kmx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="FZa-9p-l0o"/>
+                <constraint firstItem="vmd-oX-QgO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Hfp-Q8-KJ0"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rro-wh-kYQ" secondAttribute="trailing" constant="10" id="IFg-Mj-VFu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o6L-N9-IE4" secondAttribute="trailing" constant="10" id="K2K-ws-l7c"/>
+                <constraint firstItem="vmd-oX-QgO" firstAttribute="top" secondItem="J7l-U0-Lv0" secondAttribute="bottom" constant="10" id="KMz-PC-RNR"/>
+                <constraint firstItem="Z1b-g4-w03" firstAttribute="top" secondItem="JFG-ZK-Djs" secondAttribute="bottom" constant="42" id="Khk-oW-a3W"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UGK-nY-fc3" secondAttribute="trailing" constant="10" id="MQD-rz-QlA"/>
+                <constraint firstItem="o0F-6h-yQP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="NFH-Dn-Dm2"/>
+                <constraint firstItem="orw-fV-RIu" firstAttribute="top" secondItem="Jys-VG-vCf" secondAttribute="bottom" constant="70" id="NJK-3s-si5"/>
+                <constraint firstItem="UGK-nY-fc3" firstAttribute="top" secondItem="715-Xh-6Yz" secondAttribute="bottom" constant="20" id="Prb-cf-A4j"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o0F-6h-yQP" secondAttribute="trailing" constant="10" id="QMK-Oe-1Mx"/>
+                <constraint firstItem="UGK-nY-fc3" firstAttribute="leading" secondItem="JFG-ZK-Djs" secondAttribute="trailing" constant="25" id="ROs-zY-2Tf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="orw-fV-RIu" secondAttribute="trailing" constant="300" id="TmF-yT-3xT"/>
+                <constraint firstItem="Jys-VG-vCf" firstAttribute="top" secondItem="2GX-uC-Zq8" secondAttribute="bottom" constant="42" id="Vwe-RG-rtf"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="orw-fV-RIu" secondAttribute="bottom" constant="20" id="Z2N-HH-E4a"/>
+                <constraint firstItem="o6L-N9-IE4" firstAttribute="top" secondItem="7Vb-Qk-gdh" secondAttribute="bottom" constant="42" id="Z2t-n6-gGI"/>
+                <constraint firstItem="JFG-ZK-Djs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="ZPo-Ez-Ebh"/>
+                <constraint firstItem="rro-wh-kYQ" firstAttribute="leading" secondItem="7Vb-Qk-gdh" secondAttribute="trailing" constant="25" id="b4W-nM-W8C"/>
+                <constraint firstItem="rro-wh-kYQ" firstAttribute="top" secondItem="o0F-6h-yQP" secondAttribute="bottom" constant="45" id="eFT-fD-8Gz"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jys-VG-vCf" secondAttribute="trailing" constant="10" id="h5u-GN-eVh"/>
+                <constraint firstItem="TOJ-hF-Wju" firstAttribute="top" secondItem="vmd-oX-QgO" secondAttribute="bottom" constant="35" id="hEf-Pd-C7D"/>
+                <constraint firstItem="o0F-6h-yQP" firstAttribute="top" secondItem="C3R-4m-3lP" secondAttribute="bottom" constant="5" id="i1P-NO-adc"/>
+                <constraint firstItem="J7l-U0-Lv0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="iDX-5e-YRa"/>
+                <constraint firstItem="Jys-VG-vCf" firstAttribute="leading" secondItem="3h5-NV-Kmx" secondAttribute="trailing" constant="25" id="iOz-h5-i0d"/>
+                <constraint firstItem="Z1b-g4-w03" firstAttribute="top" secondItem="UGK-nY-fc3" secondAttribute="bottom" constant="35" id="mTo-4Y-H65"/>
+                <constraint firstItem="C3R-4m-3lP" firstAttribute="top" secondItem="JBe-lk-8s3" secondAttribute="bottom" constant="40" id="nWC-wr-Nto"/>
+                <constraint firstItem="TOJ-hF-Wju" firstAttribute="leading" secondItem="JBe-lk-8s3" secondAttribute="trailing" constant="25" id="qEj-n2-a6p"/>
+                <constraint firstItem="JBe-lk-8s3" firstAttribute="top" secondItem="J7l-U0-Lv0" secondAttribute="bottom" constant="85" id="qia-BA-edJ"/>
+                <constraint firstItem="o6L-N9-IE4" firstAttribute="leading" secondItem="715-Xh-6Yz" secondAttribute="trailing" constant="25" id="qvn-gy-eiU"/>
+                <constraint firstItem="Jys-VG-vCf" firstAttribute="top" secondItem="Z1b-g4-w03" secondAttribute="bottom" constant="35" id="w9B-OI-4X4"/>
+                <constraint firstItem="orw-fV-RIu" firstAttribute="top" secondItem="3h5-NV-Kmx" secondAttribute="bottom" constant="75" id="zI4-Qi-lwQ"/>
+                <constraint firstItem="J7l-U0-Lv0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="zcl-ah-W9p"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="140.625" y="153.73352855051243"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="AppIconImage" width="496" height="370"/>
+        <namedColor name="BackgroundGreen">
+            <color red="0.45899999141693115" green="0.83899998664855957" blue="0.45899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -25,11 +25,30 @@ class EventFactory {
         return event
         }
     
+    static func dictionnaryFrom(event: Event) -> [String: Any] {
+           return [
+            "name": event.name,
+            "description": event.apercu,
+            "dateDeb": mySQLFromDate(date: event.startDate),
+            "dateFin": mySQLFromDate(date: event.endDate),
+            "location": event.location,
+            "maxBenevole": event.maxBenevole,
+            "idas": event.idas!,
+            "idcat": event.idcat!,
+           ]
+       }
+    
     static func dateConverter(dateMySQL: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         return dateFormatter.date(from: dateMySQL) as Date?
     }
+    
+    static func mySQLFromDate(date: Date) -> String {
+           let dateFormatter = DateFormatter()
+           dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+           return dateFormatter.string(from: date)
+       }
 }
 

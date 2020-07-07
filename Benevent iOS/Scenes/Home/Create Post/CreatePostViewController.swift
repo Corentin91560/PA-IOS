@@ -22,9 +22,10 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var eventNamesList: [String]? = nil
     var selectedEvent: Event!
     
-    class func newInstance(events: [Event]) -> CreatePostViewController {
+    class func newInstance(events: [Event], connectedAsso: Association?) -> CreatePostViewController {
         let newPostVC = CreatePostViewController()
         newPostVC.eventList = events
+        newPostVC.connectedAsso = connectedAsso
         return newPostVC
     }
     
@@ -50,7 +51,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         // Navigation bar main config
         self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
-        self.navigationItem.title = "Créer un post"
+        self.navigationItem.title = "Nouveau post"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
        
         // Left item config
@@ -69,9 +70,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.postWS.newPost(post: postToCreate) { (sucess) in
             if (sucess) {
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    let HomeVC = HomeViewController.newInstance(posts: posts)
-                    HomeVC.connectedAsso = self.connectedAsso
-                    self.navigationController?.pushViewController(HomeVC, animated: false)
+                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso), animated: false)
                 }
             } else {
                 DispatchQueue.main.async {

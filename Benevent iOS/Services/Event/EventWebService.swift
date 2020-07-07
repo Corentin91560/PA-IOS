@@ -64,4 +64,23 @@ class EventWebService {
              }
              task.resume()
     }
+    
+    func newEvent(event: Event, completion: @escaping (Bool) -> Void) -> Void {
+        let url = AppConfig.apiURL + "/event"
+        guard let newEventURL = URL(string: url) else {
+            return
+        }
+        var request = URLRequest(url: newEventURL)
+        request.httpMethod = "POST"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: EventFactory.dictionnaryFrom(event: event), options: .fragmentsAllowed)
+        print("NEW EVENT REQUEST BODY : \(EventFactory.dictionnaryFrom(event: event))")
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 200)
+            }
+            completion(false)
+        })
+        task.resume()
+    }
 }

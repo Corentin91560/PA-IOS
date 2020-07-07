@@ -9,50 +9,51 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
-    @IBOutlet var SigninButton: UIButton!
-    @IBOutlet var SignupButton: UIButton!
-    @IBOutlet var MailTF: UITextField!
-    @IBOutlet var PasswordTF: UITextField!
+    
     @IBOutlet var errorTF: UILabel!
-    @IBOutlet var image: UIImageView!
+    @IBOutlet var emailTF: UITextField!
+    @IBOutlet var passwordTF: UITextField!
+    @IBOutlet var loginButton: UIButton!
+    @IBOutlet var signupButton: UIButton!
     
     let assoWS : AssociationWebService = AssociationWebService()
-    var postWS: PostWebService = PostWebService()
+    let postWS: PostWebService = PostWebService()
+    let categoryWS: CategoryWebService = CategoryWebService()
     
     
     override func viewDidLoad() {
-        self.hideKeyboardWhenTappedAround() 
-        self.navigationController?.navigationBar.barTintColor = UIColor.systemGray6
-        SigninButton.layer.cornerRadius = SigninButton.bounds.size.height/2
-        navigationItem.hidesBackButton = true
-        errorTF.isHidden = true
         super.viewDidLoad()
+        setupView()
     }
     
-    @IBAction func Signup(_ sender: Any) {
-        let signupForm = SignupViewController()
-        self.navigationController?.pushViewController(signupForm, animated: true)
-        
+    func setupView() {
+        self.hideKeyboardWhenTappedAround()
+        self.navigationController?.navigationBar.barTintColor = UIColor.systemGray6
+        self.navigationItem.hidesBackButton = true
+        self.loginButton.layer.cornerRadius = loginButton.bounds.size.height/2
+        self.errorTF.isHidden = true
     }
     
     @IBAction func Login (_ sender: Any) {
-        let email = MailTF.text!
-        let pwd = PasswordTF.text!
-        DispatchQueue.main.async {
-            self.assoWS.Login(mail: email, password: pwd) { (asso) in
-                if(asso.count > 0) {
-                    self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
-                        let Home = HomeViewController.newInstance(posts: posts)
-                        Home.connectedAsso = asso[0]
-                        self.navigationController?.pushViewController(Home, animated: true)
-                    }
-                } else {
-                    self.errorTF.isHidden = false
+        self.assoWS.Login(mail: self.emailTF.text!, password: self.passwordTF.text!) { (asso) in
+            if(asso.count > 0) {
+                self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
+                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0]), animated: true)
                 }
+            } else {
+                self.errorTF.isHidden = false
             }
         }
     }
+    
+    @IBAction func Signup(_ sender: Any) {
+        self.categoryWS.getCategories { (categories) in
+            let signupForm = SignupViewController.newInstance(categories: categories)
+            self.navigationController?.pushViewController(signupForm, animated: true)
+        }
+        
+    }
+    
     @IBAction func mailTFClicked(_ sender: Any) {
         self.errorTF.isHidden = true
     }

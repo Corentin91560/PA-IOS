@@ -25,6 +25,12 @@ class ProfileViewController: UIViewController {
     let assoWS: AssociationWebService = AssociationWebService()
     let postWS: PostWebService = PostWebService()
     
+    class func newInstance(connectedAsso : Association?) -> ProfileViewController {
+        let ProfileVC: ProfileViewController = ProfileViewController()
+        ProfileVC.connectedAsso = connectedAsso
+        return ProfileVC
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -90,8 +96,7 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func Disconnect(_ sender: Any) {
-        let LoginVC = LoginViewController()
-        self.navigationController?.pushViewController(LoginVC, animated: true)
+        self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
     
     @IBAction func Validate(_ sender: Any) {
@@ -108,9 +113,7 @@ class ProfileViewController: UIViewController {
                 print("SUCESS : \(sucess)")
                 self.connectedAsso = newAsso
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    let HomeVC = HomeViewController.newInstance(posts: posts)
-                    HomeVC.connectedAsso = self.connectedAsso
-                    self.navigationController?.pushViewController(HomeVC, animated: false)
+                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso), animated: false)
                 }
             }
         }

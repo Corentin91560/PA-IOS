@@ -30,8 +30,15 @@ class Event : CustomStringConvertible {
     }
        
        
-       var description: String {
-        return "{\(self.idev ?? 0) \(self.name) \(self.apercu) \(self.startDate) \(self.endDate)  \(self.location) \(self.maxBenevole) \(self.idcat ?? 0) \(self.idas ?? 0)}"
-       }
+    var description: String {
+    return "{\(self.idev ?? 0) \(self.name) \(self.apercu) \(self.startDate) \(self.endDate)  \(self.location) \(self.maxBenevole) \(self.idcat ?? 0) \(self.idas ?? 0)}"
+    }
     
+    func isInProgress(startDate: Date, endDate: Date) -> Bool {
+        let now = Date()
+        if (startDate < now && endDate > now) {
+            return true
+        }
+        return false
+    }
 }

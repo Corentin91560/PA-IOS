@@ -10,6 +10,13 @@ import UIKit
 
 class FeedbackViewController: UIViewController {
 
+    var connectedAsso: Association?
+    
+    class func newInstance(connectedAsso: Association?) -> FeedbackViewController {
+        let FeedbackVC: FeedbackViewController = FeedbackViewController()
+        FeedbackVC.connectedAsso = connectedAsso
+        return FeedbackVC
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 

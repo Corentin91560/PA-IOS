@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
+        UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         let w = UIWindow(frame: UIScreen.main.bounds)
         w.rootViewController = UINavigationController(rootViewController: LoginViewController())
         w.makeKeyAndVisible()

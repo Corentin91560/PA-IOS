@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="monofonto.ttf">
+            <string>Monofonto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventDetailViewController" customModule="Benevent_iOS" customModuleProvider="target">
+            <connections>
+                <outlet property="QRButton" destination="efK-CP-SLx" id="PTn-6K-Seo"/>
+                <outlet property="eventCategoryTF" destination="q3q-eK-mXC" id="Xxf-ee-C01"/>
+                <outlet property="eventDescriptionTF" destination="SCS-Zx-rsH" id="hx2-eJ-dPR"/>
+                <outlet property="eventEndDateTF" destination="Ljb-iz-43M" id="wkp-Gr-wLj"/>
+                <outlet property="eventLocationTF" destination="fxY-tk-T3Z" id="LdK-zB-u0E"/>
+                <outlet property="eventMaxBenevoleTF" destination="UEC-iw-bw3" id="2Tx-7e-sJf"/>
+                <outlet property="eventNameTF" destination="9XD-60-l3i" id="7Gu-rg-1uj"/>
+                <outlet property="eventStartDateTF" destination="yZP-hC-Tdn" id="XuE-LT-IFR"/>
+                <outlet property="personsButton" destination="Dcb-Pc-4vh" id="uyD-Fk-HxL"/>
+                <outlet property="validButton" destination="sDv-y3-W0Z" id="MKU-GH-MK1"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="rme-Oo-b3x" userLabel="assoLogo">
+                    <rect key="frame" x="264" y="50" width="496" height="370"/>
+                </imageView>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-60-l3i" userLabel="eventTF">
+                    <rect key="frame" x="330" y="435" width="684" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre de bénévoles max : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SIN-Jo-Zxv">
+                    <rect key="frame" x="10" y="1105" width="386" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date de fin : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xiC-ga-Bw3">
+                    <rect key="frame" x="10" y="945" width="171" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0q-gB-XDE">
+                    <rect key="frame" x="10" y="515" width="178" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom de l'événement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EOv-Kk-mvt">
+                    <rect key="frame" x="10" y="440" width="295" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localisation :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENp-u3-Hbt">
+                    <rect key="frame" x="10" y="1024.5" width="177.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ljb-iz-43M" userLabel="endDateTF">
+                    <rect key="frame" x="206" y="942.5" width="808" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SCS-Zx-rsH" userLabel="eventDescription">
+                    <rect key="frame" x="10" y="555" width="1004" height="203.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q3q-eK-mXC" userLabel="categoryTF">
+                    <rect key="frame" x="182.5" y="803.5" width="831.5" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Catégorie :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BBN-zJ-kx9">
+                    <rect key="frame" x="10" y="806" width="147.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yZP-hC-Tdn" userLabel="startDateTF">
+                    <rect key="frame" x="243" y="883" width="771" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date de début :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SfH-qa-pMM">
+                    <rect key="frame" x="10" y="887.5" width="208" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fxY-tk-T3Z" userLabel="locationTF">
+                    <rect key="frame" x="212.5" y="1022" width="801.5" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sDv-y3-W0Z" userLabel="Validate">
+                    <rect key="frame" x="300" y="1219" width="424" height="47"/>
+                    <color key="backgroundColor" name="BackgroundGreen"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="Valider">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-Pc-4vh" userLabel="Validate">
+                    <rect key="frame" x="70" y="185" width="174" height="105"/>
+                    <color key="backgroundColor" name="CellBackgroundBlue"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="Bénévoles">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="Participants:" destination="-1" eventType="touchDown" id="J2p-tX-rBG"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UEC-iw-bw3" userLabel="benevoleTF">
+                    <rect key="frame" x="421" y="1101.5" width="593" height="44.5"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efK-CP-SLx" userLabel="Validate">
+                    <rect key="frame" x="780" y="185" width="174" height="100"/>
+                    <color key="backgroundColor" name="CellBackgroundRed"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="QR Code">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="showQR:" destination="-1" eventType="touchDown" id="Cnm-45-8md"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="9XD-60-l3i" firstAttribute="leading" secondItem="EOv-Kk-mvt" secondAttribute="trailing" constant="25" id="0lT-bU-Jw7"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9XD-60-l3i" secondAttribute="trailing" constant="10" id="1A7-ok-Vay"/>
+                <constraint firstItem="UEC-iw-bw3" firstAttribute="top" secondItem="ENp-u3-Hbt" secondAttribute="bottom" constant="42" id="2f5-c3-aNa"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SCS-Zx-rsH" secondAttribute="trailing" constant="10" id="3eS-oR-uug"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="q3q-eK-mXC" secondAttribute="trailing" constant="10" id="BO7-LT-4AF"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sDv-y3-W0Z" secondAttribute="trailing" constant="300" id="DVM-4X-lBu"/>
+                <constraint firstItem="efK-CP-SLx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="185" id="Dip-VG-fXs"/>
+                <constraint firstItem="sDv-y3-W0Z" firstAttribute="top" secondItem="UEC-iw-bw3" secondAttribute="bottom" constant="73" id="DrG-YU-2q0"/>
+                <constraint firstItem="efK-CP-SLx" firstAttribute="leading" secondItem="rme-Oo-b3x" secondAttribute="trailing" constant="20" id="F0k-Xv-HlN"/>
+                <constraint firstItem="Dcb-Pc-4vh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="70" id="F5a-Xh-EAp"/>
+                <constraint firstItem="yZP-hC-Tdn" firstAttribute="top" secondItem="BBN-zJ-kx9" secondAttribute="bottom" constant="42" id="Ffy-WL-hiT"/>
+                <constraint firstItem="sDv-y3-W0Z" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FoZ-f3-P2A"/>
+                <constraint firstItem="Ljb-iz-43M" firstAttribute="top" secondItem="SfH-qa-pMM" secondAttribute="bottom" constant="20" id="G4G-hS-fBZ"/>
+                <constraint firstItem="p0q-gB-XDE" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Gyw-kc-js6"/>
+                <constraint firstItem="q3q-eK-mXC" firstAttribute="leading" secondItem="BBN-zJ-kx9" secondAttribute="trailing" constant="25" id="Gz7-MZ-phD"/>
+                <constraint firstItem="rme-Oo-b3x" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KDC-it-aaG"/>
+                <constraint firstItem="SIN-Jo-Zxv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Kux-G8-yjt"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="efK-CP-SLx" secondAttribute="trailing" constant="70" id="LaF-iU-EUe"/>
+                <constraint firstItem="EOv-Kk-mvt" firstAttribute="top" secondItem="Dcb-Pc-4vh" secondAttribute="bottom" constant="150" id="LfS-Rg-oNM"/>
+                <constraint firstItem="q3q-eK-mXC" firstAttribute="top" secondItem="SCS-Zx-rsH" secondAttribute="bottom" constant="45" id="N1n-yY-D2X"/>
+                <constraint firstItem="SfH-qa-pMM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="NFp-Rw-L3U"/>
+                <constraint firstItem="EOv-Kk-mvt" firstAttribute="top" secondItem="rme-Oo-b3x" secondAttribute="bottom" constant="20" id="NRa-Cd-psF"/>
+                <constraint firstItem="p0q-gB-XDE" firstAttribute="top" secondItem="EOv-Kk-mvt" secondAttribute="bottom" constant="40" id="Nig-XH-lHZ"/>
+                <constraint firstItem="SCS-Zx-rsH" firstAttribute="top" secondItem="p0q-gB-XDE" secondAttribute="bottom" constant="5" id="Og8-cM-ESA"/>
+                <constraint firstItem="fxY-tk-T3Z" firstAttribute="top" secondItem="Ljb-iz-43M" secondAttribute="bottom" constant="35" id="Ol9-8o-zHm"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UEC-iw-bw3" secondAttribute="trailing" constant="10" id="Q2d-X9-szg"/>
+                <constraint firstItem="rme-Oo-b3x" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="THw-og-WTc"/>
+                <constraint firstItem="UEC-iw-bw3" firstAttribute="top" secondItem="fxY-tk-T3Z" secondAttribute="bottom" constant="35" id="V8L-YT-gYN"/>
+                <constraint firstItem="Ljb-iz-43M" firstAttribute="leading" secondItem="xiC-ga-Bw3" secondAttribute="trailing" constant="25" id="Vpt-Rg-SYX"/>
+                <constraint firstItem="yZP-hC-Tdn" firstAttribute="top" secondItem="q3q-eK-mXC" secondAttribute="bottom" constant="35" id="YWP-wU-HdS"/>
+                <constraint firstItem="fxY-tk-T3Z" firstAttribute="top" secondItem="xiC-ga-Bw3" secondAttribute="bottom" constant="42" id="Yxd-PU-KgV"/>
+                <constraint firstItem="Dcb-Pc-4vh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="185" id="ZIa-IN-x2B"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ljb-iz-43M" secondAttribute="trailing" constant="10" id="c6g-0R-TC5"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yZP-hC-Tdn" secondAttribute="trailing" constant="10" id="eXh-0e-cNQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="sDv-y3-W0Z" secondAttribute="bottom" constant="80" id="fL1-fe-Eyu"/>
+                <constraint firstItem="xiC-ga-Bw3" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="gpV-LW-0dF"/>
+                <constraint firstItem="UEC-iw-bw3" firstAttribute="leading" secondItem="SIN-Jo-Zxv" secondAttribute="trailing" constant="25" id="k1a-q6-Aqa"/>
+                <constraint firstItem="Ljb-iz-43M" firstAttribute="top" secondItem="yZP-hC-Tdn" secondAttribute="bottom" constant="15" id="lTS-Xo-XyB"/>
+                <constraint firstItem="yZP-hC-Tdn" firstAttribute="leading" secondItem="SfH-qa-pMM" secondAttribute="trailing" constant="25" id="mE1-0Z-9Ar"/>
+                <constraint firstItem="sDv-y3-W0Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="mYK-81-se5"/>
+                <constraint firstItem="rme-Oo-b3x" firstAttribute="leading" secondItem="Dcb-Pc-4vh" secondAttribute="trailing" constant="20" id="q5c-RL-gYF"/>
+                <constraint firstItem="ENp-u3-Hbt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="qLN-iY-8PV"/>
+                <constraint firstItem="BBN-zJ-kx9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="qLw-7Z-fAZ"/>
+                <constraint firstItem="9XD-60-l3i" firstAttribute="top" secondItem="efK-CP-SLx" secondAttribute="bottom" constant="150" id="rbW-A7-njC"/>
+                <constraint firstItem="9XD-60-l3i" firstAttribute="top" secondItem="rme-Oo-b3x" secondAttribute="bottom" constant="15" id="ttH-c1-NOc"/>
+                <constraint firstItem="EOv-Kk-mvt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="weH-a9-bGF"/>
+                <constraint firstItem="fxY-tk-T3Z" firstAttribute="leading" secondItem="ENp-u3-Hbt" secondAttribute="trailing" constant="25" id="xkT-wM-AJL"/>
+                <constraint firstItem="SCS-Zx-rsH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="yTQ-Od-S6k"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fxY-tk-T3Z" secondAttribute="trailing" constant="10" id="yYD-qn-Vk3"/>
+                <constraint firstItem="sDv-y3-W0Z" firstAttribute="top" secondItem="SIN-Jo-Zxv" secondAttribute="bottom" constant="79" id="zaP-Ab-WaE"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="138.8671875" y="153.73352855051243"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="AppIconImage" width="496" height="370"/>
+        <namedColor name="BackgroundGreen">
+            <color red="0.45899999141693115" green="0.83899998664855957" blue="0.45899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="CellBackgroundBlue">
+            <color red="0.78799998760223389" green="0.91399997472763062" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="CellBackgroundRed">
+            <color red="1" green="0.70200002193450928" blue="0.70200002193450928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

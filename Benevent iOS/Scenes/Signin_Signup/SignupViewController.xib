@@ -19,9 +19,10 @@
                 <outlet property="assoEmailTF" destination="AbR-to-Qmr" id="eW5-hN-1mc"/>
                 <outlet property="assoNameTF" destination="b33-f5-sMN" id="m9L-0s-Yr6"/>
                 <outlet property="assoPwdTF" destination="tYH-l6-DlZ" id="edb-wq-TvH"/>
-                <outlet property="connectButton" destination="LrI-2e-00F" id="LGN-58-ZAF"/>
                 <outlet property="errorTF" destination="GKm-9Q-43K" id="Khk-Zv-wSo"/>
-                <outlet property="validButton" destination="u1w-VI-LWV" id="KGu-KD-l64"/>
+                <outlet property="loginButton" destination="LrI-2e-00F" id="LGN-58-ZAF"/>
+                <outlet property="nullErrorTF" destination="U91-60-AHK" id="XRm-sQ-mCT"/>
+                <outlet property="signupButton" destination="u1w-VI-LWV" id="KGu-KD-l64"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -108,6 +109,13 @@
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Les champs sont obligatoires !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U91-60-AHK" userLabel="nullErrorTF">
+                    <rect key="frame" x="314" y="1051.5" width="396.5" height="34"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="29"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -135,6 +143,8 @@
                 <constraint firstItem="F89-bE-skW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="qU1-9k-I5X"/>
                 <constraint firstItem="GKm-9Q-43K" firstAttribute="top" secondItem="pvp-DL-oof" secondAttribute="bottom" constant="30" id="qgs-BE-7FR"/>
                 <constraint firstItem="u1w-VI-LWV" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="sL1-Bf-lBk"/>
+                <constraint firstItem="U91-60-AHK" firstAttribute="top" secondItem="u1w-VI-LWV" secondAttribute="bottom" constant="50" id="vK1-4k-PWw"/>
+                <constraint firstItem="U91-60-AHK" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="w7G-k0-rii"/>
                 <constraint firstItem="u1w-VI-LWV" firstAttribute="top" secondItem="pvp-DL-oof" secondAttribute="bottom" constant="150" id="wYD-0i-fWC"/>
                 <constraint firstItem="AbR-to-Qmr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="yOD-jc-K1C"/>
             </constraints>

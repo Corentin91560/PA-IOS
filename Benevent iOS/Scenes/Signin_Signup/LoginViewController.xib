@@ -15,12 +15,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="MailTF" destination="h0M-gC-B5o" id="JTm-a1-JtO"/>
-                <outlet property="PasswordTF" destination="FIG-AR-gDF" id="F5O-0S-1HD"/>
-                <outlet property="SigninButton" destination="Zrk-fx-b8T" id="V5Y-3w-WrB"/>
-                <outlet property="SignupButton" destination="LZN-jG-70c" id="B11-cb-D7h"/>
+                <outlet property="emailTF" destination="h0M-gC-B5o" id="JTm-a1-JtO"/>
                 <outlet property="errorTF" destination="Lfl-hO-aaN" id="WG2-fO-kKj"/>
-                <outlet property="image" destination="Qdz-aW-WVg" id="xbK-0h-RYw"/>
+                <outlet property="loginButton" destination="Zrk-fx-b8T" id="V5Y-3w-WrB"/>
+                <outlet property="passwordTF" destination="FIG-AR-gDF" id="F5O-0S-1HD"/>
+                <outlet property="signupButton" destination="LZN-jG-70c" id="B11-cb-D7h"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

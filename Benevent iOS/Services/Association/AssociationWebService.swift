@@ -80,7 +80,7 @@ class AssociationWebService {
         task.resume()
     }
     
-    func getAssociation(idAsso: Int, completion: @escaping ([Association]) -> Void) -> Void {
+    func getAssociationById(idAsso: Int, completion: @escaping ([Association]) -> Void) -> Void {
           let getAssociationURL = AppConfig.apiURL + "/association/\(idAsso)"
           guard let assoURL = URL(string: getAssociationURL) else {
               return
