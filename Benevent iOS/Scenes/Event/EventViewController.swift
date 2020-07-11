@@ -79,8 +79,9 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     @objc func createEvent() {
+        let generalEvent = events.filter{ $0.fakeEvent! == true}[0]
         self.categoryWS.getCategories { (categories) in
-            self.navigationController?.pushViewController(CreateEventViewController.newInstance(categories: categories, connectedAsso: self.connectedAsso), animated: true)
+            self.navigationController?.pushViewController(CreateEventViewController.newInstance(categories: categories, connectedAsso: self.connectedAsso, generalEvent: generalEvent), animated: true)
         }
     }
       

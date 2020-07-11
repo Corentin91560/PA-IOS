@@ -39,7 +39,7 @@ class EventWebService {
     }
     
     func getEventsByAssociation(idAsso: Int, completion: @escaping ([Event]) -> Void) -> Void {
-          let getEventURL = AppConfig.apiURL + "/events/\(idAsso)"
+          let getEventURL = AppConfig.apiURL + "/events/association/\(idAsso)"
              guard let eventURL = URL(string: getEventURL) else {
                  return
              }

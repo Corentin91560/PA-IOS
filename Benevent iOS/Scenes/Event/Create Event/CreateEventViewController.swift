@@ -15,6 +15,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     
     var categories : [Category]!
     var connectedAsso: Association?
+    var generalEvent: Event?
     
     @IBOutlet var eventNameTF: UITextField!
     @IBOutlet var eventDescriptionTF: UITextView!
@@ -34,10 +35,11 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     var categoryPicker: UIPickerView!
     
     
-    static func newInstance(categories: [Category], connectedAsso: Association?) -> CreateEventViewController {
+    static func newInstance(categories: [Category], connectedAsso: Association?, generalEvent: Event) -> CreateEventViewController {
         let CreateEventVC: CreateEventViewController = CreateEventViewController()
         CreateEventVC.categories = categories
         CreateEventVC.connectedAsso = connectedAsso
+        CreateEventVC.generalEvent = generalEvent
         return CreateEventVC
     }
 
@@ -115,8 +117,10 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.activityIndicator.startLoading()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-        let startDate = dateFormatter.date(from: eventStartDateTF.text!)!
-        let endDate = dateFormatter.date(from: eventEndDateTF.text!)!
+        let startDateString = eventStartDateTF.text!
+        let endDateString = eventEndDateTF.text!
+        let startDate = dateFormatter.date(from: startDateString)!
+        let endDate = dateFormatter.date(from: endDateString)!
         
         if(startDate > endDate) {
             self.errorTF.isHidden = false
@@ -128,8 +132,8 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
             
             self.eventWS.newEvent(event: eventToCreate) { (sucess) in
                 if(sucess) {
-                    let postToCreate = Post(message: "Nouvel événement : \(eventToCreate.name) \n Un nouvel énévement aura bientot lieu, venez nombreux !", date: Date())
-                    postToCreate.idev = 0
+                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
+                    postToCreate.idev = self.generalEvent?.idev
                     postToCreate.idas = self.connectedAsso?.idas
                     self.postWS.newPost(post: postToCreate) { (sucess) in
                         
