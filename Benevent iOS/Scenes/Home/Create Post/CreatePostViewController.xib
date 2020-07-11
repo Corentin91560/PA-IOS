@@ -15,9 +15,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="UGr-sF-smc" id="eN6-zs-3GN"/>
                 <outlet property="errorTextField" destination="sTd-4L-8Jq" id="P5t-Iq-toq"/>
                 <outlet property="eventTextField" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
                 <outlet property="postMessageText" destination="hr3-7O-89v" id="aNC-QJ-pEG"/>
+                <outlet property="publicPost" destination="lzb-M3-Y1i" id="0mI-Us-0qy"/>
                 <outlet property="validButton" destination="SqI-uf-fY6" id="tgP-JN-6xL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -73,10 +75,31 @@
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzb-M3-Y1i" userLabel="publicPost">
+                    <rect key="frame" x="10" y="457" width="51" height="31"/>
+                    <color key="onTintColor" name="MantisGreen"/>
+                    <connections>
+                        <action selector="swiftPublicClicked:" destination="-1" eventType="valueChanged" id="1xJ-tg-u5D"/>
+                    </connections>
+                </switch>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMX-FR-y3r">
+                    <rect key="frame" x="84" y="453" width="151.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UGr-sF-smc">
+                    <rect key="frame" x="493.5" y="1261" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="UGr-sF-smc" firstAttribute="top" secondItem="SqI-uf-fY6" secondAttribute="bottom" constant="15" id="3B9-EV-FBT"/>
+                <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="lzb-M3-Y1i" secondAttribute="bottom" constant="32" id="8OK-Sp-EZZ"/>
+                <constraint firstItem="hMX-FR-y3r" firstAttribute="leading" secondItem="lzb-M3-Y1i" secondAttribute="trailing" constant="25" id="AOU-J3-1Jb"/>
+                <constraint firstItem="UGr-sF-smc" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CJk-OT-lD3"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hr3-7O-89v" secondAttribute="trailing" constant="10" id="ILu-ah-qW8"/>
+                <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="hMX-FR-y3r" secondAttribute="bottom" constant="32" id="KaC-d2-zDW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SqI-uf-fY6" secondAttribute="trailing" constant="300" id="PK4-Vv-wwR"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="leading" secondItem="ejD-nb-2vS" secondAttribute="trailing" constant="10" id="Pqs-nW-aS0"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="sTd-4L-8Jq" secondAttribute="bottom" constant="10" id="TBI-Zc-a4m"/>
@@ -93,6 +116,7 @@
                 <constraint firstItem="hr3-7O-89v" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="p5A-Y6-1fR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SqI-uf-fY6" secondAttribute="bottom" constant="100" id="pOc-u9-Ij1"/>
                 <constraint firstItem="sTd-4L-8Jq" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="10" id="qW5-Wp-R3D"/>
+                <constraint firstItem="lzb-M3-Y1i" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="rcK-4D-tZD"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="rdl-t8-9JQ"/>
                 <constraint firstItem="gyD-8q-lrs" firstAttribute="top" secondItem="TaB-NJ-puR" secondAttribute="bottom" constant="20" id="u64-X1-nks"/>
                 <constraint firstItem="6zh-FS-2mr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="z1b-5R-OgE"/>
@@ -105,6 +129,9 @@
         <image name="AppIconImage" width="496" height="370"/>
         <namedColor name="BackgroundGreen">
             <color red="0.45899999141693115" green="0.83899998664855957" blue="0.45899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="MantisGreen">
+            <color red="0.50999999046325684" green="0.76099997758865356" blue="0.4309999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

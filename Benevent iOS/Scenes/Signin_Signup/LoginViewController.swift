@@ -15,10 +15,13 @@ class LoginViewController: UIViewController {
     @IBOutlet var passwordTF: UITextField!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var signupButton: UIButton!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let assoWS : AssociationWebService = AssociationWebService()
     let postWS: PostWebService = PostWebService()
+    let eventWS: EventWebService = EventWebService()
     let categoryWS: CategoryWebService = CategoryWebService()
+    let userWS: UserWebService = UserWebService()
     
     
     override func viewDidLoad() {
@@ -27,6 +30,7 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
+        self.activityIndicator.isHidden = true
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.barTintColor = UIColor.systemGray6
         self.navigationItem.hidesBackButton = true
@@ -35,12 +39,18 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction func Login (_ sender: Any) {
+        self.activityIndicator.startLoading()
         self.assoWS.Login(mail: self.emailTF.text!, password: self.passwordTF.text!) { (asso) in
             if(asso.count > 0) {
                 self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
-                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0]), animated: true)
+                    self.eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
+                        self.userWS.getUsers { (users) in
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0],events: events, users: users), animated: true)
+                        }
+                    }
                 }
             } else {
+                self.activityIndicator.stopLoading()
                 self.errorTF.isHidden = false
             }
         }

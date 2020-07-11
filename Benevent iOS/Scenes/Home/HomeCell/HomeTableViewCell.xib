@@ -55,7 +55,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <color key="backgroundColor" name="BackgroundGrey"/>
                         <constraints>
                             <constraint firstItem="1EK-PD-64B" firstAttribute="leading" secondItem="pMy-CJ-HTi" secondAttribute="trailing" constant="20" id="C10-SO-J6i"/>
                             <constraint firstAttribute="bottom" secondItem="NH8-An-Uap" secondAttribute="bottom" constant="20" id="Ddk-sj-FUm"/>
@@ -93,8 +93,8 @@
     </objects>
     <resources>
         <image name="BasicAssoPicture" width="37.5" height="37.5"/>
-        <namedColor name="BackgroundColor">
-            <color red="0.8901960784313725" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="BackgroundGrey">
+            <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="MantisGreen">
             <color red="0.50999999046325684" green="0.76099997758865356" blue="0.4309999942779541" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

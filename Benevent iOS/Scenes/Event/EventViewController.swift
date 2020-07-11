@@ -15,11 +15,13 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     var events: [Event]!
+    var usableEvents : [Event]!
     var connectedAsso: Association?
 
     let eventsWS: EventWebService = EventWebService()
     let postsWS: PostWebService = PostWebService()
     let categoryWS: CategoryWebService = CategoryWebService()
+    let userWS: UserWebService = UserWebService()
     
     @IBOutlet var myTabBar: UITabBar!
     @IBOutlet var dataTableView: UITableView!
@@ -27,6 +29,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     class func newInstance(events: [Event], connectedAsso: Association) -> EventViewController {
         let evc = EventViewController()
         evc.events = events
+        evc.usableEvents = events.filter({!$0.fakeEvent!})
         evc.connectedAsso = connectedAsso
         return evc
     }
@@ -87,10 +90,11 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        print("ok")
        if (tabBar.selectedItem == tabBar.items?[0]) {
             self.postsWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
-                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso), animated: false)
+                self.userWS.getUsers { (users) in
+                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: self.events, users: users), animated: false)
+                }
             }
         } else if (tabBar.selectedItem == tabBar.items?[2]) {
             navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: true)
@@ -98,7 +102,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.events.count
+        return self.usableEvents.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -109,14 +113,13 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let formatter = DateFormatter()
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.events.rawValue, for: indexPath) as! EventTableViewCell
-        let event = self.events[indexPath.row]
+        let event = self.usableEvents[indexPath.row]
         let now = Date()
         formatter.dateFormat = "dd/MM/yyyy"
         
         cell.dataView.layer.cornerRadius = 50
         cell.arrowImage.frame = CGRect(x: 918, y: 52, width: 75, height: 75)
         cell.eventName.text = event.name
-        cell.eventName.center.x = self.view.center.x
         
         if (event.startDate < now && event.endDate > now) {
             cell.eventStartDate.text = "En cours depuis le \(formatter.string(from: event.startDate))"

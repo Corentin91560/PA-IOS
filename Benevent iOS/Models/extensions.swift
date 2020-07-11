@@ -24,6 +24,7 @@ extension UIImageView {
 }
 
 extension UIViewController {
+
     func hideKeyboardWhenTappedAround() {
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
         tap.cancelsTouchesInView = false
@@ -33,4 +34,17 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+}
+
+extension UIActivityIndicatorView {
+    func startLoading() {
+        self.isHidden = false
+        self.startAnimating()
+    }
+   
+   func stopLoading() {
+        self.isHidden = true
+        self.stopAnimating()
+   }
+    
 }

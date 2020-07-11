@@ -15,6 +15,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="Ulo-Jn-Nud" id="TaO-pY-Jgf"/>
                 <outlet property="assoCatTF" destination="pvp-DL-oof" id="3NM-RY-fcv"/>
                 <outlet property="assoEmailTF" destination="AbR-to-Qmr" id="eW5-hN-1mc"/>
                 <outlet property="assoNameTF" destination="b33-f5-sMN" id="m9L-0s-Yr6"/>
@@ -116,6 +117,9 @@
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-Jn-Nud">
+                    <rect key="frame" x="493.5" y="902.5" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -123,6 +127,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="LrI-2e-00F" secondAttribute="bottom" constant="24" id="0tW-iF-bHB"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="PLb-Nk-bJs" secondAttribute="bottom" constant="30" id="2hp-Qd-f7G"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="AbR-to-Qmr" secondAttribute="trailing" constant="50" id="4kF-ns-O0n"/>
+                <constraint firstItem="Ulo-Jn-Nud" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8Z1-Qf-1aR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="b33-f5-sMN" secondAttribute="trailing" constant="50" id="Auv-vq-KsI"/>
                 <constraint firstItem="LrI-2e-00F" firstAttribute="leading" secondItem="PLb-Nk-bJs" secondAttribute="trailing" constant="5" id="DqM-IF-HjG"/>
                 <constraint firstItem="F89-bE-skW" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="HRY-VQ-3nn"/>
@@ -131,6 +136,7 @@
                 <constraint firstItem="pvp-DL-oof" firstAttribute="top" secondItem="tYH-l6-DlZ" secondAttribute="bottom" constant="30" id="LZI-E2-pXj"/>
                 <constraint firstItem="tYH-l6-DlZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="Rzn-Bl-miz"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tYH-l6-DlZ" secondAttribute="trailing" constant="50" id="TsT-aK-Kds"/>
+                <constraint firstItem="u1w-VI-LWV" firstAttribute="top" secondItem="Ulo-Jn-Nud" secondAttribute="bottom" constant="15" id="UHZ-Hd-CFo"/>
                 <constraint firstItem="b33-f5-sMN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="50" id="Ulg-lR-QMn"/>
                 <constraint firstItem="tYH-l6-DlZ" firstAttribute="top" secondItem="AbR-to-Qmr" secondAttribute="bottom" constant="30" id="WZo-yX-cdz"/>
                 <constraint firstItem="AbR-to-Qmr" firstAttribute="top" secondItem="b33-f5-sMN" secondAttribute="bottom" constant="30" id="Wau-1j-vZF"/>

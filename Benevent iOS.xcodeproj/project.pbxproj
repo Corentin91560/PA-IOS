@@ -21,10 +21,12 @@
 		6B10AD8F24B4BA9000A28748 /* EventDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B10AD8D24B4BA9000A28748 /* EventDetailViewController.xib */; };
 		6B10AD9824B5209700A28748 /* EventQRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B10AD9624B5209700A28748 /* EventQRViewController.swift */; };
 		6B10AD9924B5209700A28748 /* EventQRViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B10AD9724B5209700A28748 /* EventQRViewController.xib */; };
-		6B10AD9D24B5244300A28748 /* EventParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B10AD9B24B5244300A28748 /* EventParticipantsViewController.swift */; };
-		6B10AD9E24B5244300A28748 /* EventParticipantsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B10AD9C24B5244300A28748 /* EventParticipantsViewController.xib */; };
 		6B27CE90247B3689004BB65F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B27CE8E247B3689004BB65F /* HomeViewController.swift */; };
 		6B27CE91247B3689004BB65F /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B27CE8F247B3689004BB65F /* HomeViewController.xib */; };
+		6B74B90E24BA212800128D13 /* EventParticipantsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74B90C24BA212800128D13 /* EventParticipantsViewController.swift */; };
+		6B74B90F24BA212800128D13 /* EventParticipantsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B74B90D24BA212800128D13 /* EventParticipantsViewController.xib */; };
+		6B74B91424BA220400128D13 /* EventParticipantsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B74B91224BA220400128D13 /* EventParticipantsTableViewCell.swift */; };
+		6B74B91524BA220400128D13 /* EventParticipantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B74B91324BA220400128D13 /* EventParticipantsTableViewCell.xib */; };
 		6B751DD22483E40F0045CD43 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B751DD02483E40F0045CD43 /* SignupViewController.swift */; };
 		6B751DD32483E40F0045CD43 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B751DD12483E40F0045CD43 /* SignupViewController.xib */; };
 		6B8CCEAB2470A02700617F80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CCEAA2470A02700617F80 /* AppDelegate.swift */; };
@@ -90,10 +92,12 @@
 		6B10AD8D24B4BA9000A28748 /* EventDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventDetailViewController.xib; sourceTree = "<group>"; };
 		6B10AD9624B5209700A28748 /* EventQRViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventQRViewController.swift; sourceTree = "<group>"; };
 		6B10AD9724B5209700A28748 /* EventQRViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventQRViewController.xib; sourceTree = "<group>"; };
-		6B10AD9B24B5244300A28748 /* EventParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParticipantsViewController.swift; sourceTree = "<group>"; };
-		6B10AD9C24B5244300A28748 /* EventParticipantsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventParticipantsViewController.xib; sourceTree = "<group>"; };
 		6B27CE8E247B3689004BB65F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		6B27CE8F247B3689004BB65F /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		6B74B90C24BA212800128D13 /* EventParticipantsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParticipantsViewController.swift; sourceTree = "<group>"; };
+		6B74B90D24BA212800128D13 /* EventParticipantsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventParticipantsViewController.xib; sourceTree = "<group>"; };
+		6B74B91224BA220400128D13 /* EventParticipantsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventParticipantsTableViewCell.swift; sourceTree = "<group>"; };
+		6B74B91324BA220400128D13 /* EventParticipantsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventParticipantsTableViewCell.xib; sourceTree = "<group>"; };
 		6B751DD02483E40F0045CD43 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		6B751DD12483E40F0045CD43 /* SignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignupViewController.xib; sourceTree = "<group>"; };
 		6B8CCEA72470A02700617F80 /* Benevent iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Benevent iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -194,20 +198,6 @@
 			path = EventDetail;
 			sourceTree = "<group>";
 		};
-		6B10AD9024B4F4AD00A28748 /* QR  */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "QR ";
-			sourceTree = "<group>";
-		};
-		6B10AD9124B4F4BA00A28748 /* Participants */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Participants;
-			sourceTree = "<group>";
-		};
 		6B10AD9224B4F4DC00A28748 /* HomeCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -229,10 +219,20 @@
 		6B10AD9A24B5210700A28748 /* EventParticipants */ = {
 			isa = PBXGroup;
 			children = (
-				6B10AD9B24B5244300A28748 /* EventParticipantsViewController.swift */,
-				6B10AD9C24B5244300A28748 /* EventParticipantsViewController.xib */,
+				6B74B91024BA214B00128D13 /* EventParticipantsTableViewCell */,
+				6B74B90C24BA212800128D13 /* EventParticipantsViewController.swift */,
+				6B74B90D24BA212800128D13 /* EventParticipantsViewController.xib */,
 			);
 			path = EventParticipants;
+			sourceTree = "<group>";
+		};
+		6B74B91024BA214B00128D13 /* EventParticipantsTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				6B74B91224BA220400128D13 /* EventParticipantsTableViewCell.swift */,
+				6B74B91324BA220400128D13 /* EventParticipantsTableViewCell.xib */,
+			);
+			path = EventParticipantsTableViewCell;
 			sourceTree = "<group>";
 		};
 		6B751DCF2483E3E80045CD43 /* Signin_Signup */ = {
@@ -390,8 +390,6 @@
 				6B10AD9324B5206800A28748 /* EventQR */,
 				6B10AD8B24B4BA7700A28748 /* EventDetail */,
 				6B10AD7824B321CC00A28748 /* Create Event */,
-				6B10AD9124B4F4BA00A28748 /* Participants */,
-				6B10AD9024B4F4AD00A28748 /* QR  */,
 				6BC87DBE24A3DEC900874DE3 /* EventViewController.swift */,
 				6BC87DBF24A3DEC900874DE3 /* EventViewController.xib */,
 				6B10AD7424B0EEFA00A28748 /* EventTableViewCell.swift */,
@@ -545,12 +543,13 @@
 				6BCB793424AE360A00BE2113 /* CreatePostViewController.xib in Resources */,
 				6BC87DCB24A3FCED00874DE3 /* HomeTableViewCell.xib in Resources */,
 				6B10AD9924B5209700A28748 /* EventQRViewController.xib in Resources */,
+				6B74B91524BA220400128D13 /* EventParticipantsTableViewCell.xib in Resources */,
 				6B8CCEE52470A6A200617F80 /* LoginViewController.xib in Resources */,
 				6BC87DC124A3DEC900874DE3 /* EventViewController.xib in Resources */,
 				6B27CE91247B3689004BB65F /* HomeViewController.xib in Resources */,
 				6BB55E2C24A502FE00072E8D /* ProfileViewController.xib in Resources */,
 				6BC87DC724A3DEEC00874DE3 /* FeedbackViewController.xib in Resources */,
-				6B10AD9E24B5244300A28748 /* EventParticipantsViewController.xib in Resources */,
+				6B74B90F24BA212800128D13 /* EventParticipantsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,12 +596,13 @@
 				6BC87DD224A4027600874DE3 /* Post.swift in Sources */,
 				6B27CE90247B3689004BB65F /* HomeViewController.swift in Sources */,
 				6B10AD8A24B49B1900A28748 /* User.swift in Sources */,
+				6B74B91424BA220400128D13 /* EventParticipantsTableViewCell.swift in Sources */,
 				6BA4405024A26712006FD94B /* AssociationWebService.swift in Sources */,
 				6B10AD8E24B4BA9000A28748 /* EventDetailViewController.swift in Sources */,
 				6B10AD8624B49AFF00A28748 /* UserFactory.swift in Sources */,
 				6B10AD7624B0EEFA00A28748 /* EventTableViewCell.swift in Sources */,
 				6B10AD8824B49B0A00A28748 /* UserWebService.swift in Sources */,
-				6B10AD9D24B5244300A28748 /* EventParticipantsViewController.swift in Sources */,
+				6B74B90E24BA212800128D13 /* EventParticipantsViewController.swift in Sources */,
 				6BC87DD024A4026B00874DE3 /* PostWebService.swift in Sources */,
 				6BC87DCE24A4025F00874DE3 /* PostFactory.swift in Sources */,
 				6B10AD7F24B3231A00A28748 /* CategoryFactory.swift in Sources */,

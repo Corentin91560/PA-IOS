@@ -13,25 +13,33 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet var postMessageText: UITextView!
     @IBOutlet var validButton: UIButton!
     @IBOutlet var errorTextField: UILabel!
+    @IBOutlet var publicPost: UISwitch!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let postWS : PostWebService = PostWebService()
+    let eventWS : EventWebService = EventWebService()
+    let userWS: UserWebService = UserWebService()
     
     var connectedAsso: Association? = nil
     var eventList: [Event]!
     var eventPicker: UIPickerView!
     var eventNamesList: [String]? = nil
+    var generalEvent: Event!
     var selectedEvent: Event!
     
     class func newInstance(events: [Event], connectedAsso: Association?) -> CreatePostViewController {
         let newPostVC = CreatePostViewController()
-        newPostVC.eventList = events
+        newPostVC.generalEvent = events.filter({ $0.fakeEvent! })[0]
+        newPostVC.eventList = events.filter({ !$0.fakeEvent! })
         newPostVC.connectedAsso = connectedAsso
         return newPostVC
     }
     
     override func viewDidLoad() {
+        self.activityIndicator.isHidden = true
         setupNavigationBar()
         setupPicker()
+        publicPost.isOn = false
         validButton.layer.cornerRadius = validButton.bounds.size.height/2
         self.hideKeyboardWhenTappedAround() 
         super.viewDidLoad()
@@ -63,17 +71,36 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
     }
     
+    @IBAction func swiftPublicClicked(_ sender: Any) {
+        if(self.publicPost.isOn) {
+            self.eventTextField.isEnabled = false
+            self.eventTextField.text = ""
+        } else {
+            self.eventTextField.isEnabled = true
+            self.eventTextField.text = self.eventNamesList?[0]
+        }
+    }
+    
     @IBAction func Valid(_ sender: Any) {
+        self.activityIndicator.startLoading()
+        if(self.publicPost.isOn) {
+            self.selectedEvent = generalEvent
+        }
         let postToCreate = Post(message: postMessageText.text, date: Date())
         postToCreate.idev = selectedEvent.idev
         postToCreate.idas = connectedAsso?.idas
         self.postWS.newPost(post: postToCreate) { (sucess) in
             if (sucess) {
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso), animated: false)
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
+                        self.userWS.getUsers { (users) in
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
+                        }
+                    }
                 }
             } else {
                 DispatchQueue.main.async {
+                    self.activityIndicator.stopLoading()
                     self.errorTextField.isHidden = false
                 }
             }
@@ -93,11 +120,11 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return eventNamesList![row]
+        return eventNamesList![row] == "" ? "Aucun" : eventNamesList![row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        eventTextField.text = eventNamesList![row]
+        eventTextField.text = eventNamesList![row] == "" ? "Aucun" : eventNamesList![row]
         selectedEvent = eventList[row]
         self.view.endEditing(true)
     }

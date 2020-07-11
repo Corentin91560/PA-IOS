@@ -22,11 +22,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     var posts: [Post]!
     var connectedAsso: Association? = nil
+    var events: [Event]!
+    var users: [User]!
     
-    class func newInstance(posts: [Post], connectedAsso: Association?) -> HomeViewController {
+    class func newInstance(posts: [Post], connectedAsso: Association?, events: [Event], users: [User]) -> HomeViewController {
         let hvc = HomeViewController()
         hvc.posts = posts
         hvc.connectedAsso = connectedAsso
+        hvc.events = events
+        hvc.users = users
         return hvc
     }
     
@@ -55,6 +59,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func setupTableView() {
+        self.dataTableView.allowsSelection = false
         self.dataTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: Identifier.posts.rawValue)
         self.dataTableView.dataSource = self
         self.dataTableView.delegate = self
@@ -120,16 +125,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         formatterHour.dateFormat = "HH:mm"
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.posts.rawValue, for: indexPath) as! HomeTableViewCell
         let post = self.posts[indexPath.row]
+        var event: Event!
+        for e in self.events {
+            if (e.idev! == post.idev!) {
+                event = e
+            }
+        }
         
         if(post.idas != nil) {
             cell.assoName.text = connectedAsso?.name
             cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
             cell.assoProfilePicture.load(url: URL(string: (connectedAsso?.logo)!)!)
         } else {
-            self.userWS.getUserById(idUser: post.idu!) { (user) in
-                cell.assoName.text = "\(user[0].firstName) \(user[0].name)"
-                cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
-                cell.assoProfilePicture.load(url: URL(string: user[0].profilePicture!)!)
+            for u in self.users {
+                if(u.idu! == post.idu!) {
+                    cell.assoName.text = "\(u.firstName) \(u.name)"
+                    cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
+                    cell.assoProfilePicture.load(url: URL(string: u.profilePicture!)!)
+                }
             }
         }
         cell.assoProfilePicture.layer.cornerRadius = 25
@@ -137,9 +150,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.dataView.layer.cornerRadius = 50
         cell.assoProfilePicture.frame = CGRect(x: 20, y: 20, width: 75, height: 75)
         cell.postDate.text = "le \(formatterDate.string(from: post.date)) à \(formatterHour.string(from: post.date))"
-        self.eventWS.getEvent(idEvent: post.idev!) { (event) in
-            cell.eventName.text = event[0].name
-        }
+        cell.eventName.text = event.name
         return cell
     }
 }

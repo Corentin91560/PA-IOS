@@ -8,7 +8,7 @@
 
 import UIKit
  
-class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
 
     @IBOutlet var personsButton: UIButton!
     @IBOutlet var QRButton: UIButton!
@@ -20,9 +20,12 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
     @IBOutlet var eventEndDateTF: UITextField!
     @IBOutlet var eventMaxBenevoleTF: UITextField!
     @IBOutlet var eventLocationTF: UITextField!
+    @IBOutlet var errorTF: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let categoryWS: CategoryWebService = CategoryWebService()
     let eventWS: EventWebService = EventWebService()
+    let userWS : UserWebService = UserWebService()
     
     var connectedAsso: Association?
     var event: Event?
@@ -38,6 +41,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
         EventDetailVC.connectedAsso = connectedAsso
         EventDetailVC.event = event
         EventDetailVC.categories = categories
+        EventDetailVC.selectedCategory = categories.filter{ $0.idcat! == event.idcat! }[0]
         return EventDetailVC
     }
     
@@ -47,7 +51,9 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
     }
     
     func setupView() {
+        self.activityIndicator.isHidden = true
         self.hideKeyboardWhenTappedAround()
+        self.eventDescriptionTF.delegate = self
         if(event!.isInProgress(startDate: event!.startDate, endDate: event!.endDate)) {
             self.personsButton.layer.cornerRadius = personsButton.bounds.size.height/3
             self.QRButton.layer.cornerRadius = QRButton.bounds.size.height/3
@@ -69,8 +75,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
         categoryPicker.dataSource = self
         categoriesNames = categories.map{ $0.name }
         eventCategoryTF.inputView = categoryPicker
-        eventCategoryTF.text = categoriesNames[(event?.idcat)!]
-        selectedCategory = categories[(event?.idcat)!]
+        eventCategoryTF.text = selectedCategory?.name
         
         // DATE PICKERS
         self.startDatePicker = UIDatePicker()
@@ -147,11 +152,37 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
      }
     
     @IBAction func Participants(_ sender: Any) {
-        
+        self.activityIndicator.startLoading()
+        self.userWS.getUserByIdEvent(idEvent: (self.event?.idev)!) { (participants) in
+            self.navigationController?.pushViewController(EventParticipantsViewController.newInstance(participants: participants), animated: true)
+        }
+        self.activityIndicator.stopLoading()
     }
     
     @IBAction func showQR(_ sender: Any) {
+        self.activityIndicator.startLoading()
         self.navigationController?.pushViewController(EventQRViewController.newInstance(event: self.event!), animated: true)
+        self.activityIndicator.stopLoading()
+    }
+    
+    @IBAction func Valid(_ sender: Any) {
+        self.activityIndicator.startLoading()
+        let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
+        newEvent.idas = connectedAsso?.idas!
+        newEvent.idev = self.event?.idev!
+        newEvent.idcat = selectedCategory?.idcat
+        
+        self.eventWS.updateEvent(event: newEvent) { (sucess) in
+            if (sucess) {
+                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
+                    self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
+                }
+            }
+        }
+        //TODO : errorTextField always appears because of the callback
+        self.activityIndicator.stopLoading()
+        self.errorTF.isHidden = false
+                
     }
     
     
@@ -178,5 +209,61 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.eventCategoryTF.text = categoriesNames![row]
         selectedCategory = categories[row]
         self.view.endEditing(true)
+    }
+    
+    @IBAction func eventNameClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    @IBAction func eventCategoryClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    @IBAction func eventStartDateClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    @IBAction func eventEndDateClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    @IBAction func eventLocationClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    @IBAction func eventMaxBenevoleClicked(_ sender: Any) {
+        self.eventNameTF.text = ""
+        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTF.isHidden = true
+        self.validButton.isEnabled = true
+    }
+    
+    func dateConverter(dateMySQL: String) -> Date? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        return dateFormatter.date(from: dateMySQL) as Date?
     }
 }

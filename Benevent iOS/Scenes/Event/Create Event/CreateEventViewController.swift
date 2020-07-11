@@ -25,6 +25,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     @IBOutlet var categoryTF: UITextField!
     @IBOutlet var ValidButton: UIButton!
     @IBOutlet var errorTF: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var categoriesNames: [String]? = nil
     var selectedCategory: Category!
@@ -42,6 +43,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.activityIndicator.isHidden = true
         self.eventMaxBenevoleTF.delegate = self
         self.hideKeyboardWhenTappedAround()
         setupNavigationBar()
@@ -110,23 +112,37 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     }
     
     @IBAction func Valid(_ sender: Any) {
+        self.activityIndicator.startLoading()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        let startDate = dateFormatter.date(from: eventStartDateTF.text!)!
+        let endDate = dateFormatter.date(from: eventEndDateTF.text!)!
         
-        let eventToCreate: Event = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateFormatter.date(from: eventStartDateTF.text!)!, endDate: dateFormatter.date(from: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-        eventToCreate.idas = connectedAsso?.idas!
+        if(startDate > endDate) {
+            self.errorTF.isHidden = false
+        } else {
+            let eventToCreate: Event = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
+            eventToCreate.idas = connectedAsso?.idas!
 
-        eventToCreate.idcat = selectedCategory.idcat!
-        
-        self.eventWS.newEvent(event: eventToCreate) { (sucess) in
-            if(sucess) {
-                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (eventsList) in
-                    let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
-                    self.navigationController?.pushViewController(EventVC, animated: false)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.errorTF.isHidden = false
+            eventToCreate.idcat = selectedCategory.idcat!
+            
+            self.eventWS.newEvent(event: eventToCreate) { (sucess) in
+                if(sucess) {
+                    let postToCreate = Post(message: "Nouvel événement : \(eventToCreate.name) \n Un nouvel énévement aura bientot lieu, venez nombreux !", date: Date())
+                    postToCreate.idev = 0
+                    postToCreate.idas = self.connectedAsso?.idas
+                    self.postWS.newPost(post: postToCreate) { (sucess) in
+                        
+                    }
+                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (eventsList) in
+                        let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
+                        self.navigationController?.pushViewController(EventVC, animated: false)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopLoading()
+                        self.errorTF.isHidden = false
+                    }
                 }
             }
         }

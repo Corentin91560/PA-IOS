@@ -24,6 +24,8 @@ class ProfileViewController: UIViewController {
     var connectedAsso: Association? = nil
     let assoWS: AssociationWebService = AssociationWebService()
     let postWS: PostWebService = PostWebService()
+    let eventWS: EventWebService = EventWebService()
+    let userWS: UserWebService = UserWebService()
     
     class func newInstance(connectedAsso : Association?) -> ProfileViewController {
         let ProfileVC: ProfileViewController = ProfileViewController()
@@ -113,7 +115,11 @@ class ProfileViewController: UIViewController {
                 print("SUCESS : \(sucess)")
                 self.connectedAsso = newAsso
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso), animated: false)
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
+                        self.userWS.getUsers { (users) in
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
+                        }
+                    }
                 }
             }
         }

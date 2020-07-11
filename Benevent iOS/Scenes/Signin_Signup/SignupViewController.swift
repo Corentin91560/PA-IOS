@@ -18,6 +18,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet var signupButton: UIButton!
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var nullErrorTF: UILabel!
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let assoWS: AssociationWebService = AssociationWebService()
     
@@ -38,6 +39,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func setupView() {
+        self.activityIndicator.isHidden = true
         self.navigationItem.hidesBackButton = true
         self.hideKeyboardWhenTappedAround()
         setupPicker()
@@ -56,6 +58,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBAction func Confirm(_ sender: Any) {
+        self.activityIndicator.startLoading()
         if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPwdTF.text == "") {
             self.nullErrorTF.isHidden = false
         } else {
@@ -64,6 +67,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                     if(sucess) {
                         self.navigationController?.pushViewController(LoginViewController(), animated: false)
                     } else {
+                        self.activityIndicator.stopLoading()
                         self.errorTF.isHidden = false
                     }
                 }

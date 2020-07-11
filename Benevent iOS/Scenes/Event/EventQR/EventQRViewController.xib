@@ -3,6 +3,7 @@
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -10,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EventQRViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="QRCodeImageView" destination="5bT-Fj-kpC" id="x5A-G9-JIh"/>
+                <outlet property="backgroundView" destination="NKw-Kw-xZH" id="bHj-g0-J7l"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,20 +20,39 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bT-Fj-kpC" userLabel="qrCodeImageView">
-                    <rect key="frame" x="25" y="186" width="974" height="974"/>
-                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NKw-Kw-xZH">
+                    <rect key="frame" x="25" y="25" width="974" height="1296"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5bT-Fj-kpC" userLabel="qrCodeImageView">
+                            <rect key="frame" x="10" y="171" width="954" height="954"/>
+                            <color key="backgroundColor" name="CellBackgroundBlue"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" name="CellBackgroundBlue"/>
+                    <constraints>
+                        <constraint firstItem="5bT-Fj-kpC" firstAttribute="centerX" secondItem="NKw-Kw-xZH" secondAttribute="centerX" id="6qH-OE-YKJ"/>
+                        <constraint firstAttribute="bottom" secondItem="5bT-Fj-kpC" secondAttribute="bottom" constant="171" id="8Ds-Uf-v1A"/>
+                        <constraint firstItem="5bT-Fj-kpC" firstAttribute="top" secondItem="NKw-Kw-xZH" secondAttribute="top" constant="171" id="C9J-qG-j0I"/>
+                        <constraint firstItem="5bT-Fj-kpC" firstAttribute="centerY" secondItem="NKw-Kw-xZH" secondAttribute="centerY" id="J5Q-nG-Xwa"/>
+                        <constraint firstAttribute="trailing" secondItem="5bT-Fj-kpC" secondAttribute="trailing" constant="10" id="cnO-Ou-QIi"/>
+                        <constraint firstItem="5bT-Fj-kpC" firstAttribute="leading" secondItem="NKw-Kw-xZH" secondAttribute="leading" constant="10" id="ywo-dk-mAs"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
             <constraints>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="5bT-Fj-kpC" secondAttribute="trailing" constant="25" id="2OK-dU-DSV"/>
-                <constraint firstItem="5bT-Fj-kpC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="2rm-Sy-sUW"/>
-                <constraint firstItem="5bT-Fj-kpC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="OrV-WX-fZN"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="5bT-Fj-kpC" secondAttribute="bottom" constant="186" id="SQY-ag-CCL"/>
-                <constraint firstItem="5bT-Fj-kpC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="186" id="fr0-bH-3UK"/>
+                <constraint firstItem="NKw-Kw-xZH" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="3kN-7D-Nj6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="NKw-Kw-xZH" secondAttribute="bottom" constant="25" id="dS6-p9-GeQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NKw-Kw-xZH" secondAttribute="trailing" constant="25" id="rWb-sQ-Z7A"/>
+                <constraint firstItem="NKw-Kw-xZH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="25" id="u9v-AX-FyJ"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="139" y="154"/>
+            <point key="canvasLocation" x="138.8671875" y="153.73352855051243"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="CellBackgroundBlue">
+            <color red="0.78799998760223389" green="0.91399997472763062" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

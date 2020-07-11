@@ -11,6 +11,7 @@ import CoreImage
 
 class EventQRViewController: UIViewController {
 
+    @IBOutlet var backgroundView: UIView!
     @IBOutlet var QRCodeImageView: UIImageView!
 
     var event: Event!
@@ -33,6 +34,7 @@ class EventQRViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        backgroundView.layer.cornerRadius = 20
         setupNavigationBar()
         updateQRCodeImageWithText(text: String(event.idev!))
     }

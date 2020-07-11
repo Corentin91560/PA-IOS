@@ -83,4 +83,23 @@ class EventWebService {
         })
         task.resume()
     }
+    
+    func updateEvent(event: Event, completion: @escaping (Bool) -> Void) -> Void {
+        let url = AppConfig.apiURL + "/event/\(event.idev!)"
+        guard let updateEventURL = URL(string: url) else {
+            return
+        }
+           
+        var request = URLRequest(url: updateEventURL)
+        request.httpMethod = "PATCH"
+        request.httpBody = try? JSONSerialization.data(withJSONObject: EventFactory.dictionnaryFrom(event: event), options: .fragmentsAllowed)
+        request.setValue("application/json", forHTTPHeaderField: "content-type")
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 200)
+            }
+            completion(false)
+        })
+        task.resume()
+       }
 }

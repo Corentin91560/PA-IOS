@@ -16,6 +16,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateEventViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="ValidButton" destination="orw-fV-RIu" id="oHq-hB-xQz"/>
+                <outlet property="activityIndicator" destination="2Op-xm-pW7" id="h3v-LD-Lxt"/>
                 <outlet property="categoryTF" destination="rro-wh-kYQ" id="BHG-8k-cEk"/>
                 <outlet property="errorTF" destination="vmd-oX-QgO" id="seC-po-bu3"/>
                 <outlet property="eventDescriptionTF" destination="o0F-6h-yQP" id="bNu-lh-Ih1"/>
@@ -138,6 +139,9 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2Op-xm-pW7">
+                    <rect key="frame" x="493.5" y="1227" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -162,6 +166,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UGK-nY-fc3" secondAttribute="trailing" constant="10" id="MQD-rz-QlA"/>
                 <constraint firstItem="o0F-6h-yQP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="NFH-Dn-Dm2"/>
                 <constraint firstItem="orw-fV-RIu" firstAttribute="top" secondItem="Jys-VG-vCf" secondAttribute="bottom" constant="70" id="NJK-3s-si5"/>
+                <constraint firstItem="2Op-xm-pW7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Nbr-TW-iFm"/>
                 <constraint firstItem="UGK-nY-fc3" firstAttribute="top" secondItem="715-Xh-6Yz" secondAttribute="bottom" constant="20" id="Prb-cf-A4j"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o0F-6h-yQP" secondAttribute="trailing" constant="10" id="QMK-Oe-1Mx"/>
                 <constraint firstItem="UGK-nY-fc3" firstAttribute="leading" secondItem="JFG-ZK-Djs" secondAttribute="trailing" constant="25" id="ROs-zY-2Tf"/>
@@ -177,6 +182,7 @@
                 <constraint firstItem="o0F-6h-yQP" firstAttribute="top" secondItem="C3R-4m-3lP" secondAttribute="bottom" constant="5" id="i1P-NO-adc"/>
                 <constraint firstItem="J7l-U0-Lv0" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="iDX-5e-YRa"/>
                 <constraint firstItem="Jys-VG-vCf" firstAttribute="leading" secondItem="3h5-NV-Kmx" secondAttribute="trailing" constant="25" id="iOz-h5-i0d"/>
+                <constraint firstItem="orw-fV-RIu" firstAttribute="top" secondItem="2Op-xm-pW7" secondAttribute="bottom" constant="15" id="l9a-Sy-28f"/>
                 <constraint firstItem="Z1b-g4-w03" firstAttribute="top" secondItem="UGK-nY-fc3" secondAttribute="bottom" constant="35" id="mTo-4Y-H65"/>
                 <constraint firstItem="C3R-4m-3lP" firstAttribute="top" secondItem="JBe-lk-8s3" secondAttribute="bottom" constant="40" id="nWC-wr-Nto"/>
                 <constraint firstItem="TOJ-hF-Wju" firstAttribute="leading" secondItem="JBe-lk-8s3" secondAttribute="trailing" constant="25" id="qEj-n2-a6p"/>

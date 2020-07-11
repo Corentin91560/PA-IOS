@@ -17,6 +17,7 @@ class Event : CustomStringConvertible {
     var endDate: Date
     var location: String
     var maxBenevole: Int
+    var fakeEvent: Bool?
     var idcat: Int?
     var idas: Int?
     
@@ -36,9 +37,6 @@ class Event : CustomStringConvertible {
     
     func isInProgress(startDate: Date, endDate: Date) -> Bool {
         let now = Date()
-        if (startDate < now && endDate > now) {
-            return true
-        }
-        return false
+        return startDate < now && endDate > now ? true : false
     }
 }

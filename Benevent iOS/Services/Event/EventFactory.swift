@@ -22,6 +22,7 @@ class EventFactory {
         event.idas = dictionary["idas"] as? Int
         event.idcat = dictionary["idcat"] as? Int
         event.idev = dictionary["idev"] as? Int
+        event.fakeEvent = dictionary["fakeevent"] as? Bool
         return event
         }
     
@@ -34,7 +35,7 @@ class EventFactory {
             "location": event.location,
             "maxBenevole": event.maxBenevole,
             "idas": event.idas!,
-            "idcat": event.idcat!,
+            "idcat": event.idcat!
            ]
        }
     
