@@ -31,6 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
                             userWS.getUsers { (users) in
                                 w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users))
+                                w.makeKeyAndVisible()
+                                self.window = w
                             }
                         }
                     }
@@ -38,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     w.rootViewController = UINavigationController(rootViewController: LoginViewController())
                 }
             }
+            return true
         }
         
         w.rootViewController = UINavigationController(rootViewController: LoginViewController())
