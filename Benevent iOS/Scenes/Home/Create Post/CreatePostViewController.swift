@@ -82,6 +82,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func Valid(_ sender: Any) {
+        var checkCallback = false
         self.activityIndicator.startLoading()
         if(self.publicPost.isOn) {
             self.selectedEvent = generalEvent
@@ -90,10 +91,11 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         postToCreate.idev = selectedEvent.idev
         postToCreate.idas = connectedAsso?.idas
         self.postWS.newPost(post: postToCreate) { (sucess) in
-            if (sucess) {
+            if (sucess || checkCallback) {
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
                     self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
                         self.userWS.getUsers { (users) in
+                            checkCallback = true
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
                         }
                     }

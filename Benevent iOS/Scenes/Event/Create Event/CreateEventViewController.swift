@@ -63,6 +63,9 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         selectedCategory = categories[1]
         
         // DATE PICKERS
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        self.eventStartDateTF.text = formatter.string(from: Date())
         self.startDatePicker = UIDatePicker()
         self.endDatePicker = UIDatePicker()
         startDatePicker?.locale = Locale(identifier: "fr")
@@ -114,6 +117,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     }
     
     @IBAction func Valid(_ sender: Any) {
+        var checkCallback = false
         self.activityIndicator.startLoading()
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
@@ -131,7 +135,8 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
             eventToCreate.idcat = selectedCategory.idcat!
             
             self.eventWS.newEvent(event: eventToCreate) { (sucess) in
-                if(sucess) {
+                if(sucess || checkCallback) {
+                    checkCallback = true
                     let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
                     postToCreate.idev = self.generalEvent?.idev
                     postToCreate.idas = self.connectedAsso?.idas

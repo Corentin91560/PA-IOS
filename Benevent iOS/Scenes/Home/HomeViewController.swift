@@ -19,11 +19,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let eventWS: EventWebService = EventWebService()
     let userWS: UserWebService = UserWebService()
+    let postWS: PostWebService = PostWebService()
     
     var posts: [Post]!
     var connectedAsso: Association? = nil
     var events: [Event]!
     var users: [User]!
+    
+    let refreshControl = UIRefreshControl()
     
     class func newInstance(posts: [Post], connectedAsso: Association?, events: [Event], users: [User]) -> HomeViewController {
         let hvc = HomeViewController()
@@ -64,6 +67,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.dataTableView.dataSource = self
         self.dataTableView.delegate = self
         self.dataTableView.separatorStyle = .none
+        self.dataTableView.refreshControl = self.refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     func setupNavigationBar() {
@@ -100,13 +105,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
+    @objc func refreshData() {
+        self.postWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
+            self.posts = posts
+        }
+        DispatchQueue.main.async {
+            self.dataTableView.reloadData()
+            self.refreshControl.endRefreshing()
+        }
+    }
+    
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if (tabBar.selectedItem == tabBar.items?[1]) {
             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idas!)!) { (eventsList) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
                 }
             } else if (tabBar.selectedItem == tabBar.items?[2]) {
-            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: true)
+                navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
             }
         }
     
@@ -118,6 +133,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableView.automaticDimension
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if(editingStyle == .delete) {
+            var checkCallback = false
+            let post = self.posts[indexPath.row]
+            self.postWS.deletePost(idPost: post.idpo!) { (sucess) in
+                if(sucess || checkCallback) {
+                    print("DELETE POST")
+                    checkCallback = true
+                    self.posts.remove(at: indexPath.row)
+                    DispatchQueue.main.sync {
+                        self.dataTableView.deleteRows(at: [indexPath], with: .automatic)
+                        self.dataTableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+        
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "dd/MM/yyyy"

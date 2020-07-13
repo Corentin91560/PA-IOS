@@ -29,6 +29,9 @@
 		6B74B91524BA220400128D13 /* EventParticipantsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B74B91324BA220400128D13 /* EventParticipantsTableViewCell.xib */; };
 		6B751DD22483E40F0045CD43 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B751DD02483E40F0045CD43 /* SignupViewController.swift */; };
 		6B751DD32483E40F0045CD43 /* SignupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6B751DD12483E40F0045CD43 /* SignupViewController.xib */; };
+		6B7DD55724BB709600B48394 /* FeedbackFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7DD55624BB709600B48394 /* FeedbackFactory.swift */; };
+		6B7DD55924BB70A800B48394 /* FeedbackWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7DD55824BB70A800B48394 /* FeedbackWebService.swift */; };
+		6B7DD55B24BB70D700B48394 /* Feedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B7DD55A24BB70D700B48394 /* Feedback.swift */; };
 		6B8CCEAB2470A02700617F80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8CCEAA2470A02700617F80 /* AppDelegate.swift */; };
 		6B8CCEB42470A02B00617F80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6B8CCEB32470A02B00617F80 /* Assets.xcassets */; };
 		6B8CCEB72470A02B00617F80 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6B8CCEB52470A02B00617F80 /* LaunchScreen.storyboard */; };
@@ -100,6 +103,9 @@
 		6B74B91324BA220400128D13 /* EventParticipantsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventParticipantsTableViewCell.xib; sourceTree = "<group>"; };
 		6B751DD02483E40F0045CD43 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		6B751DD12483E40F0045CD43 /* SignupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignupViewController.xib; sourceTree = "<group>"; };
+		6B7DD55624BB709600B48394 /* FeedbackFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackFactory.swift; sourceTree = "<group>"; };
+		6B7DD55824BB70A800B48394 /* FeedbackWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackWebService.swift; sourceTree = "<group>"; };
+		6B7DD55A24BB70D700B48394 /* Feedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feedback.swift; sourceTree = "<group>"; };
 		6B8CCEA72470A02700617F80 /* Benevent iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Benevent iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B8CCEAA2470A02700617F80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6B8CCEB32470A02B00617F80 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -246,6 +252,15 @@
 			path = Signin_Signup;
 			sourceTree = "<group>";
 		};
+		6B7DD55524BB707B00B48394 /* Feedback */ = {
+			isa = PBXGroup;
+			children = (
+				6B7DD55624BB709600B48394 /* FeedbackFactory.swift */,
+				6B7DD55824BB70A800B48394 /* FeedbackWebService.swift */,
+			);
+			path = Feedback;
+			sourceTree = "<group>";
+		};
 		6B8CCE9E2470A02700617F80 = {
 			isa = PBXGroup;
 			children = (
@@ -315,11 +330,12 @@
 		6B8CCEE02470A65500617F80 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6BB55E2524A502D300072E8D /* Event.swift */,
 				6BB55E2624A502D300072E8D /* extensions.swift */,
 				6BA53AD82483014300D4105F /* Association.swift */,
-				6BC87DD124A4027600874DE3 /* Post.swift */,
 				6B10AD8224B3233300A28748 /* Category.swift */,
+				6BB55E2524A502D300072E8D /* Event.swift */,
+				6B7DD55A24BB70D700B48394 /* Feedback.swift */,
+				6BC87DD124A4027600874DE3 /* Post.swift */,
 				6B10AD8924B49B1900A28748 /* User.swift */,
 			);
 			path = Models;
@@ -328,6 +344,7 @@
 		6B8CCEE12470A66100617F80 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				6B7DD55524BB707B00B48394 /* Feedback */,
 				6B10AD8424B49AEF00A28748 /* User */,
 				6B10AD7D24B3230600A28748 /* Category */,
 				6BB55E2024A502B000072E8D /* Event */,
@@ -586,6 +603,8 @@
 				6B10AD7B24B321F700A28748 /* CreateEventViewController.swift in Sources */,
 				6BB55E2824A502D300072E8D /* extensions.swift in Sources */,
 				6BC87DCA24A3FCED00874DE3 /* HomeTableViewCell.swift in Sources */,
+				6B7DD55B24BB70D700B48394 /* Feedback.swift in Sources */,
+				6B7DD55724BB709600B48394 /* FeedbackFactory.swift in Sources */,
 				6BB55E2324A502C400072E8D /* EventFactory.swift in Sources */,
 				6BCB793324AE360A00BE2113 /* CreatePostViewController.swift in Sources */,
 				6BB55E2424A502C400072E8D /* EventWebService.swift in Sources */,
@@ -598,6 +617,7 @@
 				6B10AD8A24B49B1900A28748 /* User.swift in Sources */,
 				6B74B91424BA220400128D13 /* EventParticipantsTableViewCell.swift in Sources */,
 				6BA4405024A26712006FD94B /* AssociationWebService.swift in Sources */,
+				6B7DD55924BB70A800B48394 /* FeedbackWebService.swift in Sources */,
 				6B10AD8E24B4BA9000A28748 /* EventDetailViewController.swift in Sources */,
 				6B10AD8624B49AFF00A28748 /* UserFactory.swift in Sources */,
 				6B10AD7624B0EEFA00A28748 /* EventTableViewCell.swift in Sources */,

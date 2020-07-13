@@ -45,6 +45,10 @@ class LoginViewController: UIViewController {
                 self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
                     self.eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
                         self.userWS.getUsers { (users) in
+                            UserDefaults.standard.set(true, forKey: "isLogged")
+                            UserDefaults.standard.set(asso[0].email, forKey: "userEmail")
+                            UserDefaults.standard.set(asso[0].password, forKey: "userPassword")
+                            UserDefaults.standard.synchronize()
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0],events: events, users: users), animated: true)
                         }
                     }

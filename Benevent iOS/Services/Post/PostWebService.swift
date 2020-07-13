@@ -54,5 +54,20 @@ class PostWebService {
         })
         task.resume()
     }
-    
+
+    func deletePost(idPost: Int, completion: @escaping (Bool) -> Void) -> Void {
+        guard let deletePostURL = URL(string: AppConfig.apiURL + "/post/\(idPost)") else {
+              return;
+        }
+        var request = URLRequest(url: deletePostURL)
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 204)
+                return
+            }
+            completion(false)
+        })
+        task.resume()
+    }
 }

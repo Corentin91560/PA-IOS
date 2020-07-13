@@ -39,7 +39,7 @@
                     <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tabBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PlP-FI-c0l" userLabel="dataTableView">
-                    <rect key="frame" x="0.0" y="0.0" width="1024" height="1286"/>
+                    <rect key="frame" x="0.0" y="0.0" width="1024" height="1251"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </tableView>
             </subviews>
@@ -48,7 +48,7 @@
                 <constraint firstAttribute="bottom" secondItem="mlw-qK-lZL" secondAttribute="bottom" id="I5N-38-DW5"/>
                 <constraint firstItem="mlw-qK-lZL" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Q0Z-tC-Ztx"/>
                 <constraint firstItem="PlP-FI-c0l" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="UH5-Jd-nbC"/>
-                <constraint firstItem="mlw-qK-lZL" firstAttribute="top" secondItem="PlP-FI-c0l" secondAttribute="bottom" constant="10" id="VmO-pQ-QL7"/>
+                <constraint firstItem="mlw-qK-lZL" firstAttribute="top" secondItem="PlP-FI-c0l" secondAttribute="bottom" constant="45" id="VmO-pQ-QL7"/>
                 <constraint firstItem="PlP-FI-c0l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="uAd-vC-8aI"/>
                 <constraint firstItem="mlw-qK-lZL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="uaY-do-zb6"/>
                 <constraint firstItem="PlP-FI-c0l" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="uuL-jM-vdg"/>

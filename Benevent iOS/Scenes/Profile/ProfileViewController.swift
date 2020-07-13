@@ -98,10 +98,15 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func Disconnect(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "isLogged")
+        UserDefaults.standard.removeObject(forKey: "userEmail")
+        UserDefaults.standard.removeObject(forKey: "userPassword")
+        UserDefaults.standard.synchronize()
         self.navigationController?.pushViewController(LoginViewController(), animated: true)
     }
     
     @IBAction func Validate(_ sender: Any) {
+        var checkCallback = false
         let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
         newAsso.acronym = connectedAsso!.acronym
         newAsso.idas = connectedAsso?.idas!
@@ -111,8 +116,8 @@ class ProfileViewController: UIViewController {
         newAsso.support = assoSupport.text!
         newAsso.website = assoWebsite.text!
         self.assoWS.updateAsso(asso: newAsso) { (sucess) in
-            if (sucess) {
-                print("SUCESS : \(sucess)")
+            if (sucess || checkCallback) {
+                checkCallback = true
                 self.connectedAsso = newAsso
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
                     self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
@@ -121,11 +126,13 @@ class ProfileViewController: UIViewController {
                         }
                     }
                 }
+            } else {
+                DispatchQueue.main.sync {
+                    self.errorTextField.isHidden = false
+                }
             }
         }
-        //TODO : errorTextField always appears because of the callback 
-        self.errorTextField.isHidden = false
-          
+        //TODO : errorTextField always appears because of the callback           
     }
     
     @IBAction func assoNameClicked(_ sender: Any) {

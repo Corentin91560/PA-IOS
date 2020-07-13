@@ -98,7 +98,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
             }
         } else if (tabBar.selectedItem == tabBar.items?[2]) {
-            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: true)
+            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
         }
     }
     
