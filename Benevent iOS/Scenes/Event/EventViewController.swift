@@ -29,7 +29,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     class func newInstance(events: [Event], connectedAsso: Association) -> EventViewController {
         let evc = EventViewController()
         evc.events = events
-        evc.usableEvents = events.filter({!$0.fakeEvent!})
+        evc.usableEvents = self.sortEvents(events: events.filter({!$0.fakeEvent!}))
         evc.connectedAsso = connectedAsso
         return evc
     }
@@ -92,8 +92,8 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
        if (tabBar.selectedItem == tabBar.items?[0]) {
-            self.postsWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
-                self.userWS.getUsers { (users) in
+            self.postsWS.getPosts(idAsso: self.connectedAsso!.idas!) { (posts) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
                     self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: self.events, users: users), animated: false)
                 }
             }
@@ -137,9 +137,17 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.categoryWS.getCategories { (categories) in
-            self.navigationController?.pushViewController(EventDetailViewController.newInstance(connectedAsso: self.connectedAsso!, event: self.events[indexPath.row], categories: categories), animated: true)
+            self.navigationController?.pushViewController(EventDetailViewController.newInstance(connectedAsso: self.connectedAsso!, event: self.usableEvents[indexPath.row], categories: categories), animated: true)
         }
         
+    }
+    
+    class func sortEvents(events: [Event]) -> [Event] {
+        let now = Date()
+        let closeEvents = events.filter{ $0.endDate < now}
+        let inProgressEvents = events.filter{ $0.startDate <= now && $0.endDate >= now}
+        let comingEvents = events.filter{ $0.startDate > now }
+        return inProgressEvents + comingEvents + closeEvents
     }
 
 }

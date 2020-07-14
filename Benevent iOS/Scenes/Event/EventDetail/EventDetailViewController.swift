@@ -22,6 +22,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     @IBOutlet var eventMaxBenevoleTF: UITextField!
     @IBOutlet var eventLocationTF: UITextField!
     @IBOutlet var errorTF: UILabel!
+    @IBOutlet var deleteEventButton: UIButton!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     let categoryWS: CategoryWebService = CategoryWebService()
@@ -55,7 +56,9 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         
         self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        self.assoLogo.layer.cornerRadius = 25
         self.activityIndicator.isHidden = true
+        self.deleteEventButton.isHidden = true
         self.hideKeyboardWhenTappedAround()
         self.eventDescriptionTF.delegate = self
         if(event!.isInProgress(startDate: event!.startDate, endDate: event!.endDate)) {
@@ -133,13 +136,14 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     @objc func Edit() {
-        eventNameTF.isEnabled = !eventNameTF.isEnabled
-        eventDescriptionTF.isEditable = !eventDescriptionTF.isEditable
-        eventCategoryTF.isEnabled = !eventCategoryTF.isEnabled
-        eventStartDateTF.isEnabled = !eventStartDateTF.isEnabled
-        eventEndDateTF.isEnabled = !eventEndDateTF.isEnabled
-        eventLocationTF.isEnabled = !eventLocationTF.isEnabled
-        eventMaxBenevoleTF.isEnabled = !eventMaxBenevoleTF.isEnabled
+        self.eventNameTF.isEnabled = !self.eventNameTF.isEnabled
+        self.eventDescriptionTF.isEditable = !self.eventDescriptionTF.isEditable
+        self.eventCategoryTF.isEnabled = !self.eventCategoryTF.isEnabled
+        self.eventStartDateTF.isEnabled = !self.eventStartDateTF.isEnabled
+        self.eventEndDateTF.isEnabled = !self.eventEndDateTF.isEnabled
+        self.eventLocationTF.isEnabled = !self.eventLocationTF.isEnabled
+        self.eventMaxBenevoleTF.isEnabled = !self.eventMaxBenevoleTF.isEnabled
+        self.deleteEventButton.isHidden = !self.deleteEventButton.isHidden
     }
     
     @objc func startdateChanger(datePicker : UIDatePicker) {
@@ -157,7 +161,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     
     @IBAction func Participants(_ sender: Any) {
         self.activityIndicator.startLoading()
-        self.userWS.getUserByIdEvent(idEvent: (self.event?.idev)!) { (participants) in
+        self.userWS.getUsersByIdEvent(idEvent: (self.event?.idev)!) { (participants) in
             self.navigationController?.pushViewController(EventParticipantsViewController.newInstance(participants: participants), animated: true)
         }
         self.activityIndicator.stopLoading()
@@ -171,24 +175,56 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     
     @IBAction func Valid(_ sender: Any) {
         self.activityIndicator.startLoading()
+        var checkCallback = false
         let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
         newEvent.idas = connectedAsso?.idas!
         newEvent.idev = self.event?.idev!
         newEvent.idcat = selectedCategory?.idcat
         
         self.eventWS.updateEvent(event: newEvent) { (sucess) in
-            if (sucess) {
+            if (sucess || checkCallback) {
+                checkCallback = true
                 self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
                 }
+            } else {
+                DispatchQueue.main.sync {
+                    self.activityIndicator.stopLoading()
+                    self.errorTF.isHidden = false
+                }
             }
         }
-        //TODO : errorTextField always appears because of the callback
-        self.activityIndicator.stopLoading()
-        self.errorTF.isHidden = false
-                
     }
     
+    @IBAction func Delete(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Suppression", message: "Etes vous sur de vouloir supprimer l'événement \(self.event!.name) ?", preferredStyle: UIAlertController.Style.alert)
+
+              deleteAlert.addAction(UIAlertAction(title: "Oui", style: .destructive, handler: { (action: UIAlertAction!) in
+                  self.deleteEvent()
+              }))
+              
+              deleteAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: { (action: UIAlertAction!) in
+                  deleteAlert.dismiss(animated: true) {}
+              }))
+              present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    func deleteEvent() {
+        var checkCallback = false
+        self.activityIndicator.startLoading()
+        self.eventWS.deleteEvent(idEvent: self.event!.idev!) { (sucess) in
+            if (sucess || checkCallback) {
+               self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
+                   checkCallback = true
+                   self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
+               }
+            } else {
+                self.activityIndicator.stopLoading()
+                self.errorTF.text = "Suppression impossible !"
+                self.errorTF.isHidden = false
+            }
+        }
+    }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {

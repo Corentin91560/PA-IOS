@@ -139,7 +139,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let post = self.posts[indexPath.row]
             self.postWS.deletePost(idPost: post.idpo!) { (sucess) in
                 if(sucess || checkCallback) {
-                    print("DELETE POST")
                     checkCallback = true
                     self.posts.remove(at: indexPath.row)
                     DispatchQueue.main.sync {
@@ -164,19 +163,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 event = e
             }
         }
-        
         if(post.idas != nil) {
             cell.assoName.text = connectedAsso?.name
             cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
             cell.assoProfilePicture.load(url: URL(string: (connectedAsso?.logo)!)!)
         } else {
-            for u in self.users {
-                if(u.idu! == post.idu!) {
-                    cell.assoName.text = "\(u.firstName) \(u.name)"
-                    cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
-                    cell.assoProfilePicture.load(url: URL(string: u.profilePicture!)!)
-                }
-            }
+            let user = self.users.filter{ $0.idu! == post.idu!}[0]
+            cell.assoName.text = "\(user.firstName) \(user.name)"
+            cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
+            cell.assoProfilePicture.load(url: URL(string: user.profilePicture!)!)
         }
         cell.assoProfilePicture.layer.cornerRadius = 25
         cell.postMessage.text = post.message

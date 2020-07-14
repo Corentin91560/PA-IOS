@@ -84,7 +84,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
             self.nullErrorTF.isHidden = false
         } else {
             AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
-                    self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!, profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idcat! ) { (sucess) in
+                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idcat! ) { (sucess) in
                             DispatchQueue.main.async {
                                 if(sucess) {
                                     self.navigationController?.pushViewController(LoginViewController(), animated: false)

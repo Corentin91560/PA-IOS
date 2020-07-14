@@ -52,6 +52,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     func setupView() {
         assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
         self.activityIndicator.isHidden = true
         self.eventMaxBenevoleTF.delegate = self
         self.hideKeyboardWhenTappedAround()
@@ -79,7 +80,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         endDatePicker?.locale = Locale(identifier: "fr")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
-        startDatePicker?.minimumDate = Date()
+        endDatePicker?.minimumDate = Date()
         self.eventStartDateTF.inputView = startDatePicker
         self.eventEndDateTF.inputView = endDatePicker
     }
@@ -144,14 +145,14 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
             
             self.eventWS.newEvent(event: eventToCreate) { (sucess) in
                 if(sucess || checkCallback) {
-                    checkCallback = true
-                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
-                    postToCreate.idev = self.generalEvent?.idev
-                    postToCreate.idas = self.connectedAsso?.idas
-                    self.postWS.newPost(post: postToCreate) { (sucess) in
-                        
+                    if(!checkCallback) {
+                        let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
+                        postToCreate.idev = self.generalEvent?.idev
+                        postToCreate.idas = self.connectedAsso?.idas
+                        self.postWS.newPost(post: postToCreate) {(x) in}
                     }
                     self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (eventsList) in
+                        checkCallback = true
                         let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
                         self.navigationController?.pushViewController(EventVC, animated: false)
                     }

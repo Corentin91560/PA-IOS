@@ -17,6 +17,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreatePostViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="UGr-sF-smc" id="eN6-zs-3GN"/>
+                <outlet property="assoLogo" destination="6zh-FS-2mr" id="5me-tN-HiW"/>
                 <outlet property="errorTextField" destination="sTd-4L-8Jq" id="P5t-Iq-toq"/>
                 <outlet property="eventTextField" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
                 <outlet property="postMessageText" destination="hr3-7O-89v" id="aNC-QJ-pEG"/>
@@ -31,16 +32,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Evénement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ejD-nb-2vS">
-                    <rect key="frame" x="10" y="520" width="167" height="35"/>
+                    <rect key="frame" x="10" y="516.5" width="167" height="35"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="6zh-FS-2mr" userLabel="appLogo">
-                    <rect key="frame" x="264" y="50" width="496" height="370"/>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyD-8q-lrs">
-                    <rect key="frame" x="10" y="584.5" width="174.5" height="35"/>
+                    <rect key="frame" x="10" y="581.5" width="174.5" height="35"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -57,34 +55,34 @@
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TaB-NJ-puR" userLabel="eventTF">
-                    <rect key="frame" x="187" y="520" width="827" height="44.5"/>
+                    <rect key="frame" x="187" y="517" width="827" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hr3-7O-89v">
-                    <rect key="frame" x="10" y="639.5" width="1004" height="539.5"/>
+                <textView verifyAmbiguity="ignoreSizes" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="249" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hr3-7O-89v">
+                    <rect key="frame" x="10" y="636.5" width="1004" height="542.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Publication impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTd-4L-8Jq" userLabel="errorTF">
-                    <rect key="frame" x="353" y="430" width="318.5" height="80"/>
+                    <rect key="frame" x="353" y="457" width="318.5" height="35"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lzb-M3-Y1i" userLabel="publicPost">
-                    <rect key="frame" x="10" y="457" width="51" height="31"/>
+                    <rect key="frame" x="10" y="453.5" width="51" height="31"/>
                     <color key="onTintColor" name="MantisGreen"/>
                     <connections>
                         <action selector="swiftPublicClicked:" destination="-1" eventType="valueChanged" id="1xJ-tg-u5D"/>
                     </connections>
                 </switch>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Post public" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMX-FR-y3r">
-                    <rect key="frame" x="84" y="453" width="151.5" height="35"/>
+                    <rect key="frame" x="84" y="449.5" width="151.5" height="35"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -93,6 +91,10 @@
                     <rect key="frame" x="493.5" y="1261" width="37" height="37"/>
                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BasicAssoPicture" id="6zh-FS-2mr" userLabel="appLogo">
+                    <rect key="frame" x="362" y="57" width="300" height="300"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -104,31 +106,28 @@
                 <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="hMX-FR-y3r" secondAttribute="bottom" constant="32" id="KaC-d2-zDW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SqI-uf-fY6" secondAttribute="trailing" constant="300" id="PK4-Vv-wwR"/>
                 <constraint firstItem="TaB-NJ-puR" firstAttribute="leading" secondItem="ejD-nb-2vS" secondAttribute="trailing" constant="10" id="Pqs-nW-aS0"/>
-                <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="sTd-4L-8Jq" secondAttribute="bottom" constant="10" id="TBI-Zc-a4m"/>
+                <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="sTd-4L-8Jq" secondAttribute="bottom" constant="25" id="TBI-Zc-a4m"/>
                 <constraint firstItem="gyD-8q-lrs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="X29-La-QMJ"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="ZHY-f1-j3T"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="top" secondItem="hr3-7O-89v" secondAttribute="bottom" constant="20" id="bek-Ex-nPX"/>
                 <constraint firstItem="sTd-4L-8Jq" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="caH-pf-6Ne"/>
-                <constraint firstItem="ejD-nb-2vS" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="clZ-dI-efd"/>
                 <constraint firstItem="SqI-uf-fY6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="dR5-OB-3Pz"/>
+                <constraint firstItem="sTd-4L-8Jq" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="eMX-xw-ko6"/>
                 <constraint firstItem="ejD-nb-2vS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="f9w-yI-F9G"/>
-                <constraint firstItem="6zh-FS-2mr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gZn-Fq-m1Z"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="TaB-NJ-puR" secondAttribute="trailing" constant="10" id="gea-dq-5Wq"/>
+                <constraint firstItem="gyD-8q-lrs" firstAttribute="top" secondItem="ejD-nb-2vS" secondAttribute="bottom" constant="30" id="m3k-gQ-U8E"/>
                 <constraint firstItem="hr3-7O-89v" firstAttribute="top" secondItem="gyD-8q-lrs" secondAttribute="bottom" constant="20" id="mjq-tC-1hI"/>
                 <constraint firstItem="hr3-7O-89v" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="p5A-Y6-1fR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="SqI-uf-fY6" secondAttribute="bottom" constant="100" id="pOc-u9-Ij1"/>
-                <constraint firstItem="sTd-4L-8Jq" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="10" id="qW5-Wp-R3D"/>
                 <constraint firstItem="lzb-M3-Y1i" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="rcK-4D-tZD"/>
-                <constraint firstItem="TaB-NJ-puR" firstAttribute="top" secondItem="6zh-FS-2mr" secondAttribute="bottom" constant="100" id="rdl-t8-9JQ"/>
                 <constraint firstItem="gyD-8q-lrs" firstAttribute="top" secondItem="TaB-NJ-puR" secondAttribute="bottom" constant="20" id="u64-X1-nks"/>
-                <constraint firstItem="6zh-FS-2mr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="z1b-5R-OgE"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="138.8671875" y="122.98682284040994"/>
         </view>
     </objects>
     <resources>
-        <image name="AppIconImage" width="496" height="370"/>
+        <image name="BasicAssoPicture" width="37.5" height="37.5"/>
         <namedColor name="BackgroundGreen">
             <color red="0.45899999141693115" green="0.83899998664855957" blue="0.45899999141693115" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

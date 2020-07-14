@@ -50,7 +50,7 @@
                     <rect key="frame" x="50" y="253" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="nameTFClicked:" destination="-1" eventType="touchDown" id="apf-rb-nLx"/>
                     </connections>
@@ -59,7 +59,7 @@
                     <rect key="frame" x="50" y="317" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="mailTFClicked:" destination="-1" eventType="touchDown" id="psU-qr-6fV"/>
                     </connections>
@@ -96,7 +96,7 @@
                     <rect key="frame" x="50" y="381" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="pwdTFClicked:" destination="-1" eventType="touchDown" id="PYh-QV-Nrt"/>
                     </connections>

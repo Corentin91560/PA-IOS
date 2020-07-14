@@ -15,6 +15,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet var errorTextField: UILabel!
     @IBOutlet var publicPost: UISwitch!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var assoLogo: UIImageView!
     
     let postWS : PostWebService = PostWebService()
     let eventWS : EventWebService = EventWebService()
@@ -41,6 +42,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func setupView() {
+        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.activityIndicator.isHidden = true
         setupNavigationBar()
         setupPicker()
@@ -50,7 +53,8 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func setupPicker() {
         eventNamesList = eventList.map{ $0.name }
-        if(eventList.count > 1) {
+        print(eventList.count)
+        if(eventList.count > 0) {
             publicPost.isOn = false
             eventPicker = UIPickerView()
             eventPicker.dataSource = self
@@ -105,7 +109,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             if (sucess || checkCallback) {
                 self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
                     self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                        self.userWS.getUsers { (users) in
+                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
                             checkCallback = true
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
                         }

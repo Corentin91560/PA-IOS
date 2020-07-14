@@ -73,7 +73,6 @@ class EventWebService {
         var request = URLRequest(url: newEventURL)
         request.httpMethod = "POST"
         request.httpBody = try? JSONSerialization.data(withJSONObject: EventFactory.dictionnaryFrom(event: event), options: .fragmentsAllowed)
-        print("NEW EVENT REQUEST BODY : \(EventFactory.dictionnaryFrom(event: event))")
         request.setValue("application/json", forHTTPHeaderField: "content-type")
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
             if let httpRes = res as? HTTPURLResponse {
@@ -101,5 +100,21 @@ class EventWebService {
             completion(false)
         })
         task.resume()
-       }
+    }
+    
+    func deleteEvent(idEvent: Int, completion: @escaping (Bool) -> Void) -> Void {
+        guard let deleteEventURL = URL(string: AppConfig.apiURL + "/event/\(idEvent)") else {
+              return;
+        }
+        var request = URLRequest(url: deleteEventURL)
+        request.httpMethod = "DELETE"
+        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+            if let httpRes = res as? HTTPURLResponse {
+                completion(httpRes.statusCode == 204)
+                return
+            }
+            completion(false)
+        })
+        task.resume()
+    }
 }

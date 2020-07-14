@@ -92,7 +92,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
        if (tabBar.selectedItem == tabBar.items?[0]) {
             self.postsWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
-                self.userWS.getUsers { (users) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
                  self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
                      self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
                  }

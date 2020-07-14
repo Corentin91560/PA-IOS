@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
@@ -20,6 +21,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet var disconnectButton: UIButton!
     @IBOutlet var validateButton: UIButton!
     @IBOutlet var changeImage: UIButton!
+    @IBOutlet var deleteAsso: UIButton!
     @IBOutlet var errorTextField: UILabel!
     
     var connectedAsso: Association? = nil
@@ -43,8 +45,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func setupView() {
         self.hideKeyboardWhenTappedAround()
-        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
-        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        self.changeImage.isUserInteractionEnabled = false
+        self.deleteAsso.isHidden = true
+        self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        self.assoLogo.layer.cornerRadius = 25
         setupPicker()
         setupTextFields()
         setupNavigationBar()
@@ -94,12 +99,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @objc func Edit() {
-        assoName.isEnabled = !assoName.isEnabled
-        assoMail.isEnabled = !assoMail.isEnabled
-        assoPhone.isEnabled = !assoPhone.isEnabled
-        assoWebsite.isEnabled = !assoWebsite.isEnabled
-        assoSupport.isEnabled = !assoSupport.isEnabled
-        assoAcronyme.isEnabled = !assoAcronyme.isEnabled
+        self.assoName.isEnabled = !self.assoName.isEnabled
+        self.assoMail.isEnabled = !self.assoMail.isEnabled
+        self.assoPhone.isEnabled = !self.assoPhone.isEnabled
+        self.assoWebsite.isEnabled = !self.assoWebsite.isEnabled
+        self.assoSupport.isEnabled = !self.assoSupport.isEnabled
+        self.assoAcronyme.isEnabled = !self.assoAcronyme.isEnabled
+        self.changeImage.isUserInteractionEnabled = !self.changeImage.isUserInteractionEnabled
+        self.deleteAsso.isHidden = !self.deleteAsso.isHidden
     }
     
     @objc func Back() {
@@ -109,14 +116,22 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
 
     @IBAction func Disconnect(_ sender: Any) {
-        UserDefaults.standard.removeObject(forKey: "userEmail")
-        UserDefaults.standard.removeObject(forKey: "userPassword")
-        UserDefaults.standard.synchronize()
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        let deleteAlert = UIAlertController(title: "Déconnexion", message: "Voulez vous vraiment vous déconnecter ?", preferredStyle: UIAlertController.Style.alert)
+
+        deleteAlert.addAction(UIAlertAction(title: "Oui", style: .destructive, handler: { (action: UIAlertAction!) in
+            let keychain = KeychainSwift()
+            keychain.clear()
+            self.navigationController?.pushViewController(LoginViewController(), animated: true)
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: { (action: UIAlertAction!) in
+            deleteAlert.dismiss(animated: true) {}
+        }))
+        present(deleteAlert, animated: true, completion: nil)
+       
     }
     
     @IBAction func Validate(_ sender: Any) {
-        var checkCallback = false
         let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
         newAsso.acronym = assoAcronyme.text
         newAsso.idas = connectedAsso?.idas!
@@ -128,43 +143,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         if(logoChanged) {
             AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
                 newAsso.logo = result?.url!
-                self.assoWS.updateAsso(asso: newAsso) { (sucess) in
-                    if (sucess || checkCallback) {
-                        checkCallback = true
-                        self.connectedAsso = newAsso
-                        self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                            self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                                self.userWS.getUsers { (users) in
-                                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
-                                }
-                            }
-                        }
-                    } else {
-                        DispatchQueue.main.sync {
-                            self.errorTextField.isHidden = false
-                        }
-                    }
-                }
+                self.updateAsso(newAsso: newAsso)
             }
         } else {
             newAsso.logo = connectedAsso?.logo
-            self.assoWS.updateAsso(asso: newAsso) { (sucess) in
-                if (sucess || checkCallback) {
-                    checkCallback = true
-                    self.connectedAsso = newAsso
-                    self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                        self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                            self.userWS.getUsers { (users) in
-                                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
-                            }
-                        }
-                    }
-                } else {
-                    DispatchQueue.main.sync {
-                        self.errorTextField.isHidden = false
-                    }
-                }
-            }
+            self.updateAsso(newAsso: newAsso)
         }
     }
     
@@ -172,6 +155,59 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.imagePicker.allowsEditing = false
         self.imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func updateAsso(newAsso: Association){
+        var checkCallback = false
+        self.assoWS.updateAsso(asso: newAsso) { (sucess) in
+            if (sucess || checkCallback) {
+                checkCallback = true
+                self.connectedAsso = newAsso
+                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
+                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
+                        }
+                    }
+                }
+            } else {
+                DispatchQueue.main.sync {
+                    self.errorTextField.isHidden = false
+                }
+            }
+        }
+    }
+    
+    @IBAction func deleteAsso(_ sender: Any) {
+        let deleteAlert = UIAlertController(title: "Suppression", message: "Etes vous sur de vouloir supprimer votre compte ?", preferredStyle: UIAlertController.Style.alert)
+
+        deleteAlert.addAction(UIAlertAction(title: "Oui", style: .destructive, handler: { (action: UIAlertAction!) in
+            self.delete()
+        }))
+        
+        deleteAlert.addAction(UIAlertAction(title: "Annuler", style: .cancel, handler: { (action: UIAlertAction!) in
+            deleteAlert.dismiss(animated: true) {}
+        }))
+        present(deleteAlert, animated: true, completion: nil)
+    }
+    
+    func delete() {
+        var checkCallback = false
+        self.assoWS.deleteAsso(idAsso: connectedAsso!.idas!) { (sucess) in
+            DispatchQueue.main.sync {
+                if (sucess || checkCallback) {
+                    UserDefaults.standard.removeObject(forKey: "userEmail")
+                    UserDefaults.standard.removeObject(forKey: "userPassword")
+                    UserDefaults.standard.synchronize()
+                    checkCallback = true
+                    print("GO LOGIN")
+                    self.navigationController?.pushViewController(LoginViewController(), animated: false)
+                } else {
+                    self.errorTextField.text = "Suppression impossible !"
+                    self.errorTextField.isHidden = false
+                }
+            }
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

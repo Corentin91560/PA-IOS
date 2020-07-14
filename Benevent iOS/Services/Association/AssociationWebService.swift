@@ -126,5 +126,21 @@ class AssociationWebService {
         })
         task.resume()
     }
+    
+    func deleteAsso(idAsso: Int, completion: @escaping (Bool) -> Void) -> Void {
+           guard let deleteAssoURL = URL(string: AppConfig.apiURL + "/association/\(idAsso)") else {
+                 return;
+           }
+           var request = URLRequest(url: deleteAssoURL)
+           request.httpMethod = "DELETE"
+           let task = URLSession.shared.dataTask(with: request, completionHandler: { (data, res, err) in
+               if let httpRes = res as? HTTPURLResponse {
+                   completion(httpRes.statusCode == 204)
+                   return
+               }
+               completion(false)
+           })
+           task.resume()
+       }
 }
 

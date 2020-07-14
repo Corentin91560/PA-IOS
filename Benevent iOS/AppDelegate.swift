@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,18 +19,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         let w = UIWindow(frame: UIScreen.main.bounds)
+        let keychain = KeychainSwift()
         
-        if(UserDefaults.standard.string(forKey: "userEmail") != nil) {
+        if(keychain.get("userEmail") != nil) {
+            //keychain.set("ape", forKey: "userPassword")
             let assoWS: AssociationWebService = AssociationWebService()
             let postWS: PostWebService = PostWebService()
             let eventWS: EventWebService = EventWebService()
             let userWS: UserWebService = UserWebService()
             
-            assoWS.Login(mail: UserDefaults.standard.string(forKey: "userEmail")!, password: UserDefaults.standard.string(forKey: "userPassword")!) { (asso) in
+            assoWS.Login(mail: keychain.get("userEmail")!, password: keychain.get("userPassword")!) { (asso) in
+                print(keychain.get("userEmail")!)
+                print(keychain.get("userPassword")!)
                 if(asso.count > 0) {
                     postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
                         eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
-                            userWS.getUsers { (users) in
+                            userWS.getUsersByIdAsso(idAsso: asso[0].idas!) { (users) in
                                 w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users))
                                 w.makeKeyAndVisible()
                                 self.window = w

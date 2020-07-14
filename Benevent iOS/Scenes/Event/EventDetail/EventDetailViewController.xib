@@ -19,6 +19,7 @@
                 <outlet property="QRButton" destination="efK-CP-SLx" id="PTn-6K-Seo"/>
                 <outlet property="activityIndicator" destination="SZx-5p-WiN" id="tez-eT-men"/>
                 <outlet property="assoLogo" destination="rme-Oo-b3x" id="xNb-8l-Sif"/>
+                <outlet property="deleteEventButton" destination="lfp-Gx-fCY" id="HkW-R5-H5A"/>
                 <outlet property="errorTF" destination="M1Y-Q4-4dI" id="RdO-bc-74m"/>
                 <outlet property="eventCategoryTF" destination="q3q-eK-mXC" id="Xxf-ee-C01"/>
                 <outlet property="eventDescriptionTF" destination="SCS-Zx-rsH" id="hx2-eJ-dPR"/>
@@ -146,10 +147,10 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-Pc-4vh" userLabel="participantsList">
-                    <rect key="frame" x="70" y="180" width="140" height="47"/>
+                    <rect key="frame" x="70" y="180" width="173" height="47"/>
                     <color key="backgroundColor" name="CellBackgroundBlue"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <state key="normal" title="Bénévoles">
+                    <state key="normal" title="  Bénévoles  ">
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
@@ -165,6 +166,17 @@
                         <action selector="eventMaxBenevoleClicked:" destination="-1" eventType="touchDown" id="KAu-bV-Hx5"/>
                     </connections>
                 </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efK-CP-SLx" userLabel="QRCode">
+                    <rect key="frame" x="796" y="180" width="158" height="47"/>
+                    <color key="backgroundColor" name="CellBackgroundRed"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <state key="normal" title="  QR Code  ">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <connections>
+                        <action selector="showQR:" destination="-1" eventType="touchDown" id="Cnm-45-8md"/>
+                    </connections>
+                </button>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-5p-WiN">
                     <rect key="frame" x="493.5" y="1212" width="37" height="37"/>
                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -176,15 +188,11 @@
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efK-CP-SLx" userLabel="QRCode">
-                    <rect key="frame" x="829" y="180" width="125" height="47"/>
-                    <color key="backgroundColor" name="CellBackgroundRed"/>
-                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <state key="normal" title="QR Code">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </state>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfp-Gx-fCY" userLabel="deteleEvent">
+                    <rect key="frame" x="899" y="1236" width="75" height="75"/>
+                    <state key="normal" image="SF_trash_slash_fill"/>
                     <connections>
-                        <action selector="showQR:" destination="-1" eventType="touchDown" id="Cnm-45-8md"/>
+                        <action selector="Delete:" destination="-1" eventType="touchDown" id="wqh-5R-NdH"/>
                     </connections>
                 </button>
             </subviews>
@@ -195,6 +203,7 @@
                 <constraint firstItem="UEC-iw-bw3" firstAttribute="top" secondItem="ENp-u3-Hbt" secondAttribute="bottom" constant="42" id="2f5-c3-aNa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SCS-Zx-rsH" secondAttribute="trailing" constant="10" id="3eS-oR-uug"/>
                 <constraint firstItem="SZx-5p-WiN" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="7Vv-2U-xOZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lfp-Gx-fCY" secondAttribute="trailing" constant="50" id="9Uo-7R-OBc"/>
                 <constraint firstItem="M1Y-Q4-4dI" firstAttribute="top" secondItem="SIN-Jo-Zxv" secondAttribute="bottom" constant="26" id="A9c-JP-XvZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="q3q-eK-mXC" secondAttribute="trailing" constant="10" id="BO7-LT-4AF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sDv-y3-W0Z" secondAttribute="trailing" constant="300" id="DVM-4X-lBu"/>
@@ -224,6 +233,7 @@
                 <constraint firstItem="yZP-hC-Tdn" firstAttribute="top" secondItem="q3q-eK-mXC" secondAttribute="bottom" constant="35" id="YWP-wU-HdS"/>
                 <constraint firstItem="fxY-tk-T3Z" firstAttribute="top" secondItem="xiC-ga-Bw3" secondAttribute="bottom" constant="42" id="Yxd-PU-KgV"/>
                 <constraint firstItem="Dcb-Pc-4vh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="180" id="ZIa-IN-x2B"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lfp-Gx-fCY" secondAttribute="bottom" constant="35" id="ZhP-0j-J1y"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ljb-iz-43M" secondAttribute="trailing" constant="10" id="c6g-0R-TC5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yZP-hC-Tdn" secondAttribute="trailing" constant="10" id="eXh-0e-cNQ"/>
                 <constraint firstItem="sDv-y3-W0Z" firstAttribute="top" secondItem="SZx-5p-WiN" secondAttribute="bottom" constant="15" id="gcS-TB-Kmt"/>
@@ -247,6 +257,7 @@
     </objects>
     <resources>
         <image name="AppIconImage" width="496" height="370"/>
+        <image name="SF_trash_slash_fill" width="75" height="75"/>
         <namedColor name="BackgroundGrey">
             <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

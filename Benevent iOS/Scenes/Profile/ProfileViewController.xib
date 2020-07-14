@@ -24,6 +24,7 @@
                 <outlet property="assoSupport" destination="HvA-9g-h8X" id="jay-2e-7ZG"/>
                 <outlet property="assoWebsite" destination="cZM-iP-dpf" id="Er2-tZ-SIV"/>
                 <outlet property="changeImage" destination="Kyb-6H-O55" id="Uz7-PL-sSI"/>
+                <outlet property="deleteAsso" destination="QDe-IN-McU" id="MYX-2o-kNG"/>
                 <outlet property="disconnectButton" destination="3Ie-vP-ZGC" id="Ngf-y1-NvV"/>
                 <outlet property="errorTextField" destination="A1i-Tx-gfR" id="MAU-6w-3Rh"/>
                 <outlet property="validateButton" destination="oAb-5S-r1E" id="pkY-vL-Stp"/>
@@ -167,6 +168,13 @@
                         <action selector="chooseImage:" destination="-1" eventType="touchDown" id="7CL-3R-FzY"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QDe-IN-McU" userLabel="deleteAsso">
+                    <rect key="frame" x="849" y="1176" width="75" height="75"/>
+                    <state key="normal" image="SF_trash_slash_fill"/>
+                    <connections>
+                        <action selector="deleteAsso:" destination="-1" eventType="touchDown" id="wCb-Qw-PoO"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -183,6 +191,7 @@
                 <constraint firstItem="YBW-3W-fl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="A4v-FX-zEm"/>
                 <constraint firstItem="ekR-Pa-rMq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Bcc-Bt-BKX"/>
                 <constraint firstItem="tF9-Rm-10u" firstAttribute="leading" secondItem="UDd-Zp-qVN" secondAttribute="trailing" constant="15" id="CfX-wv-mom"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="QDe-IN-McU" secondAttribute="bottom" constant="95" id="Dnx-mC-LCv"/>
                 <constraint firstItem="JM0-Ox-RQR" firstAttribute="leading" secondItem="Qbo-Nd-Ylh" secondAttribute="trailing" constant="15" id="Eal-55-qLf"/>
                 <constraint firstItem="Kyb-6H-O55" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Elh-MK-hFu"/>
                 <constraint firstItem="Qbo-Nd-Ylh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="FXS-Oa-jLw"/>
@@ -199,6 +208,7 @@
                 <constraint firstItem="A1i-Tx-gfR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XgK-g9-F6E"/>
                 <constraint firstItem="tPg-ys-tI9" firstAttribute="leading" secondItem="141-Pe-y6E" secondAttribute="trailing" constant="10" id="a4x-xb-62z"/>
                 <constraint firstItem="UDd-Zp-qVN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="aBw-Ob-MQP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QDe-IN-McU" secondAttribute="trailing" constant="100" id="aI0-Bm-Idj"/>
                 <constraint firstItem="5p7-Ac-XbV" firstAttribute="top" secondItem="UDd-Zp-qVN" secondAttribute="bottom" constant="35" id="eUO-L8-xBi"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="3Ie-vP-ZGC" secondAttribute="bottom" constant="150" id="g8a-oj-Fqk"/>
                 <constraint firstItem="3Ie-vP-ZGC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="h3k-dd-Mhq"/>
@@ -218,6 +228,7 @@
     </objects>
     <resources>
         <image name="BasicAssoPicture" width="37.5" height="37.5"/>
+        <image name="SF_trash_slash_fill" width="75" height="75"/>
         <namedColor name="BackgroundGrey">
             <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
