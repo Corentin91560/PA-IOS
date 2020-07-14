@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var assoName: UITextField!
@@ -16,9 +16,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet var assoPhone: UITextField!
     @IBOutlet var assoWebsite: UITextField!
     @IBOutlet var assoSupport: UITextField!
-    @IBOutlet var assoAcronyme: UILabel!
+    @IBOutlet var assoAcronyme: UITextField!
     @IBOutlet var disconnectButton: UIButton!
     @IBOutlet var validateButton: UIButton!
+    @IBOutlet var changeImage: UIButton!
     @IBOutlet var errorTextField: UILabel!
     
     var connectedAsso: Association? = nil
@@ -27,6 +28,8 @@ class ProfileViewController: UIViewController {
     let eventWS: EventWebService = EventWebService()
     let userWS: UserWebService = UserWebService()
     
+    var imagePicker: UIImagePickerController!
+    var logoChanged: Bool = false
     class func newInstance(connectedAsso : Association?) -> ProfileViewController {
         let ProfileVC: ProfileViewController = ProfileViewController()
         ProfileVC.connectedAsso = connectedAsso
@@ -40,10 +43,17 @@ class ProfileViewController: UIViewController {
     
     func setupView() {
         self.hideKeyboardWhenTappedAround()
+        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        setupPicker()
         setupTextFields()
         setupNavigationBar()
         setupButtons()
-        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+    }
+    
+    func setupPicker() {
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
     }
     
     func setupButtons() {
@@ -60,14 +70,14 @@ class ProfileViewController: UIViewController {
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
         // Left item config
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-        image: UIImage(systemName: "pencil"),
+        image: UIImage(named: "SF_pencil_tip_crop_circle_badge_plus"),
         style: .plain,
         target: self,
         action: #selector(Edit))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         // Right item config
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "x.circle.fill"),
+            image: UIImage(named: "SF_multiply_circle_fill"),
             style: .plain,
             target: self,
             action: #selector(Back))
@@ -80,7 +90,7 @@ class ProfileViewController: UIViewController {
         assoPhone.text = connectedAsso?.phone
         assoWebsite.text = connectedAsso?.website
         assoSupport.text = connectedAsso?.support
-        assoAcronyme.text = connectedAsso?.acronym?.uppercased()
+        assoAcronyme.text = connectedAsso?.acronym
     }
     
     @objc func Edit() {
@@ -89,6 +99,7 @@ class ProfileViewController: UIViewController {
         assoPhone.isEnabled = !assoPhone.isEnabled
         assoWebsite.isEnabled = !assoWebsite.isEnabled
         assoSupport.isEnabled = !assoSupport.isEnabled
+        assoAcronyme.isEnabled = !assoAcronyme.isEnabled
     }
     
     @objc func Back() {
@@ -98,7 +109,6 @@ class ProfileViewController: UIViewController {
     }
 
     @IBAction func Disconnect(_ sender: Any) {
-        UserDefaults.standard.set(false, forKey: "isLogged")
         UserDefaults.standard.removeObject(forKey: "userEmail")
         UserDefaults.standard.removeObject(forKey: "userPassword")
         UserDefaults.standard.synchronize()
@@ -108,31 +118,71 @@ class ProfileViewController: UIViewController {
     @IBAction func Validate(_ sender: Any) {
         var checkCallback = false
         let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
-        newAsso.acronym = connectedAsso!.acronym
+        newAsso.acronym = assoAcronyme.text
         newAsso.idas = connectedAsso?.idas!
         newAsso.idcat = connectedAsso?.idcat!
         newAsso.logo = connectedAsso?.logo
         newAsso.phone = assoPhone.text!
         newAsso.support = assoSupport.text!
         newAsso.website = assoWebsite.text!
-        self.assoWS.updateAsso(asso: newAsso) { (sucess) in
-            if (sucess || checkCallback) {
-                checkCallback = true
-                self.connectedAsso = newAsso
-                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                        self.userWS.getUsers { (users) in
-                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
+        if(logoChanged) {
+            AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
+                newAsso.logo = result?.url!
+                self.assoWS.updateAsso(asso: newAsso) { (sucess) in
+                    if (sucess || checkCallback) {
+                        checkCallback = true
+                        self.connectedAsso = newAsso
+                        self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
+                            self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
+                                self.userWS.getUsers { (users) in
+                                    self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
+                                }
+                            }
+                        }
+                    } else {
+                        DispatchQueue.main.sync {
+                            self.errorTextField.isHidden = false
                         }
                     }
                 }
-            } else {
-                DispatchQueue.main.sync {
-                    self.errorTextField.isHidden = false
+            }
+        } else {
+            newAsso.logo = connectedAsso?.logo
+            self.assoWS.updateAsso(asso: newAsso) { (sucess) in
+                if (sucess || checkCallback) {
+                    checkCallback = true
+                    self.connectedAsso = newAsso
+                    self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
+                        self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
+                            self.userWS.getUsers { (users) in
+                                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
+                            }
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.sync {
+                        self.errorTextField.isHidden = false
+                    }
                 }
             }
         }
-        //TODO : errorTextField always appears because of the callback           
+    }
+    
+    @IBAction func chooseImage(_ sender: Any) {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.assoLogo.image = pickedImage
+            self.logoChanged = true
+            self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+            self.errorTextField.isHidden = true
+            self.validateButton.isEnabled = true
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     @IBAction func assoNameClicked(_ sender: Any) {
@@ -156,16 +206,25 @@ class ProfileViewController: UIViewController {
         self.validateButton.isEnabled = true
     }
     
-    @IBAction func assoWebsiteClicked(_ sender: Any) { self.assoWebsite.text = ""
+    @IBAction func assoWebsiteClicked(_ sender: Any) {
+        self.assoWebsite.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
     
-    @IBAction func assoSupportClicked(_ sender: Any) { self.assoSupport.text = ""
+    @IBAction func assoSupportClicked(_ sender: Any) {
+        self.assoSupport.text = ""
         self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTextField.isHidden = true
         self.validateButton.isEnabled = true
     }
-   
+    
+    @IBAction func assoAcronymeClicked(_ sender: Any) {
+        self.assoAcronyme.text = ""
+        self.validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
+        self.errorTextField.isHidden = true
+        self.validateButton.isEnabled = true
+    }
+    
 }

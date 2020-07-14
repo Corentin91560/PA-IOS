@@ -50,13 +50,14 @@ class AssociationWebService {
         task.resume()
     }
     
-    func Signup(name: String, email: String, password: String, idCategory: Int, completion: @escaping (Bool) -> Void) -> Void {
+    func Signup(name: String, email: String, password: String, profilePicture: String, idCategory: Int, completion: @escaping (Bool) -> Void) -> Void {
         
         let assoLoginURL = AppConfig.apiURL + "/signup/association"
         let parameters: [String: Any] = [
             "name": name,
             "email": email,
             "password": password,
+            "logo": profilePicture,
             "idcat": idCategory
         ]
         guard let apiURL = URL(string: assoLoginURL ) else {

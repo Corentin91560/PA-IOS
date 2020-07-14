@@ -1,0 +1,6 @@
+framework module Pods_Benevent_iOS {
+  umbrella header "Pods-Benevent iOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

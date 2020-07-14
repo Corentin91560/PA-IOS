@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,6 +18,7 @@
             <connections>
                 <outlet property="ValidButton" destination="orw-fV-RIu" id="oHq-hB-xQz"/>
                 <outlet property="activityIndicator" destination="2Op-xm-pW7" id="h3v-LD-Lxt"/>
+                <outlet property="assoLogo" destination="J7l-U0-Lv0" id="aZH-yl-hZG"/>
                 <outlet property="categoryTF" destination="rro-wh-kYQ" id="BHG-8k-cEk"/>
                 <outlet property="errorTF" destination="vmd-oX-QgO" id="seC-po-bu3"/>
                 <outlet property="eventDescriptionTF" destination="o0F-6h-yQP" id="bNu-lh-Ih1"/>
@@ -40,11 +42,12 @@
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="21"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="J7l-U0-Lv0" userLabel="assoLogo">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" id="J7l-U0-Lv0" userLabel="assoLogo">
                     <rect key="frame" x="264" y="50" width="496" height="370"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TOJ-hF-Wju" userLabel="eventTF">
-                    <rect key="frame" x="330" y="500" width="684" height="44.5"/>
+                    <rect key="frame" x="330" y="500.5" width="684" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
@@ -115,7 +118,7 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Création impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmd-oX-QgO" userLabel="errorTF">
-                    <rect key="frame" x="370.5" y="430" width="283" height="35"/>
+                    <rect key="frame" x="370.5" y="430.5" width="283" height="35"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -139,8 +142,9 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2Op-xm-pW7">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2Op-xm-pW7">
                     <rect key="frame" x="493.5" y="1227" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -161,7 +165,6 @@
                 <constraint firstItem="vmd-oX-QgO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Hfp-Q8-KJ0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="rro-wh-kYQ" secondAttribute="trailing" constant="10" id="IFg-Mj-VFu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o6L-N9-IE4" secondAttribute="trailing" constant="10" id="K2K-ws-l7c"/>
-                <constraint firstItem="vmd-oX-QgO" firstAttribute="top" secondItem="J7l-U0-Lv0" secondAttribute="bottom" constant="10" id="KMz-PC-RNR"/>
                 <constraint firstItem="Z1b-g4-w03" firstAttribute="top" secondItem="JFG-ZK-Djs" secondAttribute="bottom" constant="42" id="Khk-oW-a3W"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UGK-nY-fc3" secondAttribute="trailing" constant="10" id="MQD-rz-QlA"/>
                 <constraint firstItem="o0F-6h-yQP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="NFH-Dn-Dm2"/>
@@ -177,6 +180,7 @@
                 <constraint firstItem="JFG-ZK-Djs" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="ZPo-Ez-Ebh"/>
                 <constraint firstItem="rro-wh-kYQ" firstAttribute="leading" secondItem="7Vb-Qk-gdh" secondAttribute="trailing" constant="25" id="b4W-nM-W8C"/>
                 <constraint firstItem="rro-wh-kYQ" firstAttribute="top" secondItem="o0F-6h-yQP" secondAttribute="bottom" constant="45" id="eFT-fD-8Gz"/>
+                <constraint firstItem="o0F-6h-yQP" firstAttribute="top" secondItem="TOJ-hF-Wju" secondAttribute="bottom" constant="75" id="eZT-eC-9xV"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Jys-VG-vCf" secondAttribute="trailing" constant="10" id="h5u-GN-eVh"/>
                 <constraint firstItem="TOJ-hF-Wju" firstAttribute="top" secondItem="vmd-oX-QgO" secondAttribute="bottom" constant="35" id="hEf-Pd-C7D"/>
                 <constraint firstItem="o0F-6h-yQP" firstAttribute="top" secondItem="C3R-4m-3lP" secondAttribute="bottom" constant="5" id="i1P-NO-adc"/>

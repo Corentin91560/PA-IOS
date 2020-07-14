@@ -36,23 +36,34 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView() {
         self.activityIndicator.isHidden = true
         setupNavigationBar()
         setupPicker()
-        publicPost.isOn = false
         validButton.layer.cornerRadius = validButton.bounds.size.height/2
-        self.hideKeyboardWhenTappedAround() 
-        super.viewDidLoad()
+        self.hideKeyboardWhenTappedAround()
     }
     
     func setupPicker() {
         eventNamesList = eventList.map{ $0.name }
-        eventPicker = UIPickerView()
-        eventPicker.dataSource = self
-        eventPicker.delegate = self
-        eventTextField.inputView = eventPicker
-        eventTextField.text = self.eventNamesList?[0]
-        selectedEvent = eventList[0]
+        if(eventList.count > 1) {
+            publicPost.isOn = false
+            eventPicker = UIPickerView()
+            eventPicker.dataSource = self
+            eventPicker.delegate = self
+            eventTextField.inputView = eventPicker
+            eventTextField.text = self.eventNamesList?[0]
+            selectedEvent = eventList[0]
+        } else {
+            print("NO EVENT")
+            self.eventTextField.isEnabled = false
+            self.publicPost.isOn = true
+            self.publicPost.isUserInteractionEnabled = false
+        }
     }
     
     func setupNavigationBar() {
@@ -64,7 +75,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
        
         // Left item config
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "x.circle.fill"),
+            image: UIImage(named: "SF_multiply_circle_fill"),
             style: .plain,
             target: self,
             action: #selector(Back))

@@ -78,14 +78,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-        image: UIImage(systemName: "person.fill"),
+        image: UIImage(named: "SF_person_crop_square_fill"),
         style: .plain,
         target: self,
         action: #selector(Profile))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "plus"),
+            image: UIImage(named: "SF_plus_square_on_square_fill"),
             style: .plain,
             target: self,
             action: #selector(addPost))

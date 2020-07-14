@@ -79,5 +79,7 @@
 	<array>
 		<string>monofonto.ttf</string>
 	</array>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Utiliser pour accéder à la phototèque</string>
 </dict>
 </plist>

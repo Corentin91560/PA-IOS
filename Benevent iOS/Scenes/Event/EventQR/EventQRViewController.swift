@@ -47,7 +47,7 @@ class EventQRViewController: UIViewController {
           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
           // Left item config
           self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-              image: UIImage(systemName: "x.circle.fill"),
+              image: UIImage(named: "SF_multiply_circle_fill"),
               style: .plain,
               target: self,
               action: #selector(Back))

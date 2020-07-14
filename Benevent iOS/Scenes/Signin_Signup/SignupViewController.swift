@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Cloudinary
 
-class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var assoNameTF: UITextField!
     @IBOutlet var assoEmailTF: UITextField!
@@ -19,6 +20,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     @IBOutlet var loginButton: UIButton!
     @IBOutlet var nullErrorTF: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet var assoLogo: UIImageView!
+    @IBOutlet var chooseImage: UIButton!
     
     let assoWS: AssociationWebService = AssociationWebService()
     
@@ -26,6 +29,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     var categoriesNames: [String]? = nil
     var selectedCategory: Category!
     var categoryPicker: UIPickerView!
+    var imagePicker: UIImagePickerController!
     
     class func newInstance(categories: [Category]) -> SignupViewController {
         let SignUpVC: SignupViewController = SignupViewController()
@@ -39,6 +43,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func setupView() {
+        self.assoLogo.image = UIImage(named: "AppIconImage")
+        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.activityIndicator.isHidden = true
         self.navigationItem.hidesBackButton = true
         self.hideKeyboardWhenTappedAround()
@@ -48,6 +54,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func setupPicker() {
+        
+        // Category Picker
         categoryPicker = UIPickerView()
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
@@ -55,27 +63,51 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         assoCatTF.inputView = categoryPicker
         assoCatTF.text = self.categoriesNames?[0]
         selectedCategory = categories[0]
+        
+        // Image Picker
+        self.imagePicker = UIImagePickerController()
+        self.imagePicker.delegate = self
+        
+        
     }
+    
+    @IBAction func chooseImage(_ sender: Any) {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
     
     @IBAction func Confirm(_ sender: Any) {
         self.activityIndicator.startLoading()
         if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPwdTF.text == "") {
             self.nullErrorTF.isHidden = false
         } else {
-            self.assoWS.Signup(name: assoNameTF.text!, email: assoEmailTF.text!, password: assoPwdTF.text!, idCategory: selectedCategory.idcat! ) { (sucess) in
-                DispatchQueue.main.async {
-                    if(sucess) {
-                        self.navigationController?.pushViewController(LoginViewController(), animated: false)
-                    } else {
-                        self.activityIndicator.stopLoading()
-                        self.errorTF.isHidden = false
+            AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
+                    self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!, profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idcat! ) { (sucess) in
+                            DispatchQueue.main.async {
+                                if(sucess) {
+                                    self.navigationController?.pushViewController(LoginViewController(), animated: false)
+                                } else {
+                                    self.activityIndicator.stopLoading()
+                                    self.errorTF.isHidden = false
+                            }
+                        }
                     }
                 }
-            }
+                
+           
         }
     }
     
     @IBAction func Connect(_ sender: Any) { self.navigationController?.popViewController(animated: true) }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            self.assoLogo.image = pickedImage
+        }
+        dismiss(animated: true, completion: nil)
+    }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         1

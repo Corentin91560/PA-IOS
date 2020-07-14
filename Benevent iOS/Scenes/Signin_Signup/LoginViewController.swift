@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
     func setupView() {
         self.activityIndicator.isHidden = true
         self.hideKeyboardWhenTappedAround()
-        self.navigationController?.navigationBar.barTintColor = UIColor.systemGray6
+        self.navigationController?.navigationBar.barTintColor = UIColor(named: "systemGray6")
         self.navigationItem.hidesBackButton = true
         self.loginButton.layer.cornerRadius = loginButton.bounds.size.height/2
         self.errorTF.isHidden = true
@@ -45,7 +45,6 @@ class LoginViewController: UIViewController {
                 self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
                     self.eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
                         self.userWS.getUsers { (users) in
-                            UserDefaults.standard.set(true, forKey: "isLogged")
                             UserDefaults.standard.set(asso[0].email, forKey: "userEmail")
                             UserDefaults.standard.set(asso[0].password, forKey: "userPassword")
                             UserDefaults.standard.synchronize()

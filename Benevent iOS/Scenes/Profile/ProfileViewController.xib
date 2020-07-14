@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,13 +16,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
-                <outlet property="assoAcronyme" destination="q1T-17-Ytf" id="FWn-y3-7QJ"/>
+                <outlet property="assoAcronyme" destination="JM0-Ox-RQR" id="TgW-bQ-bd3"/>
                 <outlet property="assoLogo" destination="Bxn-Lo-QEM" id="js8-5K-qJH"/>
                 <outlet property="assoMail" destination="tF9-Rm-10u" id="PS8-wG-L8K"/>
                 <outlet property="assoName" destination="tPg-ys-tI9" id="TRD-O6-vKf"/>
                 <outlet property="assoPhone" destination="0JZ-jQ-Xkl" id="LBj-cO-8yM"/>
                 <outlet property="assoSupport" destination="HvA-9g-h8X" id="jay-2e-7ZG"/>
                 <outlet property="assoWebsite" destination="cZM-iP-dpf" id="Er2-tZ-SIV"/>
+                <outlet property="changeImage" destination="Kyb-6H-O55" id="Uz7-PL-sSI"/>
                 <outlet property="disconnectButton" destination="3Ie-vP-ZGC" id="Ngf-y1-NvV"/>
                 <outlet property="errorTextField" destination="A1i-Tx-gfR" id="MAU-6w-3Rh"/>
                 <outlet property="validateButton" destination="oAb-5S-r1E" id="pkY-vL-Stp"/>
@@ -33,8 +35,9 @@
             <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="Bxn-Lo-QEM" userLabel="assoLogo">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BasicAssoPicture" id="Bxn-Lo-QEM" userLabel="assoLogo">
                     <rect key="frame" x="264" y="50" width="496" height="370"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tPg-ys-tI9" userLabel="assoName">
                     <rect key="frame" x="111.5" y="645" width="892.5" height="44.5"/>
@@ -81,12 +84,6 @@
                         <action selector="assoSupportClicked:" destination="-1" eventType="touchDown" id="7cZ-6S-Zud"/>
                     </connections>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acronyme" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q1T-17-Ytf" userLabel="assoAcronyme">
-                    <rect key="frame" x="387.5" y="435" width="249" height="64.5"/>
-                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="55"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ie-vP-ZGC" userLabel="Disconnect">
                     <rect key="frame" x="300" y="1149" width="424" height="47"/>
                     <color key="backgroundColor" name="BackgroundRed"/>
@@ -128,6 +125,21 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JM0-Ox-RQR" userLabel="assoSupport">
+                    <rect key="frame" x="187.5" y="1017.5" width="826.5" height="44.5"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="assoAcronymeClicked:" destination="-1" eventType="touchDown" id="g7J-0F-W8r"/>
+                    </connections>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acronyme :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qbo-Nd-Ylh">
+                    <rect key="frame" x="20" y="1019.5" width="152.5" height="35"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAb-5S-r1E" userLabel="Validate">
                     <rect key="frame" x="300" y="1226" width="424" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -141,17 +153,25 @@
                     </connections>
                 </button>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Mise à jour impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1i-Tx-gfR" userLabel="errorTF">
-                    <rect key="frame" x="354" y="509.5" width="316.5" height="125.5"/>
+                    <rect key="frame" x="354" y="585" width="316.5" height="35"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kyb-6H-O55">
+                    <rect key="frame" x="423.5" y="468" width="177" height="42"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="25"/>
+                    <state key="normal" title="Changer le logo"/>
+                    <connections>
+                        <action selector="chooseImage:" destination="-1" eventType="touchDown" id="7CL-3R-FzY"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="141-Pe-y6E" firstAttribute="top" secondItem="Bxn-Lo-QEM" secondAttribute="bottom" constant="225" id="0Re-sm-YLh"/>
-                <constraint firstItem="tPg-ys-tI9" firstAttribute="top" secondItem="A1i-Tx-gfR" secondAttribute="bottom" constant="10" id="0gX-Py-Gae"/>
+                <constraint firstItem="tPg-ys-tI9" firstAttribute="top" secondItem="A1i-Tx-gfR" secondAttribute="bottom" constant="25" id="0jV-tK-tD9"/>
                 <constraint firstItem="UDd-Zp-qVN" firstAttribute="top" secondItem="tPg-ys-tI9" secondAttribute="bottom" constant="35" id="0tO-On-2hq"/>
                 <constraint firstItem="141-Pe-y6E" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="1Qr-Pm-ny0"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="3Ie-vP-ZGC" secondAttribute="trailing" constant="300" id="2aD-ec-Jbm"/>
@@ -163,13 +183,19 @@
                 <constraint firstItem="YBW-3W-fl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="A4v-FX-zEm"/>
                 <constraint firstItem="ekR-Pa-rMq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Bcc-Bt-BKX"/>
                 <constraint firstItem="tF9-Rm-10u" firstAttribute="leading" secondItem="UDd-Zp-qVN" secondAttribute="trailing" constant="15" id="CfX-wv-mom"/>
+                <constraint firstItem="JM0-Ox-RQR" firstAttribute="leading" secondItem="Qbo-Nd-Ylh" secondAttribute="trailing" constant="15" id="Eal-55-qLf"/>
+                <constraint firstItem="Kyb-6H-O55" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Elh-MK-hFu"/>
+                <constraint firstItem="Qbo-Nd-Ylh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="FXS-Oa-jLw"/>
+                <constraint firstItem="Qbo-Nd-Ylh" firstAttribute="top" secondItem="YBW-3W-fl2" secondAttribute="bottom" constant="40" id="G9B-dE-BXa"/>
                 <constraint firstItem="HvA-9g-h8X" firstAttribute="leading" secondItem="YBW-3W-fl2" secondAttribute="trailing" constant="15" id="H0r-kw-U7S"/>
                 <constraint firstItem="YBW-3W-fl2" firstAttribute="top" secondItem="ekR-Pa-rMq" secondAttribute="bottom" constant="40" id="JlC-9v-Nrh"/>
-                <constraint firstItem="q1T-17-Ytf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="LRk-0g-yDZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JM0-Ox-RQR" secondAttribute="trailing" constant="10" id="M8f-du-5Ls"/>
+                <constraint firstItem="JM0-Ox-RQR" firstAttribute="top" secondItem="HvA-9g-h8X" secondAttribute="bottom" constant="30" id="NpL-G7-XR0"/>
                 <constraint firstItem="Bxn-Lo-QEM" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="OBd-ec-X4G"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="HvA-9g-h8X" secondAttribute="trailing" constant="20" id="PSm-cD-qRh"/>
                 <constraint firstItem="ekR-Pa-rMq" firstAttribute="top" secondItem="5p7-Ac-XbV" secondAttribute="bottom" constant="40" id="R6s-nq-atx"/>
                 <constraint firstItem="0JZ-jQ-Xkl" firstAttribute="leading" secondItem="5p7-Ac-XbV" secondAttribute="trailing" constant="15" id="Tnh-sR-IOC"/>
+                <constraint firstItem="A1i-Tx-gfR" firstAttribute="top" secondItem="Kyb-6H-O55" secondAttribute="bottom" constant="75" id="U63-N1-N6V"/>
                 <constraint firstItem="A1i-Tx-gfR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XgK-g9-F6E"/>
                 <constraint firstItem="tPg-ys-tI9" firstAttribute="leading" secondItem="141-Pe-y6E" secondAttribute="trailing" constant="10" id="a4x-xb-62z"/>
                 <constraint firstItem="UDd-Zp-qVN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="aBw-Ob-MQP"/>
@@ -181,18 +207,17 @@
                 <constraint firstItem="tF9-Rm-10u" firstAttribute="top" secondItem="tPg-ys-tI9" secondAttribute="bottom" constant="30" id="jB1-ip-Tbb"/>
                 <constraint firstItem="Bxn-Lo-QEM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="nuS-I6-bM4"/>
                 <constraint firstItem="HvA-9g-h8X" firstAttribute="top" secondItem="cZM-iP-dpf" secondAttribute="bottom" constant="30" id="ogU-WR-jW9"/>
-                <constraint firstItem="A1i-Tx-gfR" firstAttribute="top" secondItem="q1T-17-Ytf" secondAttribute="bottom" constant="10" id="pCf-2Q-dma"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="cZM-iP-dpf" secondAttribute="trailing" constant="20" id="pO7-XT-pN1"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tF9-Rm-10u" secondAttribute="trailing" constant="20" id="qgH-B0-Avt"/>
-                <constraint firstItem="q1T-17-Ytf" firstAttribute="top" secondItem="Bxn-Lo-QEM" secondAttribute="bottom" constant="15" id="vU6-9O-dPA"/>
+                <constraint firstItem="JM0-Ox-RQR" firstAttribute="leading" secondItem="Qbo-Nd-Ylh" secondAttribute="trailing" constant="15" id="vbc-cQ-Qv4"/>
                 <constraint firstItem="cZM-iP-dpf" firstAttribute="leading" secondItem="ekR-Pa-rMq" secondAttribute="trailing" constant="15" id="z4m-hU-3T2"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <point key="canvasLocation" x="139" y="80"/>
+            <point key="canvasLocation" x="138.8671875" y="79.941434846266461"/>
         </view>
     </objects>
     <resources>
-        <image name="AppIconImage" width="496" height="370"/>
+        <image name="BasicAssoPicture" width="37.5" height="37.5"/>
         <namedColor name="BackgroundGrey">
             <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

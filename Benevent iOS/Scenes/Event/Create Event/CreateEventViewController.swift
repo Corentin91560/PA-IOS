@@ -17,6 +17,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     var connectedAsso: Association?
     var generalEvent: Event?
     
+    @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var eventNameTF: UITextField!
     @IBOutlet var eventDescriptionTF: UITextView!
     @IBOutlet var eventStartDateTF: UITextField!
@@ -45,6 +46,12 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
+    }
+    
+    func setupView() {
+        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.activityIndicator.isHidden = true
         self.eventMaxBenevoleTF.delegate = self
         self.hideKeyboardWhenTappedAround()
@@ -72,6 +79,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         endDatePicker?.locale = Locale(identifier: "fr")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
+        startDatePicker?.minimumDate = Date()
         self.eventStartDateTF.inputView = startDatePicker
         self.eventEndDateTF.inputView = endDatePicker
     }
@@ -105,7 +113,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
        
         // Left item config
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "x.circle.fill"),
+            image: UIImage(named: "SF_multiply_circle_fill"),
             style: .plain,
             target: self,
             action: #selector(Back))

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -42,7 +43,6 @@
                         <segment title="Bug"/>
                         <segment title="Evalutation"/>
                     </segments>
-                    <color key="selectedSegmentTintColor" name="CellBackgroundRed"/>
                     <connections>
                         <action selector="viewControlChange:" destination="-1" eventType="valueChanged" id="Egn-Qz-sRc"/>
                     </connections>
@@ -129,13 +129,6 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P4x-F4-ezf" userLabel="improvementContent">
-                            <rect key="frame" x="10" y="295" width="1004" height="578"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8PW-YO-neN" userLabel="sendImprovement">
                             <rect key="frame" x="300" y="1073" width="424" height="47"/>
                             <color key="backgroundColor" name="SunGlow"/>
@@ -147,7 +140,7 @@
                                 <action selector="sendEvaluation:" destination="-1" eventType="touchDown" id="XPG-jr-3Ai"/>
                             </connections>
                         </button>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="5" minimumValueImage="star" catalog="system" maximumValueImage="star.fill" translatesAutoresizingMaskIntoConstraints="NO" id="Sos-mP-4EE" userLabel="noteSlider">
+                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="5" minimumValueImage="SF_star_slash_fill" maximumValueImage="SF_star_circle_fill" translatesAutoresizingMaskIntoConstraints="NO" id="Sos-mP-4EE" userLabel="noteSlider">
                             <rect key="frame" x="122.5" y="105" width="403.5" height="31"/>
                             <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="minimumTrackTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -161,6 +154,13 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P4x-F4-ezf" userLabel="improvementContent">
+                            <rect key="frame" x="10" y="295" width="1004" height="578"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -192,13 +192,13 @@
                     <rect key="frame" x="0.0" y="1296" width="1024" height="70"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
-                        <tabBarItem title="Actualités" image="house.fill" catalog="system" id="KAv-R1-GjE" userLabel="Actualites">
+                        <tabBarItem title="Actualités" image="SF_house" id="KAv-R1-GjE" userLabel="Actualites">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
-                        <tabBarItem title="Evénements" image="list.bullet" catalog="system" id="Gej-Pb-oJM" userLabel="Evénements">
+                        <tabBarItem title="Evénements" image="SF_list_bullet_indent" id="Gej-Pb-oJM" userLabel="Evénements">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
-                        <tabBarItem title="Feedback" image="phone.fill.arrow.up.right" catalog="system" id="VQh-Sc-2Ky" userLabel="Feedback">
+                        <tabBarItem title="Feedback" image="SF_phone_arrow_right_fill" id="VQh-Sc-2Ky" userLabel="Feedback">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
                     </items>
@@ -212,8 +212,9 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="2VF-Gn-5BQ">
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2VF-Gn-5BQ">
                     <rect key="frame" x="493.5" y="1109" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -243,11 +244,11 @@
         </view>
     </objects>
     <resources>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="phone.fill.arrow.up.right" catalog="system" width="128" height="115"/>
-        <image name="star" catalog="system" width="128" height="116"/>
-        <image name="star.fill" catalog="system" width="128" height="116"/>
+        <image name="SF_house" width="25" height="25"/>
+        <image name="SF_list_bullet_indent" width="25" height="25"/>
+        <image name="SF_phone_arrow_right_fill" width="25" height="25"/>
+        <image name="SF_star_circle_fill" width="25" height="25"/>
+        <image name="SF_star_slash_fill" width="25" height="25"/>
         <namedColor name="CellBackgroundRed">
             <color red="1" green="0.70200002193450928" blue="0.70200002193450928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

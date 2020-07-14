@@ -10,6 +10,7 @@ import UIKit
  
 class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
 
+    @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var personsButton: UIButton!
     @IBOutlet var QRButton: UIButton!
     @IBOutlet var validButton: UIButton!
@@ -51,6 +52,9 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     func setupView() {
+        
+        self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.activityIndicator.isHidden = true
         self.hideKeyboardWhenTappedAround()
         self.eventDescriptionTF.delegate = self
@@ -109,14 +113,14 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
         // Left item config
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "x.circle.fill"),
+            image: UIImage(named: "SF_multiply_circle_fill"),
             style: .plain,
             target: self,
             action: #selector(Back))
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
         // Right Item Config
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(
-                  image: UIImage(systemName: "pencil"),
+                  image: UIImage(named: "SF_pencil_tip_crop_circle_badge_plus"),
                   style: .plain,
                   target: self,
                   action: #selector(Edit))
@@ -219,46 +223,43 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        self.eventNameTF.text = ""
+        self.eventDescriptionTF.text = ""
         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTF.isHidden = true
         self.validButton.isEnabled = true
     }
     
     @IBAction func eventCategoryClicked(_ sender: Any) {
-        self.eventNameTF.text = ""
         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTF.isHidden = true
         self.validButton.isEnabled = true
     }
     
     @IBAction func eventStartDateClicked(_ sender: Any) {
-        self.eventNameTF.text = ""
         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTF.isHidden = true
         self.validButton.isEnabled = true
     }
     
     @IBAction func eventEndDateClicked(_ sender: Any) {
-        self.eventNameTF.text = ""
         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         self.errorTF.isHidden = true
         self.validButton.isEnabled = true
     }
     
-    @IBAction func eventLocationClicked(_ sender: Any) {
-        self.eventNameTF.text = ""
-        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
-        self.errorTF.isHidden = true
-        self.validButton.isEnabled = true
-    }
-    
-    @IBAction func eventMaxBenevoleClicked(_ sender: Any) {
-        self.eventNameTF.text = ""
-        self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
-        self.errorTF.isHidden = true
-        self.validButton.isEnabled = true
-    }
+       @IBAction func eventLocationClicked(_ sender: Any) {
+         self.eventLocationTF.text = ""
+         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+         self.errorTF.isHidden = true
+         self.validButton.isEnabled = true
+     }
+     
+     @IBAction func eventMaxBenevoleClicked(_ sender: Any) {
+         self.eventMaxBenevoleTF.text = ""
+         self.validButton.backgroundColor = UIColor(named: "BackgroundGreen")
+         self.errorTF.isHidden = true
+         self.validButton.isEnabled = true
+     }
     
     func dateConverter(dateMySQL: String) -> Date? {
         let dateFormatter = DateFormatter()

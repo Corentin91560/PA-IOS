@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         let w = UIWindow(frame: UIScreen.main.bounds)
         
-        if(UserDefaults.standard.bool(forKey: "isLogged")) {
+        if(UserDefaults.standard.string(forKey: "userEmail") != nil) {
             let assoWS: AssociationWebService = AssociationWebService()
             let postWS: PostWebService = PostWebService()
             let eventWS: EventWebService = EventWebService()

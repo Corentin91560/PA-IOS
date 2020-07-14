@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,6 +18,7 @@
             <connections>
                 <outlet property="QRButton" destination="efK-CP-SLx" id="PTn-6K-Seo"/>
                 <outlet property="activityIndicator" destination="SZx-5p-WiN" id="tez-eT-men"/>
+                <outlet property="assoLogo" destination="rme-Oo-b3x" id="xNb-8l-Sif"/>
                 <outlet property="errorTF" destination="M1Y-Q4-4dI" id="RdO-bc-74m"/>
                 <outlet property="eventCategoryTF" destination="q3q-eK-mXC" id="Xxf-ee-C01"/>
                 <outlet property="eventDescriptionTF" destination="SCS-Zx-rsH" id="hx2-eJ-dPR"/>
@@ -38,8 +40,8 @@
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="rme-Oo-b3x" userLabel="assoLogo">
                     <rect key="frame" x="264" y="50" width="496" height="370"/>
                 </imageView>
-                <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-60-l3i" userLabel="eventTF">
-                    <rect key="frame" x="330" y="435" width="684" height="44.5"/>
+                <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9XD-60-l3i" userLabel="eventTF">
+                    <rect key="frame" x="330" y="434.5" width="684" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
@@ -143,8 +145,8 @@
                         <action selector="Valid:" destination="-1" eventType="touchDown" id="MgV-OC-RDB"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-Pc-4vh" userLabel="Validate">
-                    <rect key="frame" x="70" y="185" width="174" height="105"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dcb-Pc-4vh" userLabel="participantsList">
+                    <rect key="frame" x="70" y="180" width="140" height="47"/>
                     <color key="backgroundColor" name="CellBackgroundBlue"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="Bénévoles">
@@ -163,8 +165,19 @@
                         <action selector="eventMaxBenevoleClicked:" destination="-1" eventType="touchDown" id="KAu-bV-Hx5"/>
                     </connections>
                 </textField>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efK-CP-SLx" userLabel="Validate">
-                    <rect key="frame" x="780" y="185" width="174" height="100"/>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-5p-WiN">
+                    <rect key="frame" x="493.5" y="1212" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Mise à jour impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1Y-Q4-4dI" userLabel="errorTF">
+                    <rect key="frame" x="354" y="1167" width="316.5" height="35"/>
+                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
+                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="efK-CP-SLx" userLabel="QRCode">
+                    <rect key="frame" x="829" y="180" width="125" height="47"/>
                     <color key="backgroundColor" name="CellBackgroundRed"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="QR Code">
@@ -174,16 +187,6 @@
                         <action selector="showQR:" destination="-1" eventType="touchDown" id="Cnm-45-8md"/>
                     </connections>
                 </button>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="SZx-5p-WiN">
-                    <rect key="frame" x="493.5" y="1212" width="37" height="37"/>
-                </activityIndicatorView>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Mise à jour impossible !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M1Y-Q4-4dI" userLabel="errorTF">
-                    <rect key="frame" x="354" y="1167" width="316.5" height="35"/>
-                    <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
-                    <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -195,8 +198,7 @@
                 <constraint firstItem="M1Y-Q4-4dI" firstAttribute="top" secondItem="SIN-Jo-Zxv" secondAttribute="bottom" constant="26" id="A9c-JP-XvZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="q3q-eK-mXC" secondAttribute="trailing" constant="10" id="BO7-LT-4AF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="sDv-y3-W0Z" secondAttribute="trailing" constant="300" id="DVM-4X-lBu"/>
-                <constraint firstItem="efK-CP-SLx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="185" id="Dip-VG-fXs"/>
-                <constraint firstItem="efK-CP-SLx" firstAttribute="leading" secondItem="rme-Oo-b3x" secondAttribute="trailing" constant="20" id="F0k-Xv-HlN"/>
+                <constraint firstItem="efK-CP-SLx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="180" id="Dip-VG-fXs"/>
                 <constraint firstItem="Dcb-Pc-4vh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="70" id="F5a-Xh-EAp"/>
                 <constraint firstItem="yZP-hC-Tdn" firstAttribute="top" secondItem="BBN-zJ-kx9" secondAttribute="bottom" constant="42" id="Ffy-WL-hiT"/>
                 <constraint firstItem="sDv-y3-W0Z" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FoZ-f3-P2A"/>
@@ -206,9 +208,9 @@
                 <constraint firstItem="rme-Oo-b3x" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="KDC-it-aaG"/>
                 <constraint firstItem="SIN-Jo-Zxv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="Kux-G8-yjt"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="efK-CP-SLx" secondAttribute="trailing" constant="70" id="LaF-iU-EUe"/>
-                <constraint firstItem="EOv-Kk-mvt" firstAttribute="top" secondItem="Dcb-Pc-4vh" secondAttribute="bottom" constant="150" id="LfS-Rg-oNM"/>
                 <constraint firstItem="q3q-eK-mXC" firstAttribute="top" secondItem="SCS-Zx-rsH" secondAttribute="bottom" constant="45" id="N1n-yY-D2X"/>
                 <constraint firstItem="SfH-qa-pMM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="NFp-Rw-L3U"/>
+                <constraint firstItem="SCS-Zx-rsH" firstAttribute="top" secondItem="9XD-60-l3i" secondAttribute="bottom" constant="76" id="NKi-Id-cgp"/>
                 <constraint firstItem="EOv-Kk-mvt" firstAttribute="top" secondItem="rme-Oo-b3x" secondAttribute="bottom" constant="20" id="NRa-Cd-psF"/>
                 <constraint firstItem="p0q-gB-XDE" firstAttribute="top" secondItem="EOv-Kk-mvt" secondAttribute="bottom" constant="40" id="Nig-XH-lHZ"/>
                 <constraint firstItem="SCS-Zx-rsH" firstAttribute="top" secondItem="p0q-gB-XDE" secondAttribute="bottom" constant="5" id="Og8-cM-ESA"/>
@@ -221,7 +223,7 @@
                 <constraint firstItem="SZx-5p-WiN" firstAttribute="top" secondItem="M1Y-Q4-4dI" secondAttribute="bottom" constant="10" id="XIP-g3-NLX"/>
                 <constraint firstItem="yZP-hC-Tdn" firstAttribute="top" secondItem="q3q-eK-mXC" secondAttribute="bottom" constant="35" id="YWP-wU-HdS"/>
                 <constraint firstItem="fxY-tk-T3Z" firstAttribute="top" secondItem="xiC-ga-Bw3" secondAttribute="bottom" constant="42" id="Yxd-PU-KgV"/>
-                <constraint firstItem="Dcb-Pc-4vh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="185" id="ZIa-IN-x2B"/>
+                <constraint firstItem="Dcb-Pc-4vh" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="180" id="ZIa-IN-x2B"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Ljb-iz-43M" secondAttribute="trailing" constant="10" id="c6g-0R-TC5"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yZP-hC-Tdn" secondAttribute="trailing" constant="10" id="eXh-0e-cNQ"/>
                 <constraint firstItem="sDv-y3-W0Z" firstAttribute="top" secondItem="SZx-5p-WiN" secondAttribute="bottom" constant="15" id="gcS-TB-Kmt"/>
@@ -231,11 +233,8 @@
                 <constraint firstItem="yZP-hC-Tdn" firstAttribute="leading" secondItem="SfH-qa-pMM" secondAttribute="trailing" constant="25" id="mE1-0Z-9Ar"/>
                 <constraint firstItem="sDv-y3-W0Z" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="300" id="mYK-81-se5"/>
                 <constraint firstItem="M1Y-Q4-4dI" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="q1D-6q-gJP"/>
-                <constraint firstItem="rme-Oo-b3x" firstAttribute="leading" secondItem="Dcb-Pc-4vh" secondAttribute="trailing" constant="20" id="q5c-RL-gYF"/>
                 <constraint firstItem="ENp-u3-Hbt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="qLN-iY-8PV"/>
                 <constraint firstItem="BBN-zJ-kx9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="qLw-7Z-fAZ"/>
-                <constraint firstItem="9XD-60-l3i" firstAttribute="top" secondItem="efK-CP-SLx" secondAttribute="bottom" constant="150" id="rbW-A7-njC"/>
-                <constraint firstItem="9XD-60-l3i" firstAttribute="top" secondItem="rme-Oo-b3x" secondAttribute="bottom" constant="15" id="ttH-c1-NOc"/>
                 <constraint firstItem="EOv-Kk-mvt" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="weH-a9-bGF"/>
                 <constraint firstItem="fxY-tk-T3Z" firstAttribute="leading" secondItem="ENp-u3-Hbt" secondAttribute="trailing" constant="25" id="xkT-wM-AJL"/>
                 <constraint firstItem="SCS-Zx-rsH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="yTQ-Od-S6k"/>

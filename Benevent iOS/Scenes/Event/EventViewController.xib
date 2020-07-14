@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -28,13 +29,13 @@
                     <rect key="frame" x="0.0" y="1296" width="1024" height="70"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <items>
-                        <tabBarItem title="Actualités" image="house.fill" catalog="system" id="Dn2-Sp-WC9" userLabel="Actualites">
+                        <tabBarItem title="Actualités" image="SF_house" id="Dn2-Sp-WC9" userLabel="Actualites">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
-                        <tabBarItem title="Evénements" image="list.bullet" catalog="system" id="e7T-NG-WO7" userLabel="Evénements">
+                        <tabBarItem title="Evénements" image="SF_list_bullet_indent" id="e7T-NG-WO7" userLabel="Evénements">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
-                        <tabBarItem title="Feedback" image="phone.fill.arrow.up.right" catalog="system" id="Jm5-Qb-0MY" userLabel="Feedback">
+                        <tabBarItem title="Feedback" image="SF_phone_arrow_right_fill" id="Jm5-Qb-0MY" userLabel="Feedback">
                             <color key="badgeColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tabBarItem>
                     </items>
@@ -59,9 +60,9 @@
         </view>
     </objects>
     <resources>
-        <image name="house.fill" catalog="system" width="128" height="106"/>
-        <image name="list.bullet" catalog="system" width="128" height="88"/>
-        <image name="phone.fill.arrow.up.right" catalog="system" width="128" height="115"/>
+        <image name="SF_house" width="25" height="25"/>
+        <image name="SF_list_bullet_indent" width="25" height="25"/>
+        <image name="SF_phone_arrow_right_fill" width="25" height="25"/>
         <namedColor name="NavigationBackGroundColor">
             <color red="0.97600001096725464" green="0.97600001096725464" blue="0.97600001096725464" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

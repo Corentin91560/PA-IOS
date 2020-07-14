@@ -35,6 +35,8 @@ class AssociationFactory {
             "email": asso.email,
             "phone": asso.phone ?? "",
             "website": asso.website ?? "",
+            "acronym": asso.acronym ?? "",
+            "logo": asso.logo ?? "",
             "support": asso.support ?? "",
         ]
       }

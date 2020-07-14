@@ -48,6 +48,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     
     func setupView() {
         self.hideKeyboardWhenTappedAround()
+        viewDidLayoutSubviews()
         self.activityIndicator.isHidden = true
         self.resultLabel.isHidden = true
         self.improvementView.isHidden = true
@@ -56,6 +57,12 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
         setupNavigationBar()
         setupTabBar()
     }
+    
+    override func viewDidLayoutSubviews() {
+          super.viewDidLayoutSubviews()
+          self.myTabBar.frame.size.height = 90
+          self.myTabBar.frame.origin.y = view.frame.height - 90
+      }
     
     func setupTabBar() {
         self.myTabBar.selectedItem = myTabBar.items?[2]
@@ -69,7 +76,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
            
            self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-           image: UIImage(systemName: "person.fill"),
+           image: UIImage(named: "SF_person_crop_square_fill"),
            style: .plain,
            target: self,
            action: #selector(Profile))
@@ -103,13 +110,13 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
         if(viewControl.selectedSegmentIndex == 0) {
             self.improvementView.isHidden = true
             self.bugView.isHidden = false
-            self.viewControl.selectedSegmentTintColor = UIColor(named: "CellBackgroundRed")
         } else if (viewControl.selectedSegmentIndex == 1) {
             self.bugView.isHidden = true
             self.improvementView.isHidden = false
-            self.viewControl.selectedSegmentTintColor = UIColor(named: "SunGlow")
+        
         }
     }
+    
     @IBAction func noteChange(_ sender: Any) {
         self.noteLabel.text = "\(Int(self.noteSlider.value))/5"
     }
