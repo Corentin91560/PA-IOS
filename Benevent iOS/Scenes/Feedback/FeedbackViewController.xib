@@ -51,32 +51,32 @@
                     <rect key="frame" x="0.0" y="81" width="1024" height="1170"/>
                     <subviews>
                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tb9-nF-czf" userLabel="bugTitle">
-                            <rect key="frame" x="111" y="90.5" width="903" height="44.5"/>
+                            <rect key="frame" x="140" y="90.5" width="874" height="45.5"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Titre :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JJN-Ib-U8Y">
-                            <rect key="frame" x="10" y="100" width="76" height="35"/>
+                            <rect key="frame" x="10" y="100" width="105" height="36"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mch-44-aaU">
-                            <rect key="frame" x="10" y="235" width="169.5" height="35"/>
+                            <rect key="frame" x="10" y="236" width="195" height="36"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zy5-YC-lVh" userLabel="bugContent">
-                            <rect key="frame" x="10" y="295" width="1004" height="578"/>
+                            <rect key="frame" x="10" y="297" width="1004" height="575"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uz5-QD-YzS" userLabel="sendBug">
-                            <rect key="frame" x="300" y="1073" width="424" height="47"/>
+                            <rect key="frame" x="300" y="1072" width="424" height="48"/>
                             <color key="backgroundColor" name="CellBackgroundRed"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <state key="normal" title="Envoyer">
@@ -118,19 +118,19 @@
                     <rect key="frame" x="0.0" y="81" width="1024" height="1170"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Note : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcX-sx-VBG">
-                            <rect key="frame" x="10" y="100" width="89.5" height="35"/>
+                            <rect key="frame" x="10" y="100" width="105" height="36"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Commentaire :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nfv-ou-uW8">
-                            <rect key="frame" x="10" y="235" width="197.5" height="35"/>
+                            <rect key="frame" x="10" y="236" width="195" height="36"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8PW-YO-neN" userLabel="sendImprovement">
-                            <rect key="frame" x="300" y="1073" width="424" height="47"/>
+                            <rect key="frame" x="300" y="1072" width="424" height="48"/>
                             <color key="backgroundColor" name="SunGlow"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <state key="normal" title="Envoyer">
@@ -141,7 +141,7 @@
                             </connections>
                         </button>
                         <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="5" minimumValueImage="SF_star_slash_fill" maximumValueImage="SF_star_circle_fill" translatesAutoresizingMaskIntoConstraints="NO" id="Sos-mP-4EE" userLabel="noteSlider">
-                            <rect key="frame" x="122.5" y="105" width="403.5" height="31"/>
+                            <rect key="frame" x="138" y="105" width="388" height="31"/>
                             <color key="tintColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <color key="minimumTrackTintColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -149,13 +149,13 @@
                             </connections>
                         </slider>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5/5" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rg6-Oq-yOz" userLabel="note">
-                            <rect key="frame" x="310" y="145" width="45" height="35"/>
+                            <rect key="frame" x="310" y="145" width="45" height="36"/>
                             <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P4x-F4-ezf" userLabel="improvementContent">
-                            <rect key="frame" x="10" y="295" width="1004" height="578"/>
+                            <rect key="frame" x="10" y="297" width="1004" height="575"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -207,13 +207,13 @@
                     <color key="selectedImageTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tabBar>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Result" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZUf-fY-8Ai">
-                    <rect key="frame" x="470" y="1246" width="84.5" height="35"/>
+                    <rect key="frame" x="467" y="1200" width="90" height="36"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="2VF-Gn-5BQ">
-                    <rect key="frame" x="493.5" y="1109" width="37" height="37"/>
+                    <rect key="frame" x="493.5" y="1063" width="37" height="37"/>
                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
             </subviews>
@@ -231,7 +231,7 @@
                 <constraint firstItem="30F-q2-RI0" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="25" id="ddc-Cp-hy0"/>
                 <constraint firstAttribute="trailing" secondItem="unT-Xn-wAd" secondAttribute="trailing" id="fcc-I6-BfW"/>
                 <constraint firstItem="YyY-6x-3hR" firstAttribute="top" secondItem="30F-q2-RI0" secondAttribute="bottom" constant="25" id="kmN-mI-HEr"/>
-                <constraint firstItem="unT-Xn-wAd" firstAttribute="top" secondItem="ZUf-fY-8Ai" secondAttribute="bottom" constant="15" id="m7d-PE-8Kd"/>
+                <constraint firstItem="unT-Xn-wAd" firstAttribute="top" secondItem="ZUf-fY-8Ai" secondAttribute="bottom" constant="60" id="m7d-PE-8Kd"/>
                 <constraint firstItem="xaG-Us-aIJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="p8x-JD-XIy"/>
                 <constraint firstItem="YyY-6x-3hR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="pCE-yP-1FU"/>
                 <constraint firstItem="unT-Xn-wAd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="vXS-5d-lae"/>

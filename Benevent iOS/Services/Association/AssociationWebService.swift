@@ -109,7 +109,7 @@ class AssociationWebService {
       }
     
     func updateAsso(asso: Association, completion: @escaping (Bool) -> Void) -> Void {
-        let url = AppConfig.apiURL + "/association/\(asso.idas!)"
+        let url = AppConfig.apiURL + "/association/\(asso.idAssociation!)"
         guard let updateAssoURL = URL(string: url) else {
             return
         }

@@ -17,7 +17,7 @@ class UserFactory {
         }
         
         let user = User(name: n, firstName: fn)
-        user.idu = dictionary["idu"] as? Int
+        user.idUser = dictionary["iduser"] as? Int
         user.profilePicture = dictionary["profilpicture"] as? String ?? AppConfig.basicUserPictureURL
         
         return user

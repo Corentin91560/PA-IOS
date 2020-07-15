@@ -39,7 +39,7 @@ class UserWebService {
     }
     
     func getUsersByIdAsso(idAsso: Int, completion: @escaping ([User]) -> Void) -> Void {
-           let getUserURL = AppConfig.apiURL + "/user/byasso/\(idAsso)"
+           let getUserURL = AppConfig.apiURL + "/users/association/\(idAsso)"
            guard let userURL = URL(string: getUserURL) else {
                return
            }

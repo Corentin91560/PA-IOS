@@ -41,16 +41,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func Login (_ sender: Any) {
         self.activityIndicator.startLoading()
-        print("MD5 PWD : \(self.passwordTF.text!.md5())")
-        print("MD5 PWD : \(self.passwordTF.text!.md5())")
+        print("MD5 PWD : \n\(self.passwordTF.text!.md5())")
         self.assoWS.Login(mail: self.emailTF.text!, password: self.passwordTF.text!.md5()) { (asso) in
             if(asso.count > 0) {
-                self.postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
-                        self.userWS.getUsersByIdAsso(idAsso: asso[0].idas!) { (users) in
+                self.postWS.getPosts(idAsso: asso[0].idAssociation!) { (posts) in
+                    self.eventWS.getEventsByAssociation(idAsso: asso[0].idAssociation!) { (events) in
+                        self.userWS.getUsersByIdAsso(idAsso: asso[0].idAssociation!) { (users) in
                             let keychain = KeychainSwift()
                             keychain.set(asso[0].email, forKey: "userEmail")
-                            print("MD5 PWD : \(asso[0].password.md5())")
                             keychain.set(asso[0].password, forKey: "userPassword")
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0],events: events, users: users), animated: true)
                         }

@@ -22,27 +22,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let keychain = KeychainSwift()
         
         if(keychain.get("userEmail") != nil) {
-            //keychain.set("ape", forKey: "userPassword")
+            keychain.set("180031a348c14d401143be02fe7708f5", forKey: "userPassword")
             let assoWS: AssociationWebService = AssociationWebService()
             let postWS: PostWebService = PostWebService()
             let eventWS: EventWebService = EventWebService()
             let userWS: UserWebService = UserWebService()
-            
+            var checkCallback = false
             assoWS.Login(mail: keychain.get("userEmail")!, password: keychain.get("userPassword")!) { (asso) in
-                print(keychain.get("userEmail")!)
-                print(keychain.get("userPassword")!)
-                if(asso.count > 0) {
-                    postWS.getPosts(idAsso: asso[0].idas!) { (posts) in
-                        eventWS.getEventsByAssociation(idAsso: asso[0].idas!) { (events) in
-                            userWS.getUsersByIdAsso(idAsso: asso[0].idas!) { (users) in
-                                w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users))
-                                w.makeKeyAndVisible()
-                                self.window = w
+                checkCallback = true
+                if(asso.count > 0 || checkCallback) {
+                    postWS.getPosts(idAsso: asso[0].idAssociation!) { (posts) in
+                        if(posts.isEmpty == false) {
+                            eventWS.getEventsByAssociation(idAsso: asso[0].idAssociation!) { (events) in
+                                userWS.getUsersByIdAsso(idAsso: asso[0].idAssociation!) { (users) in
+                                    w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users))
+                                    w.makeKeyAndVisible()
+                                    self.window = w
+                                }
                             }
                         }
                     }
                 } else {
                     w.rootViewController = UINavigationController(rootViewController: LoginViewController())
+                    w.makeKeyAndVisible()
+                    self.window = w
                 }
             }
             return true

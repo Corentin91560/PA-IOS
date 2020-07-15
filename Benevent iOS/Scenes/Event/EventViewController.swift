@@ -92,8 +92,8 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
        if (tabBar.selectedItem == tabBar.items?[0]) {
-            self.postsWS.getPosts(idAsso: self.connectedAsso!.idas!) { (posts) in
-                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
+            self.postsWS.getPosts(idAsso: self.connectedAsso!.idAssociation!) { (posts) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
                     self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: self.events, users: users), animated: false)
                 }
             }

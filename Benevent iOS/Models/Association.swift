@@ -11,7 +11,7 @@ import UIKit
 
 
 class Association: CustomStringConvertible {
-    var idas: Int?
+    var idAssociation: Int?
     var name: String
     var logo: String?
     var acronym: String?
@@ -20,7 +20,7 @@ class Association: CustomStringConvertible {
     var website: String?
     var support: String?
     var password: String
-    var idcat: Int?
+    var idCategory: Int?
  
     init(name: String, email: String, password: String) {
         self.name = name
@@ -30,6 +30,6 @@ class Association: CustomStringConvertible {
     
     
     var description: String {
-        return "{\(self.idas ?? 0) \(self.name) \(self.logo ?? AppConfig.basicAssociationLogoURL) \(self.acronym ?? "") \(self.email)  \(self.phone ?? "") \(self.website ?? "") \(self.support ?? "") \(self.password) \(self.idcat ?? 0)}"
+        return "{\(self.idAssociation ?? 0) \(self.name) \(self.logo ?? AppConfig.basicAssociationLogoURL) \(self.acronym ?? "") \(self.email)  \(self.phone ?? "") \(self.website ?? "") \(self.support ?? "") \(self.password) \(self.idCategory ?? 0)}"
     }
 }

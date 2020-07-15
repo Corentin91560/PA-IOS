@@ -12,7 +12,7 @@ import Foundation
 
 class Category: CustomStringConvertible {
 
-    var idcat: Int?
+    var idCategory: Int?
     var name: String
     
     init(name: String) {
@@ -20,6 +20,6 @@ class Category: CustomStringConvertible {
     }
 
     var description: String {
-        return "{Catégorie \(self.idcat!) : \(self.name)}"
+        return "{Catégorie \(self.idCategory!) : \(self.name)}"
     }
 }

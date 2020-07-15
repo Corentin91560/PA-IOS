@@ -14,8 +14,8 @@ class Feedback: CustomStringConvertible {
     var content: String
     var date: Date
     var note: Int?
-    var idas: Int?
-    var idty: Int?
+    var idAssociation: Int?
+    var idType: Int?
  
     init(content: String, date: Date) {
         self.content = content
@@ -24,6 +24,6 @@ class Feedback: CustomStringConvertible {
     
     
     var description: String {
-        return "{\(self.content) \(self.date) \(self.note ?? 0)  \(self.idas ?? 0) \(self.idty ?? 0)}"
+        return "{\(self.content) \(self.date) \(self.note ?? 0)  \(self.idAssociation ?? 0) \(self.idType ?? 0)}"
     }
 }

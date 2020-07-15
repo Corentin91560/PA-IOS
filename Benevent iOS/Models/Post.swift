@@ -12,12 +12,12 @@ import UIKit
 
 class Post: CustomStringConvertible {
 
-    var idpo: Int?
+    var idPost: Int?
     var message: String
     var date: Date
-    var idu: Int?
-    var idas: Int?
-    var idev: Int?
+    var idUser: Int?
+    var idAssociation: Int?
+    var idEvent: Int?
  
     init(message: String, date: Date) {
         self.message = message
@@ -26,6 +26,6 @@ class Post: CustomStringConvertible {
     
     
     var description: String {
-        return "{\(self.idpo ?? 0) \(self.message) \(self.date) \(self.idu ?? 0)  \(self.idas ?? 0) \(self.idev ?? 0)}"
+        return "{\(self.idPost ?? 0) \(self.message) \(self.date) \(self.idUser ?? 0)  \(self.idAssociation ?? 0) \(self.idEvent ?? 0)}"
     }
 }

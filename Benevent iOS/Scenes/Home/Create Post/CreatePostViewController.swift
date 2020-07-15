@@ -103,13 +103,13 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             self.selectedEvent = generalEvent
         }
         let postToCreate = Post(message: postMessageText.text, date: Date())
-        postToCreate.idev = selectedEvent.idev
-        postToCreate.idas = connectedAsso?.idas
+        postToCreate.idEvent = selectedEvent.idEvent
+        postToCreate.idAssociation = connectedAsso?.idAssociation
         self.postWS.newPost(post: postToCreate) { (sucess) in
             if (sucess || checkCallback) {
-                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
+                self.postWS.getPosts(idAsso: (self.connectedAsso?.idAssociation)!) { (posts) in
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idAssociation!) { (events) in
+                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
                             checkCallback = true
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
                         }

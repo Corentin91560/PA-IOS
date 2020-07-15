@@ -20,8 +20,8 @@ class AssociationFactory {
         let asso =  Association(name: name, email: email, password: password)
         
         asso.logo = dictionary["logo"] as? String ?? AppConfig.basicAssociationLogoURL
-        asso.idas = dictionary["idas"] as? Int
-        asso.idcat = dictionary["idcat"] as? Int
+        asso.idAssociation = dictionary["idassociation"] as? Int
+        asso.idCategory = dictionary["idcategory"] as? Int
         asso.acronym = dictionary["acronym"] as? String
         asso.phone = dictionary["phone"] as? String
         asso.website = dictionary["website"] as? String

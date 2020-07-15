@@ -19,9 +19,9 @@ class EventFactory {
                 return nil
         }
         let event = Event(name: n, apercu: a, startDate: dateConverter(dateMySQL: dd)!, endDate: dateConverter(dateMySQL: de)!, location: l, maxBenevole: mB)
-        event.idas = dictionary["idas"] as? Int
-        event.idcat = dictionary["idcat"] as? Int
-        event.idev = dictionary["idev"] as? Int
+        event.idAssociation = dictionary["idassociation"] as? Int
+        event.idCategory = dictionary["idcategory"] as? Int
+        event.idEvent = dictionary["idevent"] as? Int
         event.fakeEvent = dictionary["fakeevent"] as? Bool
         return event
         }
@@ -34,8 +34,8 @@ class EventFactory {
             "dateFin": mySQLFromDate(date: event.endDate),
             "location": event.location,
             "maxBenevole": event.maxBenevole,
-            "idas": event.idas!,
-            "idcat": event.idcat!
+            "idassociation": event.idAssociation!,
+            "idcategory": event.idCategory!
            ]
        }
     

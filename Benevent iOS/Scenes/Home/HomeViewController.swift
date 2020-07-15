@@ -95,7 +95,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func addPost() {
-        self.eventWS.getEventsByAssociation(idAsso: connectedAsso!.idas!) { (events) in
+        self.eventWS.getEventsByAssociation(idAsso: connectedAsso!.idAssociation!) { (events) in
             self.navigationController?.pushViewController(CreatePostViewController.newInstance(events: events, connectedAsso: self.connectedAsso), animated: true)
         }
     }
@@ -106,7 +106,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refreshData() {
-        self.postWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
+        self.postWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in
             self.posts = posts
         }
         DispatchQueue.main.async {
@@ -117,7 +117,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if (tabBar.selectedItem == tabBar.items?[1]) {
-            self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idas!)!) { (eventsList) in
+            self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idAssociation!)!) { (eventsList) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
                 }
             } else if (tabBar.selectedItem == tabBar.items?[2]) {
@@ -137,7 +137,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if(editingStyle == .delete) {
             var checkCallback = false
             let post = self.posts[indexPath.row]
-            self.postWS.deletePost(idPost: post.idpo!) { (sucess) in
+            self.postWS.deletePost(idPost: post.idPost!) { (sucess) in
                 if(sucess || checkCallback) {
                     checkCallback = true
                     self.posts.remove(at: indexPath.row)
@@ -159,16 +159,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let post = self.posts[indexPath.row]
         var event: Event!
         for e in self.events {
-            if (e.idev! == post.idev!) {
+            if (e.idEvent! == post.idEvent!) {
                 event = e
             }
         }
-        if(post.idas != nil) {
+        if(post.idAssociation != nil) {
             cell.assoName.text = connectedAsso?.name
             cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
             cell.assoProfilePicture.load(url: URL(string: (connectedAsso?.logo)!)!)
         } else {
-            let user = self.users.filter{ $0.idu! == post.idu!}[0]
+            let user = self.users.filter{ $0.idUser! == post.idUser!}[0]
             cell.assoName.text = "\(user.firstName) \(user.name)"
             cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)
             cell.assoProfilePicture.load(url: URL(string: user.profilePicture!)!)

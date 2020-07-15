@@ -36,7 +36,7 @@ class EventQRViewController: UIViewController {
         super.viewDidLoad()
         backgroundView.layer.cornerRadius = 20
         setupNavigationBar()
-        updateQRCodeImageWithText(text: String(event.idev!))
+        updateQRCodeImageWithText(text: String(event.idEvent!))
     }
     
     func setupNavigationBar() {

@@ -59,11 +59,15 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         categoryPicker = UIPickerView()
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
-        categoriesNames = categories.map{ $0.name }
-        assoCatTF.inputView = categoryPicker
-        assoCatTF.text = self.categoriesNames?[0]
-        selectedCategory = categories[0]
         
+        if(categories.isEmpty) {
+            self.assoCatTF.isEnabled = false
+        } else {
+            categoriesNames = categories.map{ $0.name }
+            assoCatTF.inputView = categoryPicker
+            assoCatTF.text = self.categoriesNames?[0]
+            selectedCategory = categories[0]
+        }
         // Image Picker
         self.imagePicker = UIImagePickerController()
         self.imagePicker.delegate = self
@@ -79,12 +83,18 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     
     @IBAction func Confirm(_ sender: Any) {
-        self.activityIndicator.startLoading()
-        if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPwdTF.text == "") {
+        if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPwdTF.text == "" ) {
             self.nullErrorTF.isHidden = false
+        } else if (self.assoPwdTF.text!.count < 6) {
+            self.errorTF.text = "Votre mot de passe doit contenir au moins 6 caractères !"
+            self.errorTF.isHidden = false
+        } else if (self.assoCatTF.text == "") {
+            self.errorTF.text = "Vous n'êtes pas connecté à internet"
+            self.errorTF.isHidden = false
         } else {
+            self.activityIndicator.startLoading()
             AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
-                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idcat! ) { (sucess) in
+                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idCategory! ) { (sucess) in
                             DispatchQueue.main.async {
                                 if(sucess) {
                                     self.navigationController?.pushViewController(LoginViewController(), animated: false)
@@ -92,11 +102,9 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                                     self.activityIndicator.stopLoading()
                                     self.errorTF.isHidden = false
                             }
-                        }
+                                }
                     }
                 }
-                
-           
         }
     }
     
@@ -128,16 +136,19 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     @IBAction func nameTFClicked(_ sender: Any) {
+        self.activityIndicator.stopLoading()
         self.errorTF.isHidden = true
         self.nullErrorTF.isHidden = true
     }
     
     @IBAction func mailTFClicked(_ sender: Any) {
+        self.activityIndicator.stopLoading()
         self.errorTF.isHidden = true
         self.nullErrorTF.isHidden = true
     }
     
     @IBAction func pwdTFClicked(_ sender: Any) {
+        self.activityIndicator.stopLoading()
         self.errorTF.isHidden = true
         self.nullErrorTF.isHidden = true
     }

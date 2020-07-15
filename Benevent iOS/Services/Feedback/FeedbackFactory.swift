@@ -17,8 +17,8 @@ class FeedbackFactory {
             "note": feedback.note ?? 0,
             "title": feedback.title ?? "",
             "plateform": "IOS",
-            "idty": feedback.idty!,
-            "idas": feedback.idas!
+            "idtype": feedback.idType!,
+            "idassociation": feedback.idAssociation!
         ]
     }
     

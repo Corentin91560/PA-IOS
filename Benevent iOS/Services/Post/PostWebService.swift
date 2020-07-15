@@ -11,7 +11,7 @@ import Foundation
 class PostWebService {
     
     func getPosts(idAsso: Int, completion: @escaping ([Post]) -> Void) -> Void {
-        let getPostsURL = AppConfig.apiURL + "/posts/asso/\(idAsso)"
+        let getPostsURL = AppConfig.apiURL + "/posts/association/\(idAsso)"
         guard let postsURL = URL(string: getPostsURL) else {
             return
         }

@@ -84,7 +84,7 @@ class EventWebService {
     }
     
     func updateEvent(event: Event, completion: @escaping (Bool) -> Void) -> Void {
-        let url = AppConfig.apiURL + "/event/\(event.idev!)"
+        let url = AppConfig.apiURL + "/event/\(event.idEvent!)"
         guard let updateEventURL = URL(string: url) else {
             return
         }

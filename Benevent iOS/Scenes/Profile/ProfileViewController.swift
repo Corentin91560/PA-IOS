@@ -134,8 +134,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func Validate(_ sender: Any) {
         let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
         newAsso.acronym = assoAcronyme.text
-        newAsso.idas = connectedAsso?.idas!
-        newAsso.idcat = connectedAsso?.idcat!
+        newAsso.idAssociation = connectedAsso?.idAssociation!
+        newAsso.idCategory = connectedAsso?.idCategory!
         newAsso.logo = connectedAsso?.logo
         newAsso.phone = assoPhone.text!
         newAsso.support = assoSupport.text!
@@ -163,9 +163,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             if (sucess || checkCallback) {
                 checkCallback = true
                 self.connectedAsso = newAsso
-                self.postWS.getPosts(idAsso: (self.connectedAsso?.idas)!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idas!) { (events) in
-                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
+                self.postWS.getPosts(idAsso: (self.connectedAsso?.idAssociation)!) { (posts) in
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idAssociation!) { (events) in
+                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
                             self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events,users: users), animated: false)
                         }
                     }
@@ -193,7 +193,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func delete() {
         var checkCallback = false
-        self.assoWS.deleteAsso(idAsso: connectedAsso!.idas!) { (sucess) in
+        self.assoWS.deleteAsso(idAsso: connectedAsso!.idAssociation!) { (sucess) in
             DispatchQueue.main.sync {
                 if (sucess || checkCallback) {
                     UserDefaults.standard.removeObject(forKey: "userEmail")

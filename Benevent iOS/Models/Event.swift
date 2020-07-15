@@ -10,7 +10,7 @@ import Foundation
 
 class Event : CustomStringConvertible {
     
-    var idev: Int?
+    var idEvent: Int?
     var name: String
     var apercu: String
     var startDate: Date
@@ -18,8 +18,8 @@ class Event : CustomStringConvertible {
     var location: String
     var maxBenevole: Int
     var fakeEvent: Bool?
-    var idcat: Int?
-    var idas: Int?
+    var idCategory: Int?
+    var idAssociation: Int?
     
     init(name: String, apercu: String, startDate: Date, endDate: Date, location: String, maxBenevole: Int) {
         self.name = name
@@ -32,7 +32,7 @@ class Event : CustomStringConvertible {
        
        
     var description: String {
-    return "{\(self.idev ?? 0) \(self.name) \(self.apercu) \(self.startDate) \(self.endDate)  \(self.location) \(self.maxBenevole) \(self.idcat ?? 0) \(self.idas ?? 0)}"
+    return "{\(self.idEvent ?? 0) \(self.name) \(self.apercu) \(self.startDate) \(self.endDate)  \(self.location) \(self.maxBenevole) \(self.idCategory ?? 0) \(self.idAssociation ?? 0)}"
     }
     
     func isInProgress(startDate: Date, endDate: Date) -> Bool {

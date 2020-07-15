@@ -43,7 +43,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         EventDetailVC.connectedAsso = connectedAsso
         EventDetailVC.event = event
         EventDetailVC.categories = categories
-        EventDetailVC.selectedCategory = categories.filter{ $0.idcat! == event.idcat! }[0]
+        EventDetailVC.selectedCategory = categories.filter{ $0.idCategory! == event.idCategory! }[0]
         return EventDetailVC
     }
     
@@ -161,7 +161,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     
     @IBAction func Participants(_ sender: Any) {
         self.activityIndicator.startLoading()
-        self.userWS.getUsersByIdEvent(idEvent: (self.event?.idev)!) { (participants) in
+        self.userWS.getUsersByIdEvent(idEvent: (self.event?.idEvent)!) { (participants) in
             self.navigationController?.pushViewController(EventParticipantsViewController.newInstance(participants: participants), animated: true)
         }
         self.activityIndicator.stopLoading()
@@ -177,14 +177,14 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         self.activityIndicator.startLoading()
         var checkCallback = false
         let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-        newEvent.idas = connectedAsso?.idas!
-        newEvent.idev = self.event?.idev!
-        newEvent.idcat = selectedCategory?.idcat
+        newEvent.idAssociation = connectedAsso?.idAssociation!
+        newEvent.idEvent = self.event?.idEvent!
+        newEvent.idCategory = selectedCategory?.idCategory
         
         self.eventWS.updateEvent(event: newEvent) { (sucess) in
             if (sucess || checkCallback) {
                 checkCallback = true
-                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
+                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
                 }
             } else {
@@ -212,9 +212,9 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     func deleteEvent() {
         var checkCallback = false
         self.activityIndicator.startLoading()
-        self.eventWS.deleteEvent(idEvent: self.event!.idev!) { (sucess) in
+        self.eventWS.deleteEvent(idEvent: self.event!.idEvent!) { (sucess) in
             if (sucess || checkCallback) {
-               self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
+               self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
                    checkCallback = true
                    self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
                }

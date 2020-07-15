@@ -9,7 +9,7 @@
 import Foundation
 
 class User {
-    var idu: Int?
+    var idUser: Int?
     var name: String
     var firstName: String
     var profilePicture: String?

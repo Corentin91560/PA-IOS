@@ -91,15 +91,15 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
        if (tabBar.selectedItem == tabBar.items?[0]) {
-            self.postsWS.getPosts(idAsso: connectedAsso!.idas!) { (posts) in
-                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idas!) { (users) in
-                 self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (events) in
+            self.postsWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
+                 self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
                      self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
                  }
                 }
             }
         } else if (tabBar.selectedItem == tabBar.items?[1]) {
-             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idas!)!) { (eventsList) in
+             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idAssociation!)!) { (eventsList) in
                  self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
              }
         }
@@ -123,8 +123,8 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     @IBAction func sendEvaluation(_ sender: Any) {
         var checkCallback = false
         let feedbackToCreate: Feedback = Feedback(content: self.improvementDescrition.text, date: Date())
-        feedbackToCreate.idas = self.connectedAsso?.idas!
-        feedbackToCreate.idty = 2
+        feedbackToCreate.idAssociation = self.connectedAsso?.idAssociation!
+        feedbackToCreate.idType = 2
         feedbackToCreate.note = Int(self.noteSlider.value)
         print("SEND EVAL : \(feedbackToCreate.description)")
         if(self.improvementDescrition.text == "") {
@@ -133,7 +133,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
             self.resultLabel.textColor = UIColor.systemRed
         } else {
             self.activityIndicator.startLoading()
-            self.feedbackWS.newEvaluation(feedback: feedbackToCreate) { (sucess) in
+            self.feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
                 DispatchQueue.main.sync {
                     if(sucess || checkCallback) {
                         self.cleanView()
@@ -153,8 +153,8 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     @IBAction func sendBug(_ sender: Any) {
         var checkCallback = false
         let feedbackToCreate: Feedback = Feedback(content: self.bugDescription.text, date: Date())
-        feedbackToCreate.idas = self.connectedAsso?.idas!
-        feedbackToCreate.idty = 1
+        feedbackToCreate.idAssociation = self.connectedAsso?.idAssociation!
+        feedbackToCreate.idType = 1
         feedbackToCreate.title = self.bugTitle.text!
         print("SEND BUG : \(feedbackToCreate.description)")
         if(self.bugTitle.text == "" || self.bugDescription.text == "") {
@@ -163,7 +163,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
             self.resultLabel.textColor = UIColor.systemRed
         } else {
             self.activityIndicator.startLoading()
-            self.feedbackWS.newBug(feedback: feedbackToCreate) { (sucess) in
+            self.feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
                 DispatchQueue.main.sync {
                     if(sucess || checkCallback) {
                         checkCallback = true

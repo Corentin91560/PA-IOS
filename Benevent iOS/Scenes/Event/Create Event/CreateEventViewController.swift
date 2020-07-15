@@ -139,19 +139,19 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
             self.errorTF.isHidden = false
         } else {
             let eventToCreate: Event = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-            eventToCreate.idas = connectedAsso?.idas!
+            eventToCreate.idAssociation = connectedAsso?.idAssociation!
 
-            eventToCreate.idcat = selectedCategory.idcat!
+            eventToCreate.idCategory = selectedCategory.idCategory!
             
             self.eventWS.newEvent(event: eventToCreate) { (sucess) in
                 if(sucess || checkCallback) {
                     if(!checkCallback) {
                         let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
-                        postToCreate.idev = self.generalEvent?.idev
-                        postToCreate.idas = self.connectedAsso?.idas
+                        postToCreate.idEvent = self.generalEvent?.idEvent
+                        postToCreate.idAssociation = self.connectedAsso?.idAssociation
                         self.postWS.newPost(post: postToCreate) {(x) in}
                     }
-                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idas!)!) { (eventsList) in
+                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (eventsList) in
                         checkCallback = true
                         let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
                         self.navigationController?.pushViewController(EventVC, animated: false)

@@ -17,10 +17,10 @@ class PostFactory {
         }
         
         let post = Post(message: m, date: dateFromMySQL(dateMySQL: d)!)
-        post.idpo = dictionary["idpo"] as? Int
-        post.idu = dictionary["idu"] as? Int
-        post.idas = dictionary["idas"] as? Int
-        post.idev = dictionary["idev"] as? Int
+        post.idPost = dictionary["idpost"] as? Int
+        post.idUser = dictionary["iduser"] as? Int
+        post.idAssociation = dictionary["idassociation"] as? Int
+        post.idEvent = dictionary["idevent"] as? Int
         return post
     }
     
@@ -28,8 +28,8 @@ class PostFactory {
         return [
             "message": post.message,
             "date": mySQLFromDate(date: post.date),
-            "idas": post.idas!,
-            "idev": post.idev!
+            "idassociation": post.idAssociation!,
+            "idevent": post.idEvent!
         ]
     }
     
