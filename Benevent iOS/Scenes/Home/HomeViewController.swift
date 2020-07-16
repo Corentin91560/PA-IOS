@@ -105,7 +105,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refreshData() {
-        self.postWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in
+        self.postWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in //TODO rappeler les users avec
             self.posts = posts
         }
         DispatchQueue.main.async {
@@ -115,11 +115,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if (tabBar.selectedItem == tabBar.items?[1]) {
+        if (tabBar.selectedItem == tabBar.items![1]) {
             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idAssociation!)!) { (eventsList) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
             }
-        } else if (tabBar.selectedItem == tabBar.items?[2]) {
+        } else if (tabBar.selectedItem == tabBar.items![2]) {
             navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
         }
     }
@@ -156,12 +156,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         formatterHour.dateFormat = "HH:mm"
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.posts.rawValue, for: indexPath) as! HomeTableViewCell
         let post = self.posts[indexPath.row]
-        var event: Event!
-        for e in self.events {
-            if (e.idEvent! == post.idEvent!) {
-                event = e
-            }
-        }
+        let event = self.events.filter{ $0.idEvent == post.idEvent }[0] // C MOI QUI LOU FAIT
+        
         if(post.idAssociation != nil) {
             cell.assoName.text = connectedAsso?.name
             cell.assoName.font = UIFont.boldSystemFont(ofSize: 20)

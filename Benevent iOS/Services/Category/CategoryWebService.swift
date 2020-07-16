@@ -10,7 +10,7 @@ import Foundation
 
 class CategoryWebService {
     
-    func getCategories(completion: @escaping ([Category]) -> Void) -> Void {
+    func getCategories(completion: @escaping ([Category]) -> Void) {
         let getCategoriesURL = AppConfig.apiURL + "/categories"
         
         guard let categoriesURL = URL(string: getCategoriesURL) else {

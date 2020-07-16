@@ -27,27 +27,27 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet var dataTableView: UITableView!
     
     class func newInstance(events: [Event], connectedAsso: Association) -> EventViewController {
-        let evc = EventViewController()
-        evc.events = events
-        evc.usableEvents = self.sortEvents(events: events.filter({!$0.fakeEvent!}))
-        evc.connectedAsso = connectedAsso
-        return evc
+        let EventVC = EventViewController()
+        EventVC.events = events
+        EventVC.usableEvents = self.sortEvents(events: events.filter({!$0.fakeEvent!}))
+        EventVC.connectedAsso = connectedAsso
+        return EventVC
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        self.setupNavigationBar()
         self.hideKeyboardWhenTappedAround()
-        viewDidLayoutSubviews()
-        setupTableView()
-        myTabBar.selectedItem = myTabBar.items?[1]
+        self.viewDidLayoutSubviews()
+        self.setupTableView()
+        self.myTabBar.selectedItem = myTabBar.items?[1]
         self.myTabBar.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
-          myTabBar.frame.size.height = 90
-          myTabBar.frame.origin.y = view.frame.height - 90
+          self.myTabBar.frame.size.height = 90
+          self.myTabBar.frame.origin.y = view.frame.height - 90
       }
     
     func setupTableView() {
@@ -60,7 +60,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     func setupNavigationBar() {
         self.navigationItem.hidesBackButton = true
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
-        self.navigationItem.title = "Mes évenements"
+        self.navigationItem.title = "Mes événements"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(
@@ -87,7 +87,6 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
       
     @objc func Profile() {
         self.navigationController?.pushViewController(ProfileViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
-      //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -98,7 +97,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 }
             }
         } else if (tabBar.selectedItem == tabBar.items?[2]) {
-            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
+            self.navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
         }
     }
     

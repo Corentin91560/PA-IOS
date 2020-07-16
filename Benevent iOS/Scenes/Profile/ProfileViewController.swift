@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var assoName: UITextField!
@@ -32,6 +32,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     var imagePicker: UIImagePickerController!
     var logoChanged: Bool = false
+    
     class func newInstance(connectedAsso : Association?) -> ProfileViewController {
         let ProfileVC: ProfileViewController = ProfileViewController()
         ProfileVC.connectedAsso = connectedAsso

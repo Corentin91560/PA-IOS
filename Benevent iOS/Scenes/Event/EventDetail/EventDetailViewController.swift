@@ -11,7 +11,7 @@ import UIKit
 class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
 
     @IBOutlet var assoLogo: UIImageView!
-    @IBOutlet var personsButton: UIButton!
+    @IBOutlet var participantsButton: UIButton!
     @IBOutlet var QRButton: UIButton!
     @IBOutlet var validButton: UIButton!
     @IBOutlet var eventNameTF: UITextField!
@@ -54,22 +54,22 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     
     func setupView() {
         
-        self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
-        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
-        self.assoLogo.layer.cornerRadius = 25
-        self.activityIndicator.isHidden = true
-        self.deleteEventButton.isHidden = true
+        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        assoLogo.layer.cornerRadius = 25
+        activityIndicator.isHidden = true
+        deleteEventButton.isHidden = true
         self.hideKeyboardWhenTappedAround()
-        self.eventDescriptionTF.delegate = self
+        eventDescriptionTF.delegate = self
         if(event!.isInProgress(startDate: event!.startDate, endDate: event!.endDate)) {
-            self.personsButton.layer.cornerRadius = personsButton.bounds.size.height/3
+            self.participantsButton.layer.cornerRadius = participantsButton.bounds.size.height/3 //TODO inverser le fonctionnement (cacher de base)
             self.QRButton.layer.cornerRadius = QRButton.bounds.size.height/3
         } else {
-            self.personsButton.isHidden = true
+            self.participantsButton.isHidden = true
             self.QRButton.isHidden = true
         }
-        self.validButton.layer.cornerRadius = validButton.bounds.size.height/2
-        self.eventMaxBenevoleTF.delegate = self
+        validButton.layer.cornerRadius = validButton.bounds.size.height/2
+        eventMaxBenevoleTF.delegate = self
         setupNavigationBar()
         setupTextFields()
         setupPickers()
@@ -85,27 +85,27 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         eventCategoryTF.text = selectedCategory?.name
         
         // DATE PICKERS
-        self.startDatePicker = UIDatePicker()
-        self.endDatePicker = UIDatePicker()
+        startDatePicker = UIDatePicker()
+        endDatePicker = UIDatePicker()
         startDatePicker?.locale = Locale(identifier: "fr")
         endDatePicker?.locale = Locale(identifier: "fr")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
-        self.eventStartDateTF.inputView = startDatePicker
-        self.eventEndDateTF.inputView = endDatePicker
+        eventStartDateTF.inputView = startDatePicker
+        eventEndDateTF.inputView = endDatePicker
     }
     
     func setupTextFields() {
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "dd/MM/yyyy HH:mm"
         
-        self.eventNameTF.text = event?.name
-        self.eventDescriptionTF.text = event?.apercu
-        self.eventCategoryTF.text = selectedCategory?.name
-        self.eventStartDateTF.text = formatterDate.string(from: event!.startDate)
-        self.eventEndDateTF.text = formatterDate.string(from: event!.endDate)
-        self.eventLocationTF.text = event?.location
-        self.eventMaxBenevoleTF.text = String(event!.maxBenevole)
+        eventNameTF.text = event?.name
+        eventDescriptionTF.text = event?.apercu
+        eventCategoryTF.text = selectedCategory?.name
+        eventStartDateTF.text = formatterDate.string(from: event!.startDate)
+        eventEndDateTF.text = formatterDate.string(from: event!.endDate)
+        eventLocationTF.text = event?.location
+        eventMaxBenevoleTF.text = String(event!.maxBenevole)
     }
     
     func setupNavigationBar() {
@@ -136,52 +136,52 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     @objc func Edit() {
-        self.eventNameTF.isEnabled = !self.eventNameTF.isEnabled
-        self.eventDescriptionTF.isEditable = !self.eventDescriptionTF.isEditable
-        self.eventCategoryTF.isEnabled = !self.eventCategoryTF.isEnabled
-        self.eventStartDateTF.isEnabled = !self.eventStartDateTF.isEnabled
-        self.eventEndDateTF.isEnabled = !self.eventEndDateTF.isEnabled
-        self.eventLocationTF.isEnabled = !self.eventLocationTF.isEnabled
-        self.eventMaxBenevoleTF.isEnabled = !self.eventMaxBenevoleTF.isEnabled
-        self.deleteEventButton.isHidden = !self.deleteEventButton.isHidden
+        eventNameTF.isEnabled = !self.eventNameTF.isEnabled
+        eventDescriptionTF.isEditable = !self.eventDescriptionTF.isEditable
+        eventCategoryTF.isEnabled = !self.eventCategoryTF.isEnabled
+        eventStartDateTF.isEnabled = !self.eventStartDateTF.isEnabled
+        eventEndDateTF.isEnabled = !self.eventEndDateTF.isEnabled
+        eventLocationTF.isEnabled = !self.eventLocationTF.isEnabled
+        eventMaxBenevoleTF.isEnabled = !self.eventMaxBenevoleTF.isEnabled
+        deleteEventButton.isHidden = !self.deleteEventButton.isHidden
     }
     
     @objc func startdateChanger(datePicker : UIDatePicker) {
          let formatter = DateFormatter()
          formatter.dateFormat = "dd/MM/yyyy HH:mm"
-         self.eventStartDateTF.text = formatter.string(from: datePicker.date)
+         eventStartDateTF.text = formatter.string(from: datePicker.date)
      }
      
      
      @objc func enddateChanger(datePicker : UIDatePicker) {
          let formatter = DateFormatter()
          formatter.dateFormat = "dd/MM/yyyy HH:mm"
-         self.eventEndDateTF.text = formatter.string(from: datePicker.date)
+         eventEndDateTF.text = formatter.string(from: datePicker.date)
      }
     
     @IBAction func Participants(_ sender: Any) {
-        self.activityIndicator.startLoading()
-        self.userWS.getUsersByIdEvent(idEvent: (self.event?.idEvent)!) { (participants) in
+        activityIndicator.startLoading()
+        userWS.getUsersByIdEvent(idEvent: (self.event?.idEvent)!) { (participants) in
             self.navigationController?.pushViewController(EventParticipantsViewController.newInstance(participants: participants), animated: true)
         }
-        self.activityIndicator.stopLoading()
+        activityIndicator.stopLoading()
     }
     
     @IBAction func showQR(_ sender: Any) {
-        self.activityIndicator.startLoading()
+        activityIndicator.startLoading()
         self.navigationController?.pushViewController(EventQRViewController.newInstance(event: self.event!), animated: true)
-        self.activityIndicator.stopLoading()
+        activityIndicator.stopLoading()
     }
     
     @IBAction func Valid(_ sender: Any) {
-        self.activityIndicator.startLoading()
+        activityIndicator.startLoading()
         var checkCallback = false
         let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
         newEvent.idAssociation = connectedAsso?.idAssociation!
         newEvent.idEvent = self.event?.idEvent!
         newEvent.idCategory = selectedCategory?.idCategory
         
-        self.eventWS.updateEvent(event: newEvent) { (sucess) in
+        eventWS.updateEvent(event: newEvent) { (sucess) in
             if (sucess || checkCallback) {
                 checkCallback = true
                 self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in

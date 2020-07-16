@@ -11,7 +11,7 @@ import Foundation
 class UserWebService {
     
     
-    func getUserById(idUser: Int, completion: @escaping ([User]) -> Void) -> Void {
+    func getUserById(idUser: Int, completion: @escaping ([User]) -> Void) {
         let getUserURL = AppConfig.apiURL + "/user/\(idUser)"
         guard let userURL = URL(string: getUserURL) else {
             return
@@ -25,14 +25,14 @@ class UserWebService {
                     }
                     return
                 }
-            let user = json.compactMap { (obj) -> User? in
+            let users = json.compactMap { (obj) -> User? in
                 guard let dict = obj as? [String: Any] else {
                     return nil
                 }
                 return UserFactory.userFrom(dictionary: dict)
             }
             DispatchQueue.main.sync {
-                completion(user)
+                completion(users)
             }
         }
         task.resume()
@@ -52,20 +52,20 @@ class UserWebService {
                        }
                        return
                    }
-               let user = json.compactMap { (obj) -> User? in
+               let users = json.compactMap { (obj) -> User? in
                    guard let dict = obj as? [String: Any] else {
                        return nil
                    }
                    return UserFactory.userFrom(dictionary: dict)
                }
                DispatchQueue.main.sync {
-                   completion(user)
+                   completion(users)
                }
            }
            task.resume()
        }
     
-    func getUsersByIdEvent(idEvent: Int, completion: @escaping ([User]) -> Void) -> Void {
+    func getUsersByIdEvent(idEvent: Int, completion: @escaping ([User]) -> Void) {
         let getUserURL = AppConfig.apiURL + "/participants/\(idEvent)"
         guard let userURL = URL(string: getUserURL) else {
             return
@@ -79,14 +79,14 @@ class UserWebService {
                     }
                     return
                 }
-            let user = json.compactMap { (obj) -> User? in
+            let users = json.compactMap { (obj) -> User? in
                 guard let dict = obj as? [String: Any] else {
                     return nil
                 }
                 return UserFactory.userFrom(dictionary: dict)
             }
             DispatchQueue.main.sync {
-                completion(user)
+                completion(users)
             }
         }
         task.resume()

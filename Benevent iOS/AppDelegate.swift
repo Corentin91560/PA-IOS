@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  N3twørk
+//  Benevent iOS
 //
-//  Created by Benoit Briatte on 13/12/2019.
-//  Copyright © 2019 ESGI. All rights reserved.
+//  Created by Thomas MARTIN on 17/05/2020.
+//  Copyright © 2020 Benevent. All rights reserved.
 //
 
 import UIKit
@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let keychain = KeychainSwift()
         
         if(keychain.get("userEmail") != nil) {
-            keychain.set("180031a348c14d401143be02fe7708f5", forKey: "userPassword")
             let assoWS: AssociationWebService = AssociationWebService()
             let postWS: PostWebService = PostWebService()
             let eventWS: EventWebService = EventWebService()
@@ -50,7 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             return true
         }
-        
         w.rootViewController = UINavigationController(rootViewController: LoginViewController())
         w.makeKeyAndVisible()
         self.window = w

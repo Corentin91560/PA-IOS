@@ -53,17 +53,15 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     func setupPicker() {
         eventNamesList = eventList.map{ $0.name }
-        print(eventList.count)
         if(eventList.count > 0) {
-            isPublicPost.isOn = false
-            eventPicker = UIPickerView()
-            eventPicker.dataSource = self
-            eventPicker.delegate = self
-            eventTF.inputView = eventPicker
-            eventTF.text = self.eventNamesList?[0]
-            selectedEvent = eventList[0]
+            self.isPublicPost.isOn = false
+            self.eventPicker = UIPickerView()
+            self.eventPicker.dataSource = self
+            self.eventPicker.delegate = self
+            self.eventTF.inputView = eventPicker
+            self.eventTF.text = self.eventNamesList?[0]
+            self.selectedEvent = eventList[0]
         } else {
-            print("NO EVENT")
             self.eventTF.isEnabled = false
             self.isPublicPost.isOn = true
             self.isPublicPost.isUserInteractionEnabled = false
@@ -86,7 +84,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
     }
     
-    @IBAction func swiftPublicClicked(_ sender: Any) {
+    @IBAction func switchPublicClicked(_ sender: Any) {
         if(self.isPublicPost.isOn) {
             self.eventTF.isEnabled = false
             self.eventTF.text = ""
@@ -96,7 +94,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
     }
     
-    @IBAction func Valid(_ sender: Any) {
+    @IBAction func Validate(_ sender: Any) {
         var checkCallback = false
         self.activityIndicator.startLoading()
         if(self.isPublicPost.isOn) {
@@ -145,6 +143,4 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         selectedEvent = eventList[row]
         self.view.endEditing(true)
     }
-    
-    
 }

@@ -10,7 +10,7 @@ import Foundation
 
 class PostWebService {
     
-    func getPosts(idAsso: Int, completion: @escaping ([Post]) -> Void) -> Void {
+    func getPosts(idAsso: Int, completion: @escaping ([Post]) -> Void) {
         let getPostsURL = AppConfig.apiURL + "/posts/association/\(idAsso)"
         guard let postsURL = URL(string: getPostsURL) else {
             return
@@ -37,7 +37,7 @@ class PostWebService {
         task.resume()
     }
     
-    func newPost(post: Post, completion: @escaping (Bool) -> Void) -> Void {
+    func newPost(post: Post, completion: @escaping (Bool) -> Void) {
         let url = AppConfig.apiURL + "/post/association"
         guard let newPostURL = URL(string: url) else {
             return
@@ -55,7 +55,7 @@ class PostWebService {
         task.resume()
     }
 
-    func deletePost(idPost: Int, completion: @escaping (Bool) -> Void) -> Void {
+    func deletePost(idPost: Int, completion: @escaping (Bool) -> Void) {
         guard let deletePostURL = URL(string: AppConfig.apiURL + "/post/\(idPost)") else {
               return;
         }

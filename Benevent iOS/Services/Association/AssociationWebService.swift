@@ -11,7 +11,7 @@ import Foundation
 
 class AssociationWebService {
     
-    func Login (mail: String, password: String, completion: @escaping ([Association]) -> Void) -> Void {
+    func Login (mail: String, password: String, completion: @escaping ([Association]) -> Void) {
         let assoLoginURL = AppConfig.apiURL + "/signin/association"
         let parameters: [String: Any] = [
             "email": mail,
@@ -37,20 +37,20 @@ class AssociationWebService {
                         }
                     return
                 }
-                let asso = json.compactMap { (obj) -> Association? in
+                let assos = json.compactMap { (obj) -> Association? in
                     guard let dict = obj as? [String: Any] else {
                         return nil
                     }
                     return AssociationFactory.associationFrom(dictionary: dict)
                 }
                 DispatchQueue.main.sync {
-                    completion(asso)
+                    completion(assos)
                 }
             }
         task.resume()
     }
     
-    func Signup(name: String, email: String, password: String, profilePicture: String, idCategory: Int, completion: @escaping (Bool) -> Void) -> Void {
+    func Signup(name: String, email: String, password: String, profilePicture: String, idCategory: Int, completion: @escaping (Bool) -> Void) {
         
         let assoLoginURL = AppConfig.apiURL + "/signup/association"
         let parameters: [String: Any] = [
@@ -81,7 +81,7 @@ class AssociationWebService {
         task.resume()
     }
     
-    func getAssociationById(idAsso: Int, completion: @escaping ([Association]) -> Void) -> Void {
+    func getAssociationById(idAsso: Int, completion: @escaping ([Association]) -> Void) {
           let getAssociationURL = AppConfig.apiURL + "/association/\(idAsso)"
           guard let assoURL = URL(string: getAssociationURL) else {
               return
@@ -95,20 +95,20 @@ class AssociationWebService {
                       }
                   return
               }
-              let asso = json.compactMap { (obj) -> Association? in
+              let assos = json.compactMap { (obj) -> Association? in
                   guard let dict = obj as? [String: Any] else {
                       return  nil
                   }
                 return AssociationFactory.associationFrom(dictionary: dict)
               }
               DispatchQueue.main.sync {
-                  completion(asso)
+                  completion(assos)
               }
           }
           task.resume()
       }
     
-    func updateAsso(asso: Association, completion: @escaping (Bool) -> Void) -> Void {
+    func updateAsso(asso: Association, completion: @escaping (Bool) -> Void) {
         let url = AppConfig.apiURL + "/association/\(asso.idAssociation!)"
         guard let updateAssoURL = URL(string: url) else {
             return
@@ -127,7 +127,7 @@ class AssociationWebService {
         task.resume()
     }
     
-    func deleteAsso(idAsso: Int, completion: @escaping (Bool) -> Void) -> Void {
+    func deleteAsso(idAsso: Int, completion: @escaping (Bool) -> Void) {
            guard let deleteAssoURL = URL(string: AppConfig.apiURL + "/association/\(idAsso)") else {
                  return;
            }

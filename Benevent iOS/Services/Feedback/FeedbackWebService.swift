@@ -10,7 +10,7 @@ import Foundation
 
 class FeedbackWebService {
     
-    func newFeedback(feedback: Feedback, completion: @escaping (Bool) -> Void) -> Void {
+    func newFeedback(feedback: Feedback, completion: @escaping (Bool) -> Void) {
         let url: String!
         if(feedback.title == nil) {
             url = AppConfig.apiURL + "/feedback/rating"

@@ -27,7 +27,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        self.setupView()
     }
     
     func setupView() {
@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
                             let keychain = KeychainSwift()
                             keychain.set(asso[0].email, forKey: "userEmail")
                             keychain.set(asso[0].password, forKey: "userPassword")
-                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0],events: events, users: users), animated: true)
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users), animated: true)
                         }
                     }
                 }
@@ -62,8 +62,7 @@ class LoginViewController: UIViewController {
     
     @IBAction func Signup(_ sender: Any) {
         self.categoryWS.getCategories { (categories) in
-            let signupForm = SignupViewController.newInstance(categories: categories)
-            self.navigationController?.pushViewController(signupForm, animated: true)
+            self.navigationController?.pushViewController(SignupViewController.newInstance(categories: categories), animated: true)
         }
     }
     

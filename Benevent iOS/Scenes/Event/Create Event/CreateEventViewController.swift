@@ -53,8 +53,8 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
-        self.activityIndicator.isHidden = true
-        self.eventMaxBenevoleTF.delegate = self
+        activityIndicator.isHidden = true
+        eventMaxBenevoleTF.delegate = self
         self.hideKeyboardWhenTappedAround()
         setupNavigationBar()
         setupPickers()
@@ -73,29 +73,29 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         // DATE PICKERS
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        self.eventStartDateTF.text = formatter.string(from: Date())
-        self.startDatePicker = UIDatePicker()
-        self.endDatePicker = UIDatePicker()
+        eventStartDateTF.text = formatter.string(from: Date())
+        startDatePicker = UIDatePicker()
+        endDatePicker = UIDatePicker()
         startDatePicker?.locale = Locale(identifier: "fr")
         endDatePicker?.locale = Locale(identifier: "fr")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.minimumDate = Date()
-        self.eventStartDateTF.inputView = startDatePicker
-        self.eventEndDateTF.inputView = endDatePicker
+        eventStartDateTF.inputView = startDatePicker
+        eventEndDateTF.inputView = endDatePicker
     }
     
     @objc func startdateChanger(datePicker : UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        self.eventStartDateTF.text = formatter.string(from: datePicker.date)
+        eventStartDateTF.text = formatter.string(from: datePicker.date)
     }
     
     
     @objc func enddateChanger(datePicker : UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        self.eventEndDateTF.text = formatter.string(from: datePicker.date)
+        eventEndDateTF.text = formatter.string(from: datePicker.date)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
@@ -127,29 +127,31 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     
     @IBAction func Valid(_ sender: Any) {
         var checkCallback = false
-        self.activityIndicator.startLoading()
-        let dateFormatter = DateFormatter()
+        activityIndicator.startLoading()
+        let dateFormatter = DateFormatter() //TODO regler soucis heure -2 +2
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+        dateFormatter.locale = Locale(identifier: "fr")
         let startDateString = eventStartDateTF.text!
         let endDateString = eventEndDateTF.text!
         let startDate = dateFormatter.date(from: startDateString)!
         let endDate = dateFormatter.date(from: endDateString)!
+        print("Start Date \(startDate)")
+        print("End Date \(endDate)")
         
         if(startDate > endDate) {
-            self.errorTF.isHidden = false
+            errorTF.isHidden = false
         } else {
-            let eventToCreate: Event = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
+            let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
             eventToCreate.idAssociation = connectedAsso?.idAssociation!
-
             eventToCreate.idCategory = selectedCategory.idCategory!
             
-            self.eventWS.newEvent(event: eventToCreate) { (sucess) in
+            eventWS.newEvent(event: eventToCreate) { (sucess) in
                 if(sucess || checkCallback) {
                     if(!checkCallback) {
                         let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
                         postToCreate.idEvent = self.generalEvent?.idEvent
                         postToCreate.idAssociation = self.connectedAsso?.idAssociation
-                        self.postWS.newPost(post: postToCreate) {(x) in}
+                        self.postWS.newPost(post: postToCreate) { (_) in }
                     }
                     self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (eventsList) in
                         checkCallback = true

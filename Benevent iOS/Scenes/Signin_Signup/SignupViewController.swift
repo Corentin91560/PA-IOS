@@ -39,7 +39,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
+        self.setupView()
     }
     
     func setupView() {
@@ -55,17 +55,17 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     
     func setupPicker() {
         // Category Picker
-        categoryPicker = UIPickerView()
-        categoryPicker.delegate = self
-        categoryPicker.dataSource = self
+        self.categoryPicker = UIPickerView()
+        self.categoryPicker.delegate = self
+        self.categoryPicker.dataSource = self
         
         if(categories.isEmpty) {
             self.assoCategoryTF.isEnabled = false
         } else {
-            categoriesNames = categories.map{ $0.name }
-            assoCategoryTF.inputView = categoryPicker
-            assoCategoryTF.text = self.categoriesNames?[0]
-            selectedCategory = categories[0]
+            self.categoriesNames = categories.map{ $0.name }
+            self.assoCategoryTF.inputView = categoryPicker
+            self.assoCategoryTF.text = self.categoriesNames?[0]
+            self.selectedCategory = categories[0]
         }
         // Image Picker
         self.imagePicker = UIImagePickerController()

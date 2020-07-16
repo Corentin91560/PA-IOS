@@ -28,7 +28,7 @@
                 <outlet property="eventMaxBenevoleTF" destination="UEC-iw-bw3" id="2Tx-7e-sJf"/>
                 <outlet property="eventNameTF" destination="9XD-60-l3i" id="7Gu-rg-1uj"/>
                 <outlet property="eventStartDateTF" destination="yZP-hC-Tdn" id="XuE-LT-IFR"/>
-                <outlet property="personsButton" destination="Dcb-Pc-4vh" id="uyD-Fk-HxL"/>
+                <outlet property="participantsButton" destination="Dcb-Pc-4vh" id="vUr-hi-LAM"/>
                 <outlet property="validButton" destination="sDv-y3-W0Z" id="MKU-GH-MK1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

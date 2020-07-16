@@ -11,7 +11,7 @@ import Foundation
 
 class EventWebService {
     
-    func getEvent(idEvent: Int, completion: @escaping ([Event]) -> Void) -> Void {
+    func getEvent(idEvent: Int, completion: @escaping ([Event]) -> Void) {
         let getEventURL = AppConfig.apiURL + "/event/\(idEvent)"
         guard let eventURL = URL(string: getEventURL) else {
             return
@@ -25,20 +25,20 @@ class EventWebService {
                     }
                 return
             }
-            let event = json.compactMap { (obj) -> Event? in
+            let events = json.compactMap { (obj) -> Event? in
                 guard let dict = obj as? [String: Any] else {
                     return  nil
                 }
                 return EventFactory.eventFrom(dictionary: dict)
             }
             DispatchQueue.main.sync {
-                completion(event)
+                completion(events)
             }
         }
         task.resume()
     }
     
-    func getEventsByAssociation(idAsso: Int, completion: @escaping ([Event]) -> Void) -> Void {
+    func getEventsByAssociation(idAsso: Int, completion: @escaping ([Event]) -> Void) {
           let getEventURL = AppConfig.apiURL + "/events/association/\(idAsso)"
              guard let eventURL = URL(string: getEventURL) else {
                  return
@@ -52,20 +52,20 @@ class EventWebService {
                          }
                      return
                  }
-                 let event = json.compactMap { (obj) -> Event? in
+                 let events = json.compactMap { (obj) -> Event? in
                      guard let dict = obj as? [String: Any] else {
                          return  nil
                      }
                      return EventFactory.eventFrom(dictionary: dict)
                  }
                  DispatchQueue.main.sync {
-                     completion(event)
+                     completion(events)
                  }
              }
              task.resume()
     }
     
-    func newEvent(event: Event, completion: @escaping (Bool) -> Void) -> Void {
+    func newEvent(event: Event, completion: @escaping (Bool) -> Void) {
         let url = AppConfig.apiURL + "/event"
         guard let newEventURL = URL(string: url) else {
             return
@@ -83,7 +83,7 @@ class EventWebService {
         task.resume()
     }
     
-    func updateEvent(event: Event, completion: @escaping (Bool) -> Void) -> Void {
+    func updateEvent(event: Event, completion: @escaping (Bool) -> Void) {
         let url = AppConfig.apiURL + "/event/\(event.idEvent!)"
         guard let updateEventURL = URL(string: url) else {
             return
@@ -102,7 +102,7 @@ class EventWebService {
         task.resume()
     }
     
-    func deleteEvent(idEvent: Int, completion: @escaping (Bool) -> Void) -> Void {
+    func deleteEvent(idEvent: Int, completion: @escaping (Bool) -> Void) {
         guard let deleteEventURL = URL(string: AppConfig.apiURL + "/event/\(idEvent)") else {
               return;
         }
