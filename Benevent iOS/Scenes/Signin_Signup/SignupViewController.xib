@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -17,11 +15,11 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignupViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
                 <outlet property="activityIndicator" destination="Ulo-Jn-Nud" id="TaO-pY-Jgf"/>
-                <outlet property="assoCatTF" destination="pvp-DL-oof" id="3NM-RY-fcv"/>
+                <outlet property="assoCategoryTF" destination="pvp-DL-oof" id="3NM-RY-fcv"/>
                 <outlet property="assoEmailTF" destination="AbR-to-Qmr" id="eW5-hN-1mc"/>
                 <outlet property="assoLogo" destination="F89-bE-skW" id="D22-Mt-Rto"/>
                 <outlet property="assoNameTF" destination="b33-f5-sMN" id="m9L-0s-Yr6"/>
-                <outlet property="assoPwdTF" destination="tYH-l6-DlZ" id="edb-wq-TvH"/>
+                <outlet property="assoPasswordTF" destination="tYH-l6-DlZ" id="edb-wq-TvH"/>
                 <outlet property="chooseImage" destination="qyN-Ek-VvG" id="wHz-xr-EGW"/>
                 <outlet property="errorTF" destination="GKm-9Q-43K" id="Khk-Zv-wSo"/>
                 <outlet property="loginButton" destination="LrI-2e-00F" id="LGN-58-ZAF"/>
@@ -76,14 +74,14 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deja un compte ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-Nk-bJs">
-                    <rect key="frame" x="320" y="1281" width="237.5" height="35"/>
+                    <rect key="frame" x="320" y="1301" width="237.5" height="35"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" name="EerieBlack"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LrI-2e-00F" userLabel="loginPage">
-                    <rect key="frame" x="562.5" y="1275" width="179" height="47"/>
+                    <rect key="frame" x="562.5" y="1295" width="179" height="47"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="Se connecter">
                         <color key="titleColor" name="FlickrBlue"/>

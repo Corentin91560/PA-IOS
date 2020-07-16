@@ -13,8 +13,8 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
 
     @IBOutlet var assoNameTF: UITextField!
     @IBOutlet var assoEmailTF: UITextField!
-    @IBOutlet var assoPwdTF: UITextField!
-    @IBOutlet var assoCatTF: UITextField!
+    @IBOutlet var assoPasswordTF: UITextField!
+    @IBOutlet var assoCategoryTF: UITextField!
     @IBOutlet var errorTF: UILabel!
     @IBOutlet var signupButton: UIButton!
     @IBOutlet var loginButton: UIButton!
@@ -54,25 +54,22 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func setupPicker() {
-        
         // Category Picker
         categoryPicker = UIPickerView()
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
         
         if(categories.isEmpty) {
-            self.assoCatTF.isEnabled = false
+            self.assoCategoryTF.isEnabled = false
         } else {
             categoriesNames = categories.map{ $0.name }
-            assoCatTF.inputView = categoryPicker
-            assoCatTF.text = self.categoriesNames?[0]
+            assoCategoryTF.inputView = categoryPicker
+            assoCategoryTF.text = self.categoriesNames?[0]
             selectedCategory = categories[0]
         }
         // Image Picker
         self.imagePicker = UIImagePickerController()
         self.imagePicker.delegate = self
-        
-        
     }
     
     @IBAction func chooseImage(_ sender: Any) {
@@ -81,34 +78,35 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         present(imagePicker, animated: true, completion: nil)
     }
     
-    
     @IBAction func Confirm(_ sender: Any) {
-        if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPwdTF.text == "" ) {
+        if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPasswordTF.text == "" ) {
             self.nullErrorTF.isHidden = false
-        } else if (self.assoPwdTF.text!.count < 6) {
+        } else if (self.assoPasswordTF.text!.count < 6) {
             self.errorTF.text = "Votre mot de passe doit contenir au moins 6 caractères !"
             self.errorTF.isHidden = false
-        } else if (self.assoCatTF.text == "") {
+        } else if (self.assoCategoryTF.text == "") {
             self.errorTF.text = "Vous n'êtes pas connecté à internet"
             self.errorTF.isHidden = false
         } else {
             self.activityIndicator.startLoading()
             AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
-                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPwdTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idCategory! ) { (sucess) in
-                            DispatchQueue.main.async {
-                                if(sucess) {
-                                    self.navigationController?.pushViewController(LoginViewController(), animated: false)
-                                } else {
-                                    self.activityIndicator.stopLoading()
-                                    self.errorTF.isHidden = false
-                            }
-                                }
+                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPasswordTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idCategory! ) { (sucess) in
+                    DispatchQueue.main.async {
+                        if(sucess) {
+                            self.navigationController?.pushViewController(LoginViewController(), animated: false)
+                        } else {
+                            self.activityIndicator.stopLoading()
+                            self.errorTF.isHidden = false
+                        }
                     }
                 }
+            }
         }
     }
     
-    @IBAction func Connect(_ sender: Any) { self.navigationController?.popViewController(animated: true) }
+    @IBAction func Connect(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
@@ -118,7 +116,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        1
+        return 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -130,7 +128,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
     }
 
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        assoCatTF.text = categoriesNames![row]
+        assoCategoryTF.text = categoriesNames![row]
         selectedCategory = categories[row]
         self.view.endEditing(true)
     }

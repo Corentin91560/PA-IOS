@@ -16,7 +16,7 @@ class FeedbackFactory {
             "date": mySQLFromDate(date: feedback.date),
             "note": feedback.note ?? 0,
             "title": feedback.title ?? "",
-            "plateform": "IOS",
+            "platform": "IOS",
             "idtype": feedback.idType!,
             "idassociation": feedback.idAssociation!
         ]

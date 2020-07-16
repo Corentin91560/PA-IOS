@@ -29,12 +29,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let refreshControl = UIRefreshControl()
     
     class func newInstance(posts: [Post], connectedAsso: Association?, events: [Event], users: [User]) -> HomeViewController {
-        let hvc = HomeViewController()
-        hvc.posts = posts
-        hvc.connectedAsso = connectedAsso
-        hvc.events = events
-        hvc.users = users
-        return hvc
+        let HomeVC = HomeViewController()
+        HomeVC.posts = posts
+        HomeVC.connectedAsso = connectedAsso
+        HomeVC.events = events
+        HomeVC.users = users
+        return HomeVC
     }
     
     override func viewDidLoad() {
@@ -68,7 +68,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.dataTableView.delegate = self
         self.dataTableView.separatorStyle = .none
         self.dataTableView.refreshControl = self.refreshControl
-        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        self.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     func setupNavigationBar() {
@@ -102,7 +102,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func Profile() {
         self.navigationController?.pushViewController(ProfileViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
-        //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
     }
     
     @objc func refreshData() {
@@ -119,11 +118,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (tabBar.selectedItem == tabBar.items?[1]) {
             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idAssociation!)!) { (eventsList) in
                     self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
-                }
-            } else if (tabBar.selectedItem == tabBar.items?[2]) {
-                navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
             }
+        } else if (tabBar.selectedItem == tabBar.items?[2]) {
+            navigationController?.pushViewController(FeedbackViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
         }
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.posts.count

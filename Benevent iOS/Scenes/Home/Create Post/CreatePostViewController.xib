@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -18,10 +18,10 @@
             <connections>
                 <outlet property="activityIndicator" destination="UGr-sF-smc" id="eN6-zs-3GN"/>
                 <outlet property="assoLogo" destination="6zh-FS-2mr" id="5me-tN-HiW"/>
-                <outlet property="errorTextField" destination="sTd-4L-8Jq" id="P5t-Iq-toq"/>
-                <outlet property="eventTextField" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
+                <outlet property="errorTF" destination="sTd-4L-8Jq" id="P5t-Iq-toq"/>
+                <outlet property="eventTF" destination="TaB-NJ-puR" id="1sY-GG-Pjd"/>
+                <outlet property="isPublicPost" destination="lzb-M3-Y1i" id="0mI-Us-0qy"/>
                 <outlet property="postMessageText" destination="hr3-7O-89v" id="aNC-QJ-pEG"/>
-                <outlet property="publicPost" destination="lzb-M3-Y1i" id="0mI-Us-0qy"/>
                 <outlet property="validButton" destination="SqI-uf-fY6" id="tgP-JN-6xL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

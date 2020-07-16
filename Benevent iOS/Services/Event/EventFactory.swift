@@ -12,10 +12,10 @@ class EventFactory {
     static func eventFrom(dictionary: [String: Any]) -> Event? {
         guard let n = dictionary["name"] as? String,
               let a = dictionary["description"] as? String,
-              let dd = dictionary["dateDeb"] as? String,
-              let de = dictionary["dateFin"] as? String,
+              let dd = dictionary["startdate"] as? String,
+              let de = dictionary["enddate"] as? String,
               let l = dictionary["location"] as? String,
-              let mB = dictionary["maxBenevole"] as? Int else {
+              let mB = dictionary["maxbenevole"] as? Int else {
                 return nil
         }
         let event = Event(name: n, apercu: a, startDate: dateConverter(dateMySQL: dd)!, endDate: dateConverter(dateMySQL: de)!, location: l, maxBenevole: mB)
@@ -30,10 +30,10 @@ class EventFactory {
            return [
             "name": event.name,
             "description": event.apercu,
-            "dateDeb": mySQLFromDate(date: event.startDate),
-            "dateFin": mySQLFromDate(date: event.endDate),
+            "startdate": mySQLFromDate(date: event.startDate),
+            "enddate": mySQLFromDate(date: event.endDate),
             "location": event.location,
-            "maxBenevole": event.maxBenevole,
+            "maxbenevole": event.maxBenevole,
             "idassociation": event.idAssociation!,
             "idcategory": event.idCategory!
            ]

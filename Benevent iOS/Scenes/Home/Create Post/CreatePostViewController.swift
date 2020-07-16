@@ -9,13 +9,13 @@
 import UIKit
 
 class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
-    @IBOutlet var eventTextField: UITextField!
+    @IBOutlet var assoLogo: UIImageView!
+    @IBOutlet var eventTF: UITextField!
     @IBOutlet var postMessageText: UITextView!
     @IBOutlet var validButton: UIButton!
-    @IBOutlet var errorTextField: UILabel!
-    @IBOutlet var publicPost: UISwitch!
+    @IBOutlet var errorTF: UILabel!
+    @IBOutlet var isPublicPost: UISwitch!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var assoLogo: UIImageView!
     
     let postWS : PostWebService = PostWebService()
     let eventWS : EventWebService = EventWebService()
@@ -55,18 +55,18 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         eventNamesList = eventList.map{ $0.name }
         print(eventList.count)
         if(eventList.count > 0) {
-            publicPost.isOn = false
+            isPublicPost.isOn = false
             eventPicker = UIPickerView()
             eventPicker.dataSource = self
             eventPicker.delegate = self
-            eventTextField.inputView = eventPicker
-            eventTextField.text = self.eventNamesList?[0]
+            eventTF.inputView = eventPicker
+            eventTF.text = self.eventNamesList?[0]
             selectedEvent = eventList[0]
         } else {
             print("NO EVENT")
-            self.eventTextField.isEnabled = false
-            self.publicPost.isOn = true
-            self.publicPost.isUserInteractionEnabled = false
+            self.eventTF.isEnabled = false
+            self.isPublicPost.isOn = true
+            self.isPublicPost.isUserInteractionEnabled = false
         }
     }
     
@@ -87,19 +87,19 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func swiftPublicClicked(_ sender: Any) {
-        if(self.publicPost.isOn) {
-            self.eventTextField.isEnabled = false
-            self.eventTextField.text = ""
+        if(self.isPublicPost.isOn) {
+            self.eventTF.isEnabled = false
+            self.eventTF.text = ""
         } else {
-            self.eventTextField.isEnabled = true
-            self.eventTextField.text = self.eventNamesList?[0]
+            self.eventTF.isEnabled = true
+            self.eventTF.text = self.eventNamesList?[0]
         }
     }
     
     @IBAction func Valid(_ sender: Any) {
         var checkCallback = false
         self.activityIndicator.startLoading()
-        if(self.publicPost.isOn) {
+        if(self.isPublicPost.isOn) {
             self.selectedEvent = generalEvent
         }
         let postToCreate = Post(message: postMessageText.text, date: Date())
@@ -118,7 +118,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
             } else {
                 DispatchQueue.main.async {
                     self.activityIndicator.stopLoading()
-                    self.errorTextField.isHidden = false
+                    self.errorTF.isHidden = false
                 }
             }
         }
@@ -141,7 +141,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        eventTextField.text = eventNamesList![row] == "" ? "Aucun" : eventNamesList![row]
+        eventTF.text = eventNamesList![row] == "" ? "Aucun" : eventNamesList![row]
         selectedEvent = eventList[row]
         self.view.endEditing(true)
     }

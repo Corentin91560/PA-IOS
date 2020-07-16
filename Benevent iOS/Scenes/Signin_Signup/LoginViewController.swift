@@ -41,7 +41,6 @@ class LoginViewController: UIViewController {
     
     @IBAction func Login (_ sender: Any) {
         self.activityIndicator.startLoading()
-        print("MD5 PWD : \n\(self.passwordTF.text!.md5())")
         self.assoWS.Login(mail: self.emailTF.text!, password: self.passwordTF.text!.md5()) { (asso) in
             if(asso.count > 0) {
                 self.postWS.getPosts(idAsso: asso[0].idAssociation!) { (posts) in
@@ -66,7 +65,6 @@ class LoginViewController: UIViewController {
             let signupForm = SignupViewController.newInstance(categories: categories)
             self.navigationController?.pushViewController(signupForm, animated: true)
         }
-        
     }
     
     @IBAction func mailTFClicked(_ sender: Any) {
