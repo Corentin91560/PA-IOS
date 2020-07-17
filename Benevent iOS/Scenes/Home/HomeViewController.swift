@@ -152,10 +152,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "dd/MM/yyyy"
-        formatterDate.locale = Locale(identifier: "fr_FR")
+        formatterDate.timeZone = TimeZone(abbreviation: "UTC")
         let formatterHour = DateFormatter()
         formatterHour.dateFormat = "HH:mm"
-        formatterHour.locale = Locale(identifier: "fr_FR")
+        formatterHour.timeZone = TimeZone(abbreviation: "UTC")
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.posts.rawValue, for: indexPath) as! HomeTableViewCell
         let post = self.posts[indexPath.row]
         let event = self.events.filter{ $0.idEvent == post.idEvent }[0] // C MOI QUI LOU FAIT

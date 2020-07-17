@@ -116,6 +116,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let event = self.usableEvents[indexPath.row]
         let now = Date()
         formatter.dateFormat = "dd/MM/yyyy"
+        formatter.timeZone = TimeZone(abbreviation: "UTC")
         
         cell.dataView.layer.cornerRadius = 50
         cell.arrowImage.frame = CGRect(x: 918, y: 52, width: 75, height: 75)

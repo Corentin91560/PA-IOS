@@ -87,8 +87,6 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         // DATE PICKERS
         startDatePicker = UIDatePicker()
         endDatePicker = UIDatePicker()
-        startDatePicker?.locale = Locale(identifier: "fr_FR")
-        endDatePicker?.locale = Locale(identifier: "fr_FR")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
         eventStartDateTF.inputView = startDatePicker
@@ -98,6 +96,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     func setupTextFields() {
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "dd/MM/yyyy HH:mm"
+        formatterDate.timeZone = TimeZone(abbreviation: "UTC")
         
         eventNameTF.text = event?.name
         eventDescriptionTF.text = event?.apercu
