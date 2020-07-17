@@ -52,23 +52,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.myTabBar.frame.size.height = 90
-        self.myTabBar.frame.origin.y = view.frame.height - 90
+        myTabBar.frame.size.height = 90
+        myTabBar.frame.origin.y = view.frame.height - 90
     }
     
     func setupTabBar() {
-        self.myTabBar.selectedItem = myTabBar.items?[0]
-        self.myTabBar.delegate = self
+        myTabBar.selectedItem = myTabBar.items?[0]
+        myTabBar.delegate = self
     }
     
     func setupTableView() {
-        self.dataTableView.allowsSelection = false
-        self.dataTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: Identifier.posts.rawValue)
-        self.dataTableView.dataSource = self
-        self.dataTableView.delegate = self
-        self.dataTableView.separatorStyle = .none
-        self.dataTableView.refreshControl = self.refreshControl
-        self.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        dataTableView.allowsSelection = false
+        dataTableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: Identifier.posts.rawValue)
+        dataTableView.dataSource = self
+        dataTableView.delegate = self
+        dataTableView.separatorStyle = .none
+        dataTableView.refreshControl = self.refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     func setupNavigationBar() {
@@ -152,8 +152,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let formatterDate = DateFormatter()
         formatterDate.dateFormat = "dd/MM/yyyy"
+        formatterDate.locale = Locale(identifier: "fr_FR")
         let formatterHour = DateFormatter()
         formatterHour.dateFormat = "HH:mm"
+        formatterHour.locale = Locale(identifier: "fr_FR")
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.posts.rawValue, for: indexPath) as! HomeTableViewCell
         let post = self.posts[indexPath.row]
         let event = self.events.filter{ $0.idEvent == post.idEvent }[0] // C MOI QUI LOU FAIT

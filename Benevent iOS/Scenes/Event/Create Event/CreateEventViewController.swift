@@ -76,8 +76,8 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         eventStartDateTF.text = formatter.string(from: Date())
         startDatePicker = UIDatePicker()
         endDatePicker = UIDatePicker()
-        startDatePicker?.locale = Locale(identifier: "fr")
-        endDatePicker?.locale = Locale(identifier: "fr")
+        startDatePicker?.locale = Locale(identifier: "fr_FR")
+        endDatePicker?.locale = Locale(identifier: "fr_FR")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.minimumDate = Date()
@@ -130,7 +130,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         activityIndicator.startLoading()
         let dateFormatter = DateFormatter() //TODO regler soucis heure -2 +2
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-        dateFormatter.locale = Locale(identifier: "fr")
+        dateFormatter.locale = Locale(identifier: "fr_FR")
         let startDateString = eventStartDateTF.text!
         let endDateString = eventEndDateTF.text!
         let startDate = dateFormatter.date(from: startDateString)!

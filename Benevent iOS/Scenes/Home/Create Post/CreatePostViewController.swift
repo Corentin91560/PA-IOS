@@ -44,7 +44,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func setupView() {
         assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
-        self.activityIndicator.isHidden = true
+        activityIndicator.isHidden = true
         setupNavigationBar()
         setupPicker()
         validButton.layer.cornerRadius = validButton.bounds.size.height/2

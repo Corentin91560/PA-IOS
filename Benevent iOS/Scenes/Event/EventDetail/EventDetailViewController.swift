@@ -87,8 +87,8 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         // DATE PICKERS
         startDatePicker = UIDatePicker()
         endDatePicker = UIDatePicker()
-        startDatePicker?.locale = Locale(identifier: "fr")
-        endDatePicker?.locale = Locale(identifier: "fr")
+        startDatePicker?.locale = Locale(identifier: "fr_FR")
+        endDatePicker?.locale = Locale(identifier: "fr_FR")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
         eventStartDateTF.inputView = startDatePicker

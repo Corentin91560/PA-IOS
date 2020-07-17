@@ -122,6 +122,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.eventName.text = event.name
         
         if (event.startDate < now && event.endDate > now) {
+            cell.eventStartDate.textColor = UIColor.systemGray
             cell.eventStartDate.text = "En cours depuis le \(formatter.string(from: event.startDate))"
         } else if (event.startDate > now) {
             cell.eventStartDate.textColor = UIColor.systemGreen
