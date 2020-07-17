@@ -22,7 +22,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let postWS: PostWebService = PostWebService()
     
     var posts: [Post]!
-    var connectedAsso: Association? = nil
+    var connectedAsso: Association!
     var events: [Event]!
     var users: [User]!
     
@@ -105,8 +105,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refreshData() {
-        self.postWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in //TODO rappeler les users avec
-            self.posts = posts
+        self.postWS.getPosts(idAsso: self.connectedAsso.idAssociation!) { (posts) in
+            self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso.idAssociation!) { (events) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso.idAssociation!) { (users) in
+                    self.posts = posts
+                    self.events = events
+                    self.users = users
+                }
+            }
         }
         DispatchQueue.main.async {
             self.dataTableView.reloadData()

@@ -55,6 +55,9 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
         activityIndicator.isHidden = true
         eventMaxBenevoleTF.delegate = self
+        eventStartDateTF.delegate = self
+        eventEndDateTF.delegate = self
+        categoryTF.delegate = self
         self.hideKeyboardWhenTappedAround()
         setupNavigationBar()
         setupPickers()
@@ -67,8 +70,8 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         categoryPicker.dataSource = self
         categoriesNames = categories.map{ $0.name }
         categoryTF.inputView = categoryPicker
-        categoryTF.text = self.categoriesNames?[1]
-        selectedCategory = categories[1]
+        categoryTF.text = self.categoriesNames?[0]
+        selectedCategory = categories[0]
         
         // DATE PICKERS
         let formatter = DateFormatter()
@@ -88,7 +91,12 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     @objc func startdateChanger(datePicker : UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        endDatePicker?.minimumDate = datePicker.date
         eventStartDateTF.text = formatter.string(from: datePicker.date)
+        if(endDatePicker!.date < datePicker.date) {
+            endDatePicker?.date = datePicker.date
+            eventEndDateTF.text = formatter.string(from: datePicker.date)
+        }
     }
     
     
@@ -97,14 +105,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         eventEndDateTF.text = formatter.string(from: datePicker.date)
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-      let allowedCharacters = CharacterSet.decimalDigits
-      let characterSet = CharacterSet(charactersIn: string)
-      return allowedCharacters.isSuperset(of: characterSet)
-    }
-    
+        
     func setupNavigationBar() {
         // Navigation bar main config
         self.navigationItem.hidesBackButton = true
@@ -135,34 +136,29 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         let endDateString = eventEndDateTF.text!
         let startDate = dateFormatter.date(from: startDateString)!
         let endDate = dateFormatter.date(from: endDateString)!
-        print("Start Date \(startDate)")
-        print("End Date \(endDate)")
+        endDatePicker?.minimumDate = startDatePicker?.date
+      
+        let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
+        eventToCreate.idAssociation = connectedAsso?.idAssociation!
+        eventToCreate.idCategory = selectedCategory.idCategory!
         
-        if(startDate > endDate) {
-            errorTF.isHidden = false
-        } else {
-            let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-            eventToCreate.idAssociation = connectedAsso?.idAssociation!
-            eventToCreate.idCategory = selectedCategory.idCategory!
-            
-            eventWS.newEvent(event: eventToCreate) { (sucess) in
-                if(sucess || checkCallback) {
-                    if(!checkCallback) {
-                        let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
-                        postToCreate.idEvent = self.generalEvent?.idEvent
-                        postToCreate.idAssociation = self.connectedAsso?.idAssociation
-                        self.postWS.newPost(post: postToCreate) { (_) in }
-                    }
-                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (eventsList) in
-                        checkCallback = true
-                        let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
-                        self.navigationController?.pushViewController(EventVC, animated: false)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self.activityIndicator.stopLoading()
-                        self.errorTF.isHidden = false
-                    }
+        eventWS.newEvent(event: eventToCreate) { (sucess) in
+            if(sucess || checkCallback) {
+                if(!checkCallback) {
+                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
+                    postToCreate.idEvent = self.generalEvent?.idEvent
+                    postToCreate.idAssociation = self.connectedAsso?.idAssociation
+                    self.postWS.newPost(post: postToCreate) { (_) in }
+                }
+                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (eventsList) in
+                    checkCallback = true
+                    let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
+                    self.navigationController?.pushViewController(EventVC, animated: false)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.activityIndicator.stopLoading()
+                    self.errorTF.isHidden = false
                 }
             }
         }
@@ -184,5 +180,19 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         selectedCategory = categories[row]
         self.view.endEditing(true)
     }
+       
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        if (textField == eventStartDateTF || textField == eventEndDateTF || textField == categoryTF) {
+            let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        } else if (textField == eventMaxBenevoleTF) {
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        }
+        return true
+    }
 }

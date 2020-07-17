@@ -58,7 +58,7 @@ class AssociationWebService {
             "email": email,
             "password": password,
             "logo": profilePicture,
-            "idcat": idCategory
+            "idcategory": idCategory
         ]
         guard let apiURL = URL(string: assoLoginURL ) else {
             return;

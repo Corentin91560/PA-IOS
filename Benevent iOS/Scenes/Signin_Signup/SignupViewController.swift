@@ -9,7 +9,7 @@
 import UIKit
 import Cloudinary
 
-class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet var assoNameTF: UITextField!
     @IBOutlet var assoEmailTF: UITextField!
@@ -50,6 +50,7 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.hideKeyboardWhenTappedAround()
         setupPicker()
         errorTF.isHidden = true
+        assoCategoryTF.delegate = self
         signupButton.layer.cornerRadius = signupButton.bounds.height/2
     }
     
@@ -95,6 +96,11 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
                         if(sucess) {
                             self.navigationController?.pushViewController(LoginViewController(), animated: false)
                         } else {
+                            print(self.assoNameTF.text!)
+                            print(self.assoEmailTF.text!)
+                            print(self.assoPasswordTF.text!.md5())
+                            print(result?.url ?? "")
+                            print(self.selectedCategory.idCategory!)
                             self.activityIndicator.stopLoading()
                             self.errorTF.isHidden = false
                         }
@@ -133,6 +139,16 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.view.endEditing(true)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        if textField == assoCategoryTF {
+               let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+               let characterSet = CharacterSet(charactersIn: string)
+               return allowedCharacters.isSuperset(of: characterSet)
+           }
+           return true
+    }
+    
     @IBAction func nameTFClicked(_ sender: Any) {
         self.activityIndicator.stopLoading()
         self.errorTF.isHidden = true
@@ -150,4 +166,6 @@ class SignupViewController: UIViewController, UIPickerViewDelegate, UIPickerView
         self.errorTF.isHidden = true
         self.nullErrorTF.isHidden = true
     }
+    
 }
+

@@ -18,7 +18,11 @@ class EventQRViewController: UIViewController {
     var qrcodeImage: CIImage? {
       didSet {
         if let image = qrcodeImage {
-            QRCodeImageView.image = UIImage(ciImage: image)
+            let scaleX = QRCodeImageView.frame.size.width / qrcodeImage!.extent.size.width
+            let scaleY = QRCodeImageView.frame.size.height / qrcodeImage!.extent.size.height
+            let transformedImage = image.transformed(by: CGAffineTransform(scaleX: scaleX, y: scaleY))
+            
+            QRCodeImageView.image = UIImage(ciImage: transformedImage)
         }
         else {
             QRCodeImageView.image = nil

@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var assoName: UITextField!
@@ -51,6 +51,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.assoLogo.layer.cornerRadius = 25
+        self.assoPhone.delegate = self 
         setupPicker()
         setupTextFields()
         setupNavigationBar()
@@ -220,6 +221,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.validateButton.isEnabled = true
         }
         dismiss(animated: true, completion: nil)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+      let allowedCharacters = CharacterSet.decimalDigits
+      let characterSet = CharacterSet(charactersIn: string)
+      return allowedCharacters.isSuperset(of: characterSet)
     }
     
     @IBAction func assoNameClicked(_ sender: Any) {

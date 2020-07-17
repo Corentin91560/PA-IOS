@@ -61,6 +61,9 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         deleteEventButton.isHidden = true
         self.hideKeyboardWhenTappedAround()
         eventDescriptionTF.delegate = self
+        eventStartDateTF.delegate = self
+        eventEndDateTF.delegate = self
+        eventCategoryTF.delegate = self
         if(event!.isInProgress(startDate: event!.startDate, endDate: event!.endDate)) {
             self.participantsButton.layer.cornerRadius = participantsButton.bounds.size.height/3 //TODO inverser le fonctionnement (cacher de base)
             self.QRButton.layer.cornerRadius = QRButton.bounds.size.height/3
@@ -89,6 +92,8 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         endDatePicker = UIDatePicker()
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
+        startDatePicker?.locale = Locale(identifier: "fr_FR")
+        endDatePicker?.locale = Locale(identifier: "fr_FR")
         eventStartDateTF.inputView = startDatePicker
         eventEndDateTF.inputView = endDatePicker
     }
@@ -146,9 +151,14 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     @objc func startdateChanger(datePicker : UIDatePicker) {
-         let formatter = DateFormatter()
-         formatter.dateFormat = "dd/MM/yyyy HH:mm"
-         eventStartDateTF.text = formatter.string(from: datePicker.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
+        endDatePicker?.minimumDate = datePicker.date
+        eventStartDateTF.text = formatter.string(from: datePicker.date)
+        if(endDatePicker!.date < datePicker.date) {
+            endDatePicker?.date = datePicker.date
+            eventEndDateTF.text = formatter.string(from: datePicker.date)
+        }
      }
      
      
@@ -225,12 +235,19 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         }
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-      let allowedCharacters = CharacterSet.decimalDigits
-      let characterSet = CharacterSet(charactersIn: string)
-      return allowedCharacters.isSuperset(of: characterSet)
-    }
+     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+       {
+           if (textField == eventStartDateTF || textField == eventEndDateTF || textField == eventCategoryTF) {
+               let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+               let characterSet = CharacterSet(charactersIn: string)
+               return allowedCharacters.isSuperset(of: characterSet)
+           } else if (textField == eventMaxBenevoleTF) {
+               let allowedCharacters = CharacterSet.decimalDigits
+               let characterSet = CharacterSet(charactersIn: string)
+               return allowedCharacters.isSuperset(of: characterSet)
+           }
+           return true
+       }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
           return 1

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var eventTF: UITextField!
     @IBOutlet var postMessageText: UITextView!
@@ -48,6 +48,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         setupNavigationBar()
         setupPicker()
         validButton.layer.cornerRadius = validButton.bounds.size.height/2
+        eventTF.delegate = self
         self.hideKeyboardWhenTappedAround()
     }
     
@@ -95,30 +96,35 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
     
     @IBAction func Validate(_ sender: Any) {
-        var checkCallback = false
-        self.activityIndicator.startLoading()
-        if(self.isPublicPost.isOn) {
-            self.selectedEvent = generalEvent
-        }
-        let postToCreate = Post(message: postMessageText.text, date: Date().now())
-        postToCreate.idEvent = selectedEvent.idEvent
-        postToCreate.idAssociation = connectedAsso?.idAssociation
-        self.postWS.newPost(post: postToCreate) { (sucess) in
-            if (sucess || checkCallback) {
-                self.postWS.getPosts(idAsso: (self.connectedAsso?.idAssociation)!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idAssociation!) { (events) in
-                        self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
-                            checkCallback = true
-                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
+        if(postMessageText.text! != "") {
+            var checkCallback = false
+            self.activityIndicator.startLoading()
+            if(self.isPublicPost.isOn) {
+                self.selectedEvent = generalEvent
+            }
+            let postToCreate = Post(message: postMessageText.text, date: Date())
+            postToCreate.idEvent = selectedEvent.idEvent
+            postToCreate.idAssociation = connectedAsso?.idAssociation
+            self.postWS.newPost(post: postToCreate) { (sucess) in
+                if (sucess || checkCallback) {
+                    self.postWS.getPosts(idAsso: (self.connectedAsso?.idAssociation)!) { (posts) in
+                        self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idAssociation!) { (events) in
+                            self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
+                                checkCallback = true
+                                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
+                            }
                         }
                     }
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopLoading()
-                    self.errorTF.isHidden = false
+                } else {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopLoading()
+                        self.errorTF.isHidden = false
+                    }
                 }
             }
+        } else {
+            errorTF.text = "Les champs sont obligatoires"
+            errorTF.isHidden = false
         }
     }
     
@@ -143,4 +149,19 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         selectedEvent = eventList[row]
         self.view.endEditing(true)
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+        if textField == eventTF {
+               let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+               let characterSet = CharacterSet(charactersIn: string)
+               return allowedCharacters.isSuperset(of: characterSet)
+           }
+           return true
+    }
+    
+    @IBAction func eventTFClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
 }
