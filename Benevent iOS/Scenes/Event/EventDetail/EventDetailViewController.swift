@@ -53,9 +53,8 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     func setupView() {
-        
-        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
-        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        self.assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         assoLogo.layer.cornerRadius = 25
         activityIndicator.isHidden = true
         deleteEventButton.isHidden = true
@@ -183,23 +182,28 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     @IBAction func Valid(_ sender: Any) {
-        activityIndicator.startLoading()
-        var checkCallback = false
-        let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-        newEvent.idAssociation = connectedAsso?.idAssociation!
-        newEvent.idEvent = self.event?.idEvent!
-        newEvent.idCategory = selectedCategory?.idCategory
-        
-        eventWS.updateEvent(event: newEvent) { (sucess) in
-            if (sucess || checkCallback) {
-                checkCallback = true
-                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
-                    self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
-                }
-            } else {
-                DispatchQueue.main.sync {
-                    self.activityIndicator.stopLoading()
-                    self.errorTF.isHidden = false
+        if (eventNameTF.text == "" ) {
+            errorTF.text = "L'événement doit avoir un nom ! "
+            errorTF.isHidden = false
+        } else {
+            activityIndicator.startLoading()
+            var checkCallback = false
+            let newEvent = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: dateConverter(dateMySQL: eventStartDateTF.text!)! , endDate: dateConverter(dateMySQL: eventEndDateTF.text!)!, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
+            newEvent.idAssociation = connectedAsso?.idAssociation!
+            newEvent.idEvent = self.event?.idEvent!
+            newEvent.idCategory = selectedCategory?.idCategory
+            
+            eventWS.updateEvent(event: newEvent) { (sucess) in
+                if (sucess || checkCallback) {
+                    checkCallback = true
+                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
+                        self.navigationController?.pushViewController(EventViewController.newInstance(events: events, connectedAsso: self.connectedAsso!), animated: false)
+                    }
+                } else {
+                    DispatchQueue.main.sync {
+                        self.activityIndicator.stopLoading()
+                        self.errorTF.isHidden = false
+                    }
                 }
             }
         }

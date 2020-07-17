@@ -43,9 +43,6 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     }
     
     func setupView() {
-        if #available(iOS 12.0, *) {
-            assoPasswordTF.textContentType = .oneTimeCode
-        }
         self.assoLogo.image = UIImage(named: "AppIconImage")
         self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         self.activityIndicator.isHidden = true
@@ -54,6 +51,7 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
         setupPicker()
         errorTF.isHidden = true
         assoCategoryTF.delegate = self
+        assoPasswordTF.delegate = self
         signupButton.layer.cornerRadius = signupButton.bounds.height/2
     }
     
@@ -145,11 +143,13 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if textField == assoCategoryTF {
-               let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
-               let characterSet = CharacterSet(charactersIn: string)
-               return allowedCharacters.isSuperset(of: characterSet)
-           }
-           return true
+            let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+            let characterSet = CharacterSet(charactersIn: string)
+            return allowedCharacters.isSuperset(of: characterSet)
+        } else if (textField == assoPasswordTF && !textField.isSecureTextEntry) {
+            textField.isSecureTextEntry = true
+        }
+        return true
     }
     
     @IBAction func nameTFClicked(_ sender: Any) {

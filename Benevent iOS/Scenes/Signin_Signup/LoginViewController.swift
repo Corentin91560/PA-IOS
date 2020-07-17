@@ -9,7 +9,7 @@
 import UIKit
 import KeychainSwift
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var errorTF: UILabel!
     @IBOutlet var emailTF: UITextField!
@@ -31,6 +31,7 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
+        passwordTF.delegate = self
         if #available(iOS 12.0, *) {
             passwordTF.textContentType = .oneTimeCode
         }
@@ -75,6 +76,14 @@ class LoginViewController: UIViewController {
     
     @IBAction func passwordTFClicked(_ sender: Any) {
         self.errorTF.isHidden = true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
+    {
+      if (textField == passwordTF && !textField.isSecureTextEntry) {
+            textField.isSecureTextEntry = true
+        }
+        return true
     }
 }
 

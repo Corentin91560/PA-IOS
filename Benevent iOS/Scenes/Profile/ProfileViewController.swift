@@ -134,22 +134,27 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     @IBAction func Validate(_ sender: Any) {
-        let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
-        newAsso.acronym = assoAcronyme.text
-        newAsso.idAssociation = connectedAsso?.idAssociation!
-        newAsso.idCategory = connectedAsso?.idCategory!
-        newAsso.logo = connectedAsso?.logo
-        newAsso.phone = assoPhone.text!
-        newAsso.support = assoSupport.text!
-        newAsso.website = assoWebsite.text!
-        if(logoChanged) {
-            AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
-                newAsso.logo = result?.url!
+        if (assoName.text == "" ||  assoMail.text == "") {
+            errorTextField.text = "Les champs 'Nom' et 'Email' sont obligatoires ! "
+            errorTextField.isHidden = false
+        } else {
+            let newAsso = Association(name: assoName.text!, email: assoMail.text!, password: connectedAsso!.password)
+            newAsso.acronym = assoAcronyme.text
+            newAsso.idAssociation = connectedAsso?.idAssociation!
+            newAsso.idCategory = connectedAsso?.idCategory!
+            newAsso.logo = connectedAsso?.logo
+            newAsso.phone = assoPhone.text!
+            newAsso.support = assoSupport.text!
+            newAsso.website = assoWebsite.text!
+            if(logoChanged) {
+                AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
+                    newAsso.logo = result?.url!
+                    self.updateAsso(newAsso: newAsso)
+                }
+            } else {
+                newAsso.logo = connectedAsso?.logo
                 self.updateAsso(newAsso: newAsso)
             }
-        } else {
-            newAsso.logo = connectedAsso?.logo
-            self.updateAsso(newAsso: newAsso)
         }
     }
     

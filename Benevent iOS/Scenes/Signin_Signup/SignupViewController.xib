@@ -96,7 +96,7 @@
                     <rect key="frame" x="50" y="381" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="no" secureTextEntry="YES"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="pwdTFClicked:" destination="-1" eventType="touchDown" id="PYh-QV-Nrt"/>
                     </connections>
