@@ -50,6 +50,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     }
     
     func setupView() {
+        
         assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2

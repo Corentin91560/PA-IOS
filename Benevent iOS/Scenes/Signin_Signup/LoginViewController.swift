@@ -31,6 +31,9 @@ class LoginViewController: UIViewController {
     }
     
     func setupView() {
+        if #available(iOS 12.0, *) {
+            passwordTF.textContentType = .oneTimeCode
+        }
         self.activityIndicator.isHidden = true
         self.hideKeyboardWhenTappedAround()
         self.navigationController?.navigationBar.barTintColor = UIColor(named: "systemGray6")
