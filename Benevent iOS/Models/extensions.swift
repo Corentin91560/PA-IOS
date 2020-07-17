@@ -23,6 +23,12 @@ extension String {
     }
 }
 
+extension Date {
+    func now() -> Date {
+        return Date(timeIntervalSince1970: TimeInterval((Int(Date().timeIntervalSince1970) + TimeZone.current.secondsFromGMT())))
+    }
+}
+
 extension UIImageView {
     func load(url: URL) {
         DispatchQueue.global().async { [weak self] in

@@ -130,7 +130,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         activityIndicator.startLoading()
         let dateFormatter = DateFormatter() //TODO regler soucis heure -2 +2
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         let startDateString = eventStartDateTF.text!
         let endDateString = eventEndDateTF.text!
         let startDate = dateFormatter.date(from: startDateString)!

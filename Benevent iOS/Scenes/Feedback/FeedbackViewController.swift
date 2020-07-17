@@ -152,7 +152,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
     
     @IBAction func sendBug(_ sender: Any) {
         var checkCallback = false
-        let feedbackToCreate: Feedback = Feedback(content: self.bugDescription.text, date: Date())
+        let feedbackToCreate: Feedback = Feedback(content: self.bugDescription.text, date: Date().now())
         feedbackToCreate.idAssociation = self.connectedAsso?.idAssociation!
         feedbackToCreate.idType = 1
         feedbackToCreate.title = self.bugTitle.text!

@@ -114,7 +114,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
         let formatter = DateFormatter()
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.events.rawValue, for: indexPath) as! EventTableViewCell
         let event = self.usableEvents[indexPath.row]
-        let now = Date()
+        let now = Date().now()
         formatter.dateFormat = "dd/MM/yyyy"
         formatter.timeZone = TimeZone(abbreviation: "UTC")
         
@@ -144,7 +144,7 @@ class EventViewController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     class func sortEvents(events: [Event]) -> [Event] {
-        let now = Date()
+        let now = Date().now()
         let closeEvents = events.filter{ $0.endDate < now}
         let inProgressEvents = events.filter{ $0.startDate <= now && $0.endDate >= now}
         let comingEvents = events.filter{ $0.startDate > now }

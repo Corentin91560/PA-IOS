@@ -36,7 +36,7 @@ class Event : CustomStringConvertible {
     }
     
     func isInProgress(startDate: Date, endDate: Date) -> Bool {
-        let now = Date()
+        let now = Date().now()
         return startDate < now && endDate > now ? true : false
     }
 }

@@ -100,7 +100,7 @@ class CreatePostViewController: UIViewController, UIPickerViewDelegate, UIPicker
         if(self.isPublicPost.isOn) {
             self.selectedEvent = generalEvent
         }
-        let postToCreate = Post(message: postMessageText.text, date: Date())
+        let postToCreate = Post(message: postMessageText.text, date: Date().now())
         postToCreate.idEvent = selectedEvent.idEvent
         postToCreate.idAssociation = connectedAsso?.idAssociation
         self.postWS.newPost(post: postToCreate) { (sucess) in

@@ -174,6 +174,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.postMessage.text = post.message
         cell.dataView.layer.cornerRadius = 50
         cell.assoProfilePicture.frame = CGRect(x: 20, y: 20, width: 75, height: 75)
+        print("POST DATE: \(post.date)")
         cell.postDate.text = "le \(formatterDate.string(from: post.date)) à \(formatterHour.string(from: post.date))"
         cell.eventName.text = event.name
         return cell
