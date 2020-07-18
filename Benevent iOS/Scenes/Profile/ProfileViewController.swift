@@ -206,42 +206,36 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     @IBAction private func assoNameClicked(_ sender: Any) {
-        assoName.text = ""
         validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTextField.isHidden = true
         validateButton.isEnabled = true
     }
     
     @IBAction private func assoMailClicked(_ sender: Any) {
-        assoMail.text = ""
         validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTextField.isHidden = true
         validateButton.isEnabled = true
     }
     
     @IBAction private func assoPhoneClicked(_ sender: Any) {
-        assoPhone.text = ""
         validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTextField.isHidden = true
         validateButton.isEnabled = true
     }
     
     @IBAction private func assoWebsiteClicked(_ sender: Any) {
-        assoWebsite.text = ""
         validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTextField.isHidden = true
         validateButton.isEnabled = true
     }
     
     @IBAction private func assoSupportClicked(_ sender: Any) {
-        assoSupport.text = ""
         validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTextField.isHidden = true
         validateButton.isEnabled = true
     }
     
     @IBAction private func assoAcronymeClicked(_ sender: Any) {
-       assoAcronyme.text = ""
        validateButton.backgroundColor = UIColor(named: "BackgroundGreen")
        errorTextField.isHidden = true
        validateButton.isEnabled = true

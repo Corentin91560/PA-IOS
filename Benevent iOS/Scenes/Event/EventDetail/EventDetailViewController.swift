@@ -258,21 +258,18 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     @IBAction private func eventLocationClicked(_ sender: Any) {
-        eventLocationTF.text = ""
         validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTF.isHidden = true
         validButton.isEnabled = true
     }
      
     @IBAction private func eventMaxBenevoleClicked(_ sender: Any) {
-        eventMaxBenevoleTF.text = ""
         validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTF.isHidden = true
         validButton.isEnabled = true
     }
     
     @IBAction private func eventNameClicked(_ sender: Any) {
-        eventNameTF.text = ""
         validButton.backgroundColor = UIColor(named: "BackgroundGreen")
         errorTF.isHidden = true
         validButton.isEnabled = true
@@ -311,7 +308,6 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-       eventDescriptionTF.text = ""
        validButton.backgroundColor = UIColor(named: "BackgroundGreen")
        errorTF.isHidden = true
        validButton.isEnabled = true
