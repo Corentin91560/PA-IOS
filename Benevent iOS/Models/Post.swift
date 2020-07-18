@@ -7,25 +7,57 @@
 //
 
 import Foundation
-import UIKit
 
-
-class Post: CustomStringConvertible {
-
-    var idPost: Int?
-    var message: String
-    var date: Date
-    var idUser: Int?
-    var idAssociation: Int?
-    var idEvent: Int?
+class Post {
+    private var idPost: Int?
+    private var message: String
+    private var date: Date
+    private var idUser: Int?
+    private var idAssociation: Int?
+    private var idEvent: Int?
  
     init(message: String, date: Date) {
         self.message = message
         self.date = date
     }
     
+    func getIdPost() -> Int {
+        return idPost!
+    }
     
-    var description: String {
-        return "{\(self.idPost ?? 0) \(self.message) \(self.date) \(self.idUser ?? 0)  \(self.idAssociation ?? 0) \(self.idEvent ?? 0)}"
+    func setIdPost(idPost: Int) {
+        self.idPost = idPost
+    }
+    
+    func getMessage() -> String {
+        return message
+    }
+    
+    func getDate() -> Date{
+        return date
+    }
+    
+    func getIdUser() -> Int? {
+        return idUser
+    }
+    
+    func setIdUser(idUser: Int?) {
+        self.idUser = idUser
+    }
+    
+    func getIdAssociation() -> Int? {
+        return idAssociation
+    }
+    
+    func setIdAssociation(idAssociation: Int?) {
+        self.idAssociation = idAssociation
+    }
+    
+    func getIdEvent() -> Int {
+        return idEvent!
+    }
+    
+    func setIdEvent(idEvent: Int) {
+        self.idEvent = idEvent
     }
 }

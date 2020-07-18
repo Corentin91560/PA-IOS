@@ -11,25 +11,26 @@ import Cloudinary
 
 class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet var assoNameTF: UITextField!
-    @IBOutlet var assoEmailTF: UITextField!
-    @IBOutlet var assoPasswordTF: UITextField!
-    @IBOutlet var assoCategoryTF: UITextField!
-    @IBOutlet var errorTF: UILabel!
-    @IBOutlet var signupButton: UIButton!
-    @IBOutlet var loginButton: UIButton!
-    @IBOutlet var nullErrorTF: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet var assoLogo: UIImageView!
-    @IBOutlet var chooseImage: UIButton!
+    private let assoWS: AssociationWebService = AssociationWebService()
     
-    let assoWS: AssociationWebService = AssociationWebService()
+    private var categories: [Category]!
     
-    var categories: [Category]!
-    var categoriesNames: [String]? = nil
-    var selectedCategory: Category!
-    var categoryPicker: UIPickerView!
-    var imagePicker: UIImagePickerController!
+    @IBOutlet private var assoNameTF: UITextField!
+    @IBOutlet private var assoEmailTF: UITextField!
+    @IBOutlet private var assoPasswordTF: UITextField!
+    @IBOutlet private var assoCategoryTF: UITextField!
+    @IBOutlet private var errorTF: UILabel!
+    @IBOutlet private var signupButton: UIButton!
+    @IBOutlet private var loginButton: UIButton!
+    @IBOutlet private var nullErrorTF: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private var assoLogo: UIImageView!
+    @IBOutlet private var chooseImage: UIButton!
+    
+    private var categoriesNames: [String]? = nil
+    private var selectedCategory: Category!
+    private var categoryPicker: UIPickerView!
+    private var imagePicker: UIImagePickerController!
     
     class func newInstance(categories: [Category]) -> SignupViewController {
         let SignUpVC: SignupViewController = SignupViewController()
@@ -39,69 +40,62 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        setupView()
     }
     
-    func setupView() {
-        self.assoLogo.image = UIImage(named: "AppIconImage")
-        self.assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
-        self.activityIndicator.isHidden = true
-        self.navigationItem.hidesBackButton = true
-        self.hideKeyboardWhenTappedAround()
-        setupPicker()
+    private func setupView() {
+        navigationItem.hidesBackButton = true
+        assoLogo.image = UIImage(named: "AppIconImage")
+        assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
+        activityIndicator.isHidden = true
         errorTF.isHidden = true
         assoCategoryTF.delegate = self
-        assoPasswordTF.delegate = self
         signupButton.layer.cornerRadius = signupButton.bounds.height/2
+        hideKeyboardWhenTappedAround()
+        setupPicker()
     }
     
-    func setupPicker() {
+    private func setupPicker() {
         // Category Picker
-        self.categoryPicker = UIPickerView()
-        self.categoryPicker.delegate = self
-        self.categoryPicker.dataSource = self
-        
+        categoryPicker = UIPickerView()
+        categoryPicker.delegate = self
+        categoryPicker.dataSource = self
         if(categories.isEmpty) {
-            self.assoCategoryTF.isEnabled = false
+            assoCategoryTF.isEnabled = false
         } else {
-            self.categoriesNames = categories.map{ $0.name }
-            self.assoCategoryTF.inputView = categoryPicker
-            self.assoCategoryTF.text = self.categoriesNames?[0]
-            self.selectedCategory = categories[0]
+            categoriesNames = categories.map{ $0.getName() }
+            assoCategoryTF.inputView = categoryPicker
+            assoCategoryTF.text = self.categoriesNames?[0]
+            selectedCategory = categories[0]
         }
         // Image Picker
-        self.imagePicker = UIImagePickerController()
-        self.imagePicker.delegate = self
+        imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
     }
     
-    @IBAction func chooseImage(_ sender: Any) {
-        self.imagePicker.allowsEditing = false
-        self.imagePicker.sourceType = .photoLibrary
+    @IBAction private func chooseImage(_ sender: Any) {
+       imagePicker.allowsEditing = false
+       imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func Confirm(_ sender: Any) {
-        if (self.assoNameTF.text == "" || self.assoEmailTF.text == "" || self.assoPasswordTF.text == "" ) {
-            self.nullErrorTF.isHidden = false
-        } else if (self.assoPasswordTF.text!.count < 6) {
-            self.errorTF.text = "Votre mot de passe doit contenir au moins 6 caractères !"
-            self.errorTF.isHidden = false
-        } else if (self.assoCategoryTF.text == "") {
-            self.errorTF.text = "Vous n'êtes pas connecté à internet"
-            self.errorTF.isHidden = false
+    @IBAction private func Validate(_ sender: Any) {
+        if (assoNameTF.text == "" || assoEmailTF.text == "" || assoPasswordTF.text == "" ) {
+            nullErrorTF.isHidden = false
+        } else if (assoPasswordTF.text!.count < 6) {
+            errorTF.text = "Votre mot de passe doit contenir au moins 6 caractères !"
+            errorTF.isHidden = false
+        } else if (assoCategoryTF.text == "") {
+            errorTF.text = "Vous n'êtes pas connecté à internet"
+            errorTF.isHidden = false
         } else {
-            self.activityIndicator.startLoading()
-            AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: "vwvkhj98") { result, error in
-                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPasswordTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.idCategory! ) { (sucess) in
+            activityIndicator.startLoading()
+            AppConfig.cloudinary.createUploader().upload(data: (self.assoLogo.image?.pngData())!, uploadPreset: AppConfig.cloudinaryUploadPreset) { result, error in
+                self.assoWS.Signup(name: self.assoNameTF.text!, email: self.assoEmailTF.text!, password: self.assoPasswordTF.text!.md5(), profilePicture: result?.url ?? "", idCategory: self.selectedCategory.getIdCategory() ) { (sucess) in
                     DispatchQueue.main.async {
                         if(sucess) {
                             self.navigationController?.pushViewController(LoginViewController(), animated: false)
                         } else {
-                            print(self.assoNameTF.text!)
-                            print(self.assoEmailTF.text!)
-                            print(self.assoPasswordTF.text!.md5())
-                            print(result?.url ?? "")
-                            print(self.selectedCategory.idCategory!)
                             self.activityIndicator.stopLoading()
                             self.errorTF.isHidden = false
                         }
@@ -111,13 +105,32 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
         }
     }
     
-    @IBAction func Connect(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    @IBAction private func Connect(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction private func nameTFClicked(_ sender: Any) {
+        activityIndicator.stopLoading()
+        errorTF.isHidden = true
+        nullErrorTF.isHidden = true
+    }
+    
+    @IBAction private func mailTFClicked(_ sender: Any) {
+        activityIndicator.stopLoading()
+        errorTF.isHidden = true
+        nullErrorTF.isHidden = true
+    }
+    
+    @IBAction private func pwdTFClicked(_ sender: Any) {
+        assoPasswordTF.text = ""
+        activityIndicator.stopLoading()
+        errorTF.isHidden = true
+        nullErrorTF.isHidden = true
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.assoLogo.image = pickedImage
+            assoLogo.image = pickedImage
         }
         dismiss(animated: true, completion: nil)
     }
@@ -127,7 +140,7 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  categoriesNames!.count
+        return categoriesNames!.count
     }
     
     func pickerView( _ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -137,38 +150,17 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     func pickerView( _ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         assoCategoryTF.text = categoriesNames![row]
         selectedCategory = categories[row]
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
-        if textField == assoCategoryTF {
-            let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
+        if (textField == assoCategoryTF) {
+            let allowedCharacters = CharacterSet(charactersIn:"")
             let characterSet = CharacterSet(charactersIn: string)
             return allowedCharacters.isSuperset(of: characterSet)
-        } else if (textField == assoPasswordTF && !textField.isSecureTextEntry) {
-            textField.isSecureTextEntry = true
         }
         return true
     }
-    
-    @IBAction func nameTFClicked(_ sender: Any) {
-        self.activityIndicator.stopLoading()
-        self.errorTF.isHidden = true
-        self.nullErrorTF.isHidden = true
-    }
-    
-    @IBAction func mailTFClicked(_ sender: Any) {
-        self.activityIndicator.stopLoading()
-        self.errorTF.isHidden = true
-        self.nullErrorTF.isHidden = true
-    }
-    
-    @IBAction func pwdTFClicked(_ sender: Any) {
-        self.activityIndicator.stopLoading()
-        self.errorTF.isHidden = true
-        self.nullErrorTF.isHidden = true
-    }
-    
 }
 

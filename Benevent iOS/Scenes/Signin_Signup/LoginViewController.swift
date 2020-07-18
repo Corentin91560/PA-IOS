@@ -11,49 +11,45 @@ import KeychainSwift
 
 class LoginViewController: UIViewController, UITextFieldDelegate {
     
-    @IBOutlet var errorTF: UILabel!
-    @IBOutlet var emailTF: UITextField!
-    @IBOutlet var passwordTF: UITextField!
-    @IBOutlet var loginButton: UIButton!
-    @IBOutlet var signupButton: UIButton!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    private let assoWS : AssociationWebService = AssociationWebService()
+    private let postWS: PostWebService = PostWebService()
+    private let eventWS: EventWebService = EventWebService()
+    private let categoryWS: CategoryWebService = CategoryWebService()
+    private let userWS: UserWebService = UserWebService()
     
-    let assoWS : AssociationWebService = AssociationWebService()
-    let postWS: PostWebService = PostWebService()
-    let eventWS: EventWebService = EventWebService()
-    let categoryWS: CategoryWebService = CategoryWebService()
-    let userWS: UserWebService = UserWebService()
-    
+    @IBOutlet private var errorTF: UILabel!
+    @IBOutlet private var emailTF: UITextField!
+    @IBOutlet private var passwordTF: UITextField!
+    @IBOutlet private var loginButton: UIButton!
+    @IBOutlet private var signupButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setupView()
+        setupView()
     }
     
-    func setupView() {
+    private func setupView() {
         passwordTF.delegate = self
-        if #available(iOS 12.0, *) {
-            passwordTF.textContentType = .oneTimeCode
-        }
-        self.activityIndicator.isHidden = true
-        self.hideKeyboardWhenTappedAround()
-        self.navigationController?.navigationBar.barTintColor = UIColor(named: "systemGray6")
-        self.navigationItem.hidesBackButton = true
-        self.loginButton.layer.cornerRadius = loginButton.bounds.size.height/2
-        self.errorTF.isHidden = true
+        activityIndicator.isHidden = true
+        hideKeyboardWhenTappedAround()
+        navigationController?.navigationBar.barTintColor = UIColor(named: "systemGray6")
+        navigationItem.hidesBackButton = true
+        loginButton.layer.cornerRadius = loginButton.bounds.size.height/2
+        errorTF.isHidden = true
     }
     
-    @IBAction func Login (_ sender: Any) {
-        self.activityIndicator.startLoading()
-        self.assoWS.Login(mail: self.emailTF.text!, password: self.passwordTF.text!.md5()) { (asso) in
+    @IBAction private func Login (_ sender: Any) {
+        activityIndicator.startLoading()
+        assoWS.Login(mail: emailTF.text!, password: passwordTF.text!.md5()) { (asso) in
             if(asso.count > 0) {
-                self.postWS.getPosts(idAsso: asso[0].idAssociation!) { (posts) in
-                    self.eventWS.getEventsByAssociation(idAsso: asso[0].idAssociation!) { (events) in
-                        self.userWS.getUsersByIdAsso(idAsso: asso[0].idAssociation!) { (users) in
-                            let keychain = KeychainSwift()
-                            keychain.set(asso[0].email, forKey: "userEmail")
-                            keychain.set(asso[0].password, forKey: "userPassword")
-                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users), animated: true)
+                self.postWS.getPosts(idAsso: asso[0].getIdAssociation()) { (posts) in
+                    self.eventWS.getEventsByAssociation(idAsso: asso[0].getIdAssociation()) { (events) in
+                        self.userWS.getUsersByIdAsso(idAsso: asso[0].getIdAssociation()) { (users) in
+                            AppConfig.keychain.set(asso[0].getEmail(), forKey: "userEmail")
+                            AppConfig.keychain.set(self.passwordTF.text!.md5(), forKey: "userPassword")
+                            AppConfig.connectedAssociation = asso[0]
+                            self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, events: events, users: users), animated: true)
                         }
                     }
                 }
@@ -64,18 +60,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         }
     }
     
-    @IBAction func Signup(_ sender: Any) {
-        self.categoryWS.getCategories { (categories) in
+    @IBAction private func Signup(_ sender: Any) {
+        categoryWS.getCategories { (categories) in
             self.navigationController?.pushViewController(SignupViewController.newInstance(categories: categories), animated: true)
         }
     }
     
-    @IBAction func mailTFClicked(_ sender: Any) {
-        self.errorTF.isHidden = true
+    @IBAction private func mailTFClicked(_ sender: Any) {
+        errorTF.isHidden = true
     }
     
-    @IBAction func passwordTFClicked(_ sender: Any) {
-        self.errorTF.isHidden = true
+    @IBAction private func passwordTFClicked(_ sender: Any) {
+        passwordTF.text = ""
+        errorTF.isHidden = true
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool

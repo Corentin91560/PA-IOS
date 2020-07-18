@@ -8,22 +8,56 @@
 
 import Foundation
 
-class Feedback: CustomStringConvertible {
-
-    var title: String?
-    var content: String
-    var date: Date
-    var note: Int?
-    var idAssociation: Int?
-    var idType: Int?
+class Feedback {
+    private var title: String?
+    private var content: String
+    private var date: Date
+    private var note: Int?
+    private var idAssociation: Int?
+    private var idType: Int?
  
     init(content: String, date: Date) {
         self.content = content
         self.date = date
     }
     
+    func getTitle() -> String? {
+        return title
+    }
     
-    var description: String {
-        return "{\(self.content) \(self.date) \(self.note ?? 0)  \(self.idAssociation ?? 0) \(self.idType ?? 0)}"
+    func setTitle(title: String) {
+        self.title = title
+    }
+    
+    func getContent() -> String {
+        return content
+    }
+    
+    func getDate() -> Date {
+        return date
+    }
+    
+    func getNote() -> Int? {
+        return note
+    }
+    
+    func setNote(note: Int) {
+        self.note = note
+    }
+    
+    func getIdAssociation() -> Int {
+        return idAssociation!
+    }
+    
+    func setIdAssociation(idAssociation: Int) {
+        self.idAssociation = idAssociation
+    }
+    
+    func getIdType() -> Int {
+        return idType!
+    }
+    
+    func setIdType(idType: Int) {
+        self.idType = idType
     }
 }

@@ -17,9 +17,8 @@ class UserFactory {
         }
         
         let user = User(name: n, firstName: fn)
-        user.idUser = dictionary["iduser"] as? Int
-        user.profilePicture = dictionary["profilpicture"] as? String ?? AppConfig.basicUserPictureURL
-        
+        user.setIdUser(idUser: dictionary["iduser"] as! Int)
+        user.setProfilePicture(profilePicture: dictionary["profilpicture"] as? String ?? AppConfig.basicUserPictureURL)
         return user
     }
     

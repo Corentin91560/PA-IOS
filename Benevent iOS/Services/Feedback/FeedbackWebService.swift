@@ -12,7 +12,7 @@ class FeedbackWebService {
     
     func newFeedback(feedback: Feedback, completion: @escaping (Bool) -> Void) {
         let url: String!
-        if(feedback.title == nil) {
+        if(feedback.getTitle() == nil) {
             url = AppConfig.apiURL + "/feedback/rating"
         } else {
             url = AppConfig.apiURL + "/feedback/bug"

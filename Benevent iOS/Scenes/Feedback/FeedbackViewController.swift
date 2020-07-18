@@ -10,130 +10,121 @@ import UIKit
 
 class FeedbackViewController: UIViewController, UITabBarDelegate {
     
-    @IBOutlet var myTabBar: UITabBar!
-    @IBOutlet var viewControl: UISegmentedControl!
-    @IBOutlet var resultLabel: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
+    private let userWS: UserWebService = UserWebService()
+    private let postsWS: PostWebService = PostWebService()
+    private let eventWS: EventWebService = EventWebService()
+    private let feedbackWS: FeedbackWebService = FeedbackWebService()
+    
+    private var connectedAsso: Association!
+    
+    @IBOutlet private var myTabBar: UITabBar!
+    @IBOutlet private var viewSelector: UISegmentedControl!
+    @IBOutlet private var resultLabel: UILabel!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
     
     // BUG VIEW
-    @IBOutlet var bugView: UIView!
-    @IBOutlet var bugTitle: UITextField!
-    @IBOutlet var bugDescription: UITextView!
-    @IBOutlet var sendBugButton: UIButton!
+    @IBOutlet private var bugView: UIView!
+    @IBOutlet private var bugTitle: UITextField!
+    @IBOutlet private var bugDescription: UITextView!
+    @IBOutlet private var sendBugButton: UIButton!
     
-    // IMPROVEMENT VIEW
-    @IBOutlet var improvementView: UIView!
-    @IBOutlet var noteSlider: UISlider!
-    @IBOutlet var improvementDescrition: UITextView!
-    @IBOutlet var noteLabel: UILabel!
-    @IBOutlet var sendImprovementButton: UIButton!
-    
-    let userWS: UserWebService = UserWebService()
-    let postsWS: PostWebService = PostWebService()
-    let eventWS: EventWebService = EventWebService()
-    let feedbackWS: FeedbackWebService = FeedbackWebService()
-    
-    var connectedAsso: Association?
-    
-    class func newInstance(connectedAsso: Association?) -> FeedbackViewController {
-        let FeedbackVC: FeedbackViewController = FeedbackViewController()
-        FeedbackVC.connectedAsso = connectedAsso
-        return FeedbackVC
-    }
+    // RATING VIEW
+    @IBOutlet private var ratingView: UIView!
+    @IBOutlet private var noteSlider: UISlider!
+    @IBOutlet private var ratingDescription: UITextView!
+    @IBOutlet private var noteLabel: UILabel!
+    @IBOutlet private var sendRatingButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        connectedAsso = AppConfig.connectedAssociation
         setupView()
     }
     
-    func setupView() {
-        self.hideKeyboardWhenTappedAround()
+    private func setupView() {
+        hideKeyboardWhenTappedAround()
         viewDidLayoutSubviews()
-        self.activityIndicator.isHidden = true
-        self.resultLabel.isHidden = true
-        self.improvementView.isHidden = true
-        self.sendBugButton.layer.cornerRadius = self.sendBugButton.bounds.size.height/2
-        self.sendImprovementButton.layer.cornerRadius = self.sendImprovementButton.bounds.size.height/2
+        activityIndicator.isHidden = true
+        resultLabel.isHidden = true
+        ratingView.isHidden = true
+        sendBugButton.layer.cornerRadius = self.sendBugButton.bounds.size.height/2
+        sendRatingButton.layer.cornerRadius = self.sendRatingButton.bounds.size.height/2
         setupNavigationBar()
         setupTabBar()
     }
     
     override func viewDidLayoutSubviews() {
           super.viewDidLayoutSubviews()
-          self.myTabBar.frame.size.height = 90
-          self.myTabBar.frame.origin.y = view.frame.height - 90
+          myTabBar.frame.size.height = 90
+          myTabBar.frame.origin.y = view.frame.height - 90
       }
     
-    func setupTabBar() {
-        self.myTabBar.selectedItem = myTabBar.items?[2]
-        self.myTabBar.delegate = self
+    private func setupTabBar() {
+        myTabBar.selectedItem = myTabBar.items?[2]
+        myTabBar.delegate = self
     }
     
-    func setupNavigationBar() {
-           self.navigationItem.hidesBackButton = true
-           self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
-           self.navigationItem.title = "Feedback"
-           self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
-           
-           self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+    private func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
+        navigationItem.title = "Feedback"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
            image: UIImage(named: "SF_person_crop_square_fill"),
            style: .plain,
            target: self,
            action: #selector(Profile))
-           self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
-                      
-       }
-
-       @objc func Profile() {
-           self.navigationController?.pushViewController(ProfileViewController.newInstance(connectedAsso: self.connectedAsso), animated: false)
-           //TODO: Modifier le changement de vue afin qu'il se fasse de droite à gauche
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
        }
     
-    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-       if (tabBar.selectedItem == tabBar.items?[0]) {
-            self.postsWS.getPosts(idAsso: connectedAsso!.idAssociation!) { (posts) in
-                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
-                 self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (events) in
-                     self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts,connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
-                 }
-                }
-            }
-        } else if (tabBar.selectedItem == tabBar.items?[1]) {
-             self.eventWS.getEventsByAssociation(idAsso: (connectedAsso?.idAssociation!)!) { (eventsList) in
-                 self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!), animated: false)
-             }
-        }
+    private func cleanView() {
+       bugDescription.text = ""
+       bugTitle.text = ""
+       ratingDescription.text = ""
+       noteSlider.value = 5
+       noteLabel.text = "5/5"
     }
     
-    @IBAction func viewControlChange(_ sender: Any) {
-        self.resultLabel.isHidden = true
-        if(viewControl.selectedSegmentIndex == 0) {
-            self.improvementView.isHidden = true
-            self.bugView.isHidden = false
-        } else if (viewControl.selectedSegmentIndex == 1) {
-            self.bugView.isHidden = true
-            self.improvementView.isHidden = false
+    private func sendingError() {
+        resultLabel.isHidden = false
+        resultLabel.text = "Erreur lors de l'envoi du feedback !"
+        resultLabel.textColor = UIColor.systemRed
+    }
+
+    @objc private func Profile() {
+       navigationController?.pushViewController(ProfileViewController(), animated: false)
+    }
+    
+    @IBAction private func viewControlChange(_ sender: Any) {
+        resultLabel.isHidden = true
+        if(viewSelector.selectedSegmentIndex == 0) {
+            ratingView.isHidden = true
+            bugView.isHidden = false
+        } else if (viewSelector.selectedSegmentIndex == 1) {
+            bugView.isHidden = true
+            ratingView.isHidden = false
         
         }
     }
     
-    @IBAction func noteChange(_ sender: Any) {
-        self.noteLabel.text = "\(Int(self.noteSlider.value))/5"
+    @IBAction private func noteChange(_ sender: Any) {
+        noteLabel.text = "\(Int(self.noteSlider.value))/5"
     }
-    @IBAction func sendEvaluation(_ sender: Any) {
+    
+    @IBAction private func sendEvaluation(_ sender: Any) {
         var checkCallback = false
-        let feedbackToCreate: Feedback = Feedback(content: self.improvementDescrition.text, date: Date())
-        feedbackToCreate.idAssociation = self.connectedAsso?.idAssociation!
-        feedbackToCreate.idType = 2
-        feedbackToCreate.note = Int(self.noteSlider.value)
-        print("SEND EVAL : \(feedbackToCreate.description)")
-        if(self.improvementDescrition.text == "") {
-            self.resultLabel.isHidden = false
-            self.resultLabel.text = "Les champs sont obligatoires !"
-            self.resultLabel.textColor = UIColor.systemRed
+        let feedbackToCreate: Feedback = Feedback(content: self.ratingDescription.text, date: Date())
+        feedbackToCreate.setIdAssociation(idAssociation: self.connectedAsso.getIdAssociation())
+        feedbackToCreate.setIdType(idType: 2)
+        feedbackToCreate.setNote(note: Int(self.noteSlider.value))
+        if(ratingDescription.text == "") {
+            resultLabel.isHidden = false
+            resultLabel.text = "Les champs sont obligatoires !"
+            resultLabel.textColor = UIColor.systemRed
         } else {
-            self.activityIndicator.startLoading()
-            self.feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
+            activityIndicator.startLoading()
+            feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
                 DispatchQueue.main.sync {
                     if(sucess || checkCallback) {
                         self.cleanView()
@@ -146,24 +137,23 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
                     }
                 }
             }
-            self.activityIndicator.stopLoading()
+            activityIndicator.stopLoading()
         }
     }
     
-    @IBAction func sendBug(_ sender: Any) {
+    @IBAction private func sendBug(_ sender: Any) {
         var checkCallback = false
         let feedbackToCreate: Feedback = Feedback(content: self.bugDescription.text, date: Date().now())
-        feedbackToCreate.idAssociation = self.connectedAsso?.idAssociation!
-        feedbackToCreate.idType = 1
-        feedbackToCreate.title = self.bugTitle.text!
-        print("SEND BUG : \(feedbackToCreate.description)")
+        feedbackToCreate.setIdAssociation(idAssociation: self.connectedAsso.getIdAssociation())
+        feedbackToCreate.setIdType(idType: 1)
+        feedbackToCreate.setTitle(title: self.bugTitle.text!)
         if(self.bugTitle.text == "" || self.bugDescription.text == "") {
-            self.resultLabel.isHidden = false
-            self.resultLabel.text = "Les champs sont obligatoires !"
-            self.resultLabel.textColor = UIColor.systemRed
+           resultLabel.isHidden = false
+           resultLabel.text = "Les champs sont obligatoires !"
+           resultLabel.textColor = UIColor.systemRed
         } else {
-            self.activityIndicator.startLoading()
-            self.feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
+            activityIndicator.startLoading()
+            feedbackWS.newFeedback(feedback: feedbackToCreate) { (sucess) in
                 DispatchQueue.main.sync {
                     if(sucess || checkCallback) {
                         checkCallback = true
@@ -176,22 +166,23 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
                     }
                 }
             }
-            self.activityIndicator.stopLoading()
+            activityIndicator.stopLoading()
         }
     }
     
-    func cleanView()
-    {
-        self.bugDescription.text = ""
-        self.bugTitle.text = ""
-        self.improvementDescrition.text = ""
-        self.noteSlider.value = 5
-        self.noteLabel.text = "5/5"
-    }
-    
-    func sendingError() {
-        self.resultLabel.isHidden = false
-        self.resultLabel.text = "Erreur lors de l'envoi du feedback !"
-        self.resultLabel.textColor = UIColor.systemRed
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+       if (tabBar.selectedItem == tabBar.items?[0]) {
+            postsWS.getPosts(idAsso: connectedAsso.getIdAssociation()) { (posts) in
+                self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso.getIdAssociation()) { (users) in
+                    self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso.getIdAssociation()) { (events) in
+                     self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, events: events, users: users), animated: false)
+                 }
+                }
+            }
+        } else if (tabBar.selectedItem == tabBar.items?[1]) {
+        eventWS.getEventsByAssociation(idAsso: connectedAsso.getIdAssociation()) { (eventsList) in
+                 self.navigationController?.pushViewController(EventViewController.newInstance(events: eventsList), animated: false)
+             }
+        }
     }
 }

@@ -17,28 +17,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-        UserDefaults.standard.setValue(false, forKey:"_UIConstraintBasedLayoutLogUnsatisfiable")
         let w = UIWindow(frame: UIScreen.main.bounds)
-        let keychain = KeychainSwift()
         
-        if(keychain.get("userEmail") != nil) {
+        if(AppConfig.keychain.get("userEmail") != nil) {
             let assoWS: AssociationWebService = AssociationWebService()
             let postWS: PostWebService = PostWebService()
             let eventWS: EventWebService = EventWebService()
             let userWS: UserWebService = UserWebService()
             var checkCallback = false
-            assoWS.Login(mail: keychain.get("userEmail")!, password: keychain.get("userPassword")!) { (asso) in
+            assoWS.Login(mail: AppConfig.keychain.get("userEmail")!, password: AppConfig.keychain.get("userPassword")!) { (asso) in
                 if(asso.count > 0 || checkCallback) {
-                    postWS.getPosts(idAsso: asso[0].idAssociation!) { (posts) in
-                            eventWS.getEventsByAssociation(idAsso: asso[0].idAssociation!) { (events) in
-                                userWS.getUsersByIdAsso(idAsso: asso[0].idAssociation!) { (users) in
-                                    checkCallback = true
-                                    w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, connectedAsso: asso[0], events: events, users: users))
-                                    w.makeKeyAndVisible()
-                                    self.window = w
-                                }
+                    postWS.getPosts(idAsso: asso[0].getIdAssociation()) { (posts) in
+                        eventWS.getEventsByAssociation(idAsso: asso[0].getIdAssociation()) { (events) in
+                            userWS.getUsersByIdAsso(idAsso: asso[0].getIdAssociation()) { (users) in
+                                checkCallback = true
+                                AppConfig.connectedAssociation = asso[0]
+                                w.rootViewController = UINavigationController(rootViewController: HomeViewController.newInstance(posts: posts, events: events, users: users))
+                                w.makeKeyAndVisible()
+                                self.window = w
                             }
                         }
+                    }
                 } else {
                     w.rootViewController = UINavigationController(rootViewController: LoginViewController())
                     w.makeKeyAndVisible()
@@ -47,6 +46,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             return true
         }
+        
         w.rootViewController = UINavigationController(rootViewController: LoginViewController())
         w.makeKeyAndVisible()
         self.window = w

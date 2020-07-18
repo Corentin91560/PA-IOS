@@ -31,36 +31,36 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconImage" translatesAutoresizingMaskIntoConstraints="NO" id="Qdz-aW-WVg">
-                    <rect key="frame" x="264" y="100" width="496" height="370"/>
+                    <rect key="frame" x="346.5" y="100" width="331" height="247"/>
                 </imageView>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Adresse Mail" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h0M-gC-B5o" userLabel="mailAddress">
-                    <rect key="frame" x="50" y="680" width="924" height="34"/>
+                    <rect key="frame" x="50" y="555.5" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="username"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" textContentType="username"/>
                     <connections>
                         <action selector="mailTFClicked:" destination="-1" eventType="touchDown" id="0gH-nS-fo4"/>
                     </connections>
                 </textField>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Mot de passe" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FIG-AR-gDF" userLabel="password">
-                    <rect key="frame" x="50" y="744" width="924" height="34"/>
+                    <rect key="frame" x="50" y="619.5" width="924" height="34"/>
                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" textContentType="password"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="Login:" destination="-1" eventType="primaryActionTriggered" id="4jy-yV-bm2"/>
                         <action selector="passwordTFClicked:" destination="-1" eventType="touchDown" id="W5V-Ay-6HK"/>
                     </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bienvenue sur Benevent " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fvh-RJ-Jk1">
-                    <rect key="frame" x="224.5" y="520" width="575" height="60"/>
+                    <rect key="frame" x="233.5" y="397" width="557" height="58.5"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="50"/>
                     <color key="textColor" name="EerieBlack"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zrk-fx-b8T">
-                    <rect key="frame" x="300" y="928" width="424" height="48"/>
+                    <rect key="frame" x="300" y="803.5" width="424" height="47"/>
                     <color key="backgroundColor" name="FlickrBlue"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="Connexion">
@@ -71,14 +71,14 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pas encore de compte ? " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTc-Sd-r0b">
-                    <rect key="frame" x="250" y="1300" width="345" height="36"/>
+                    <rect key="frame" x="250" y="1301" width="337" height="35"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" name="EerieBlack"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZN-jG-70c">
-                    <rect key="frame" x="600" y="1293" width="150" height="48"/>
+                    <rect key="frame" x="592" y="1294" width="125" height="47"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <state key="normal" title="S'inscrire">
                         <color key="titleColor" name="FlickrBlue"/>
@@ -88,14 +88,14 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Adresse ou mot de passe incorrect !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lfl-hO-aaN" userLabel="errorTF">
-                    <rect key="frame" x="249.5" y="590" width="525" height="80"/>
+                    <rect key="frame" x="269.5" y="465.5" width="485" height="80"/>
                     <rect key="contentStretch" x="0.0" y="1" width="1" height="1"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="YKt-cz-7HW">
-                    <rect key="frame" x="493.5" y="876" width="37" height="37"/>
+                    <rect key="frame" x="493.5" y="751.5" width="37" height="37"/>
                     <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
             </subviews>
@@ -130,7 +130,7 @@
         </view>
     </objects>
     <resources>
-        <image name="AppIconImage" width="496" height="370"/>
+        <image name="AppIconImage" width="331" height="247"/>
         <namedColor name="EerieBlack">
             <color red="0.078000001609325409" green="0.078000001609325409" blue="0.078000001609325409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -9,17 +9,37 @@
 import Foundation
 
 class User {
-    var idUser: Int?
-    var name: String
-    var firstName: String
-    var profilePicture: String?
+    private var idUser: Int?
+    private var name: String
+    private var firstname: String
+    private var profilePicture: String?
     
     init(name: String, firstName: String) {
         self.name = name
-        self.firstName = firstName
+        self.firstname = firstName
     }
-
-       var description: String {
-        return "{\(self.firstName) \(self.name) \(self.profilePicture ?? "")}"
-       }
+    
+    func getIdUser() -> Int {
+        return idUser!
+    }
+    
+    func setIdUser(idUser: Int) {
+        self.idUser = idUser
+    }
+    
+    func getName() -> String {
+        return name
+    }
+    
+    func getFirstname() -> String {
+        return firstname
+    }
+    
+    func getProfilePicture() -> String {
+        return profilePicture!
+    }
+    
+    func setProfilePicture(profilePicture: String) {
+        self.profilePicture = profilePicture
+    }
 }

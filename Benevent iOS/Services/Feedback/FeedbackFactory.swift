@@ -12,13 +12,13 @@ class FeedbackFactory {
     
     static func dictionnaryFrom(feedback: Feedback) -> [String: Any] {
         return [
-            "content": feedback.content,
-            "date": mySQLFromDate(date: feedback.date),
-            "note": feedback.note ?? 0,
-            "title": feedback.title ?? "",
+            "content": feedback.getContent(),
+            "date": mySQLFromDate(date: feedback.getDate()),
+            "note": feedback.getNote() ?? 0,
+            "title": feedback.getTitle() ?? "",
             "platform": "IOS",
-            "idtype": feedback.idType!,
-            "idassociation": feedback.idAssociation!
+            "idtype": feedback.getIdType(),
+            "idassociation": feedback.getIdAssociation()    
         ]
     }
     

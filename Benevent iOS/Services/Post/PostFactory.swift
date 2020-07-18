@@ -17,19 +17,19 @@ class PostFactory {
         }
         
         let post = Post(message: m, date: dateFromMySQL(dateMySQL: d)!)
-        post.idPost = dictionary["idpost"] as? Int
-        post.idUser = dictionary["iduser"] as? Int
-        post.idAssociation = dictionary["idassociation"] as? Int
-        post.idEvent = dictionary["idevent"] as? Int
+        post.setIdPost(idPost: dictionary["idpost"] as! Int)
+        post.setIdUser(idUser: dictionary["iduser"] as? Int)
+        post.setIdAssociation(idAssociation: dictionary["idassociation"] as? Int)
+        post.setIdEvent(idEvent: dictionary["idevent"] as! Int)
         return post
     }
     
     static func dictionnaryFrom(post: Post) -> [String: Any] {
         return [
-            "message": post.message,
-            "date": mySQLFromDate(date: post.date),
-            "idassociation": post.idAssociation!,
-            "idevent": post.idEvent!
+            "message": post.getMessage(),
+            "date": mySQLFromDate(date: post.getDate()),
+            "idassociation": post.getIdAssociation()!,
+            "idevent": post.getIdEvent()
         ]
     }
     

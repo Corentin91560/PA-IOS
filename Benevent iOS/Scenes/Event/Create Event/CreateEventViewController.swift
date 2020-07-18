@@ -10,12 +10,12 @@ import UIKit
 
 class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
   
-    let eventWS: EventWebService = EventWebService()
-    let postWS: PostWebService = PostWebService()
+    private let eventWS: EventWebService = EventWebService()
+    private let postWS: PostWebService = PostWebService()
     
-    var categories : [Category]!
-    var connectedAsso: Association?
-    var generalEvent: Event?
+    private var categories : [Category]!
+    private var connectedAsso: Association!
+    private var generalEvent: Event!
     
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var eventNameTF: UITextField!
@@ -29,19 +29,18 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     @IBOutlet var errorTF: UILabel!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    var categoriesNames: [String]? = nil
-    var selectedCategory: Category!
-    var startDatePicker: UIDatePicker?
-    var endDatePicker: UIDatePicker?
-    var categoryPicker: UIPickerView!
+    private var categoriesNames: [String]? = nil
+    private var selectedCategory: Category!
+    private var startDatePicker: UIDatePicker?
+    private var endDatePicker: UIDatePicker?
+    private var categoryPicker: UIPickerView!
     
-    
-    static func newInstance(categories: [Category], connectedAsso: Association?, generalEvent: Event) -> CreateEventViewController {
-        let CreateEventVC: CreateEventViewController = CreateEventViewController()
-        CreateEventVC.categories = categories
-        CreateEventVC.connectedAsso = connectedAsso
-        CreateEventVC.generalEvent = generalEvent
-        return CreateEventVC
+    static func newInstance(categories: [Category], generalEvent: Event) -> CreateEventViewController {
+        let createEventVC: CreateEventViewController = CreateEventViewController()
+        createEventVC.categories = categories
+        createEventVC.connectedAsso = AppConfig.connectedAssociation
+        createEventVC.generalEvent = generalEvent
+        return createEventVC
     }
 
     override func viewDidLoad() {
@@ -49,9 +48,11 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         setupView()
     }
     
-    func setupView() {
+    private func setupView() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy HH:mm"
         
-        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+        assoLogo.load(url: URL(string: connectedAsso.getLogo())!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
         activityIndicator.isHidden = true
@@ -59,37 +60,48 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         eventStartDateTF.delegate = self
         eventEndDateTF.delegate = self
         categoryTF.delegate = self
-        self.hideKeyboardWhenTappedAround()
+        eventStartDateTF.text = formatter.string(from: Date())
+        hideKeyboardWhenTappedAround()
         setupNavigationBar()
         setupPickers()
     }
     
-    func setupPickers() {
-        // CATEGORY PICKER
+    private func setupPickers() {
         categoryPicker = UIPickerView()
         categoryPicker.delegate = self
         categoryPicker.dataSource = self
-        categoriesNames = categories.map{ $0.name }
+        categoriesNames = categories.map{ $0.getName() }
         categoryTF.inputView = categoryPicker
         categoryTF.text = self.categoriesNames?[0]
         selectedCategory = categories[0]
         
-        // DATE PICKERS
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy HH:mm"
-        eventStartDateTF.text = formatter.string(from: Date())
         startDatePicker = UIDatePicker()
-        endDatePicker = UIDatePicker()
         startDatePicker?.locale = Locale(identifier: "fr_FR")
-        endDatePicker?.locale = Locale(identifier: "fr_FR")
         startDatePicker?.addTarget(self, action: #selector(startdateChanger(datePicker:)), for: .valueChanged)
+        eventStartDateTF.inputView = startDatePicker
+        
+        endDatePicker = UIDatePicker()
+        endDatePicker?.locale = Locale(identifier: "fr_FR")
         endDatePicker?.addTarget(self, action: #selector(enddateChanger(datePicker:)), for: .valueChanged)
         endDatePicker?.minimumDate = Date()
-        eventStartDateTF.inputView = startDatePicker
         eventEndDateTF.inputView = endDatePicker
     }
     
-    @objc func startdateChanger(datePicker : UIDatePicker) {
+    private func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
+        navigationItem.title = "Créer un événement"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
+       
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: "SF_multiply_circle_fill"),
+            style: .plain,
+            target: self,
+            action: #selector(Back))
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+    }
+    
+    @objc private func startdateChanger(datePicker : UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         endDatePicker?.minimumDate = datePicker.date
@@ -100,37 +112,21 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         }
     }
     
-    
-    @objc func enddateChanger(datePicker : UIDatePicker) {
+    @objc private func enddateChanger(datePicker : UIDatePicker) {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm"
         eventEndDateTF.text = formatter.string(from: datePicker.date)
     }
-        
-    func setupNavigationBar() {
-        // Navigation bar main config
-        self.navigationItem.hidesBackButton = true
-        self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
-        self.navigationItem.title = "Créer un événement"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
-       
-        // Left item config
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: "SF_multiply_circle_fill"),
-            style: .plain,
-            target: self,
-            action: #selector(Back))
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+    
+    
+    @objc private func Back() {
+        navigationController?.popViewController(animated: false)
     }
     
-    @objc func Back() {
-        self.navigationController?.popViewController(animated: false)
-    }
-    
-    @IBAction func Valid(_ sender: Any) {
+    @IBAction private func Valid(_ sender: Any) {
         var checkCallback = false
         activityIndicator.startLoading()
-        let dateFormatter = DateFormatter() //TODO regler soucis heure -2 +2
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
         dateFormatter.timeZone = TimeZone.autoupdatingCurrent
         let startDateString = eventStartDateTF.text!
@@ -139,21 +135,21 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         let endDate = dateFormatter.date(from: endDateString)!
         endDatePicker?.minimumDate = startDatePicker?.date
       
-        let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!)
-        eventToCreate.idAssociation = connectedAsso?.idAssociation!
-        eventToCreate.idCategory = selectedCategory.idCategory!
+        let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!, fakeEvent: false)
+        eventToCreate.setIdAssociation(idAssociation: connectedAsso.getIdAssociation())
+        eventToCreate.setIdCategory(idCategory: selectedCategory.getIdCategory())
         
         eventWS.newEvent(event: eventToCreate) { (sucess) in
             if(sucess || checkCallback) {
                 if(!checkCallback) {
-                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.name) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.maxBenevole) bénévoles, inscrivez vous sur Benevent", date: Date())
-                    postToCreate.idEvent = self.generalEvent?.idEvent
-                    postToCreate.idAssociation = self.connectedAsso?.idAssociation
+                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.getName()) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.getMaxBenevole()) bénévoles, inscrivez vous sur Benevent", date: Date())
+                    postToCreate.setIdEvent(idEvent: self.generalEvent.getIdEvent())
+                    postToCreate.setIdAssociation(idAssociation: self.connectedAsso.getIdAssociation())
                     self.postWS.newPost(post: postToCreate) { (_) in }
                 }
-                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.idAssociation!)!) { (eventsList) in
-                    checkCallback = true
-                    let EventVC = EventViewController.newInstance(events: eventsList, connectedAsso: self.connectedAsso!)
+                checkCallback = true
+                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.getIdAssociation())!) { (eventsList) in
+                    let EventVC = EventViewController.newInstance(events: eventsList)
                     self.navigationController?.pushViewController(EventVC, animated: false)
                 }
             } else {
@@ -182,7 +178,6 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.view.endEditing(true)
     }
        
-    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
         if (textField == eventStartDateTF || textField == eventEndDateTF || textField == categoryTF) {

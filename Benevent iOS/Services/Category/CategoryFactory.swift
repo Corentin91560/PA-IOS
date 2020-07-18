@@ -16,7 +16,7 @@ class CategoryFactory {
         }
         
         let category = Category(name: n)
-        category.idCategory = dictionary["idcategory"] as? Int
+        category.setIdCategory(idCategory: dictionary["idcategory"] as! Int)
         
         return category
     }

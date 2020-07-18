@@ -72,7 +72,7 @@
                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
-                        <action selector="Confirm:" destination="-1" eventType="touchUpInside" id="3kl-YR-woT"/>
+                        <action selector="Validate:" destination="-1" eventType="touchUpInside" id="3kl-YR-woT"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deja un compte ?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLb-Nk-bJs">
@@ -173,7 +173,7 @@
         </view>
     </objects>
     <resources>
-        <image name="AppIconImage" width="496" height="370"/>
+        <image name="AppIconImage" width="331" height="247"/>
         <namedColor name="EerieBlack">
             <color red="0.078000001609325409" green="0.078000001609325409" blue="0.078000001609325409" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

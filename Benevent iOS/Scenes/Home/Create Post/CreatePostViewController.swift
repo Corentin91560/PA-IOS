@@ -9,6 +9,11 @@
 import UIKit
 
 class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+   
+    private let postWS : PostWebService = PostWebService()
+    private let eventWS : EventWebService = EventWebService()
+    private let userWS: UserWebService = UserWebService()
+      
     @IBOutlet var assoLogo: UIImageView!
     @IBOutlet var eventTF: UITextField!
     @IBOutlet var postMessageText: UITextView!
@@ -17,22 +22,19 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
     @IBOutlet var isPublicPost: UISwitch!
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
-    let postWS : PostWebService = PostWebService()
-    let eventWS : EventWebService = EventWebService()
-    let userWS: UserWebService = UserWebService()
+    private var connectedAssociation: Association!
+    private var eventList: [Event]!
+    private var generalEvent: Event!
     
-    var connectedAsso: Association? = nil
-    var eventList: [Event]!
-    var eventPicker: UIPickerView!
-    var eventNamesList: [String]? = nil
-    var generalEvent: Event!
-    var selectedEvent: Event!
+    private var eventPicker: UIPickerView!
+    private var eventNamesList: [String]? = nil
+    private var selectedEvent: Event!
     
-    class func newInstance(events: [Event], connectedAsso: Association?) -> CreatePostViewController {
+    class func newInstance(events: [Event]) -> CreatePostViewController {
         let newPostVC = CreatePostViewController()
-        newPostVC.generalEvent = events.filter({ $0.fakeEvent! })[0]
-        newPostVC.eventList = events.filter({ !$0.fakeEvent! })
-        newPostVC.connectedAsso = connectedAsso
+        newPostVC.generalEvent = events.filter({ $0.getFakeEvent() })[0]
+        newPostVC.eventList = events.filter({ !$0.getFakeEvent() })
+        newPostVC.connectedAssociation = AppConfig.connectedAssociation
         return newPostVC
     }
     
@@ -41,77 +43,79 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
         setupView()
     }
     
-    func setupView() {
-        assoLogo.load(url: URL(string: (connectedAsso?.logo)!)!)
+    private func setupView() {
+        assoLogo.load(url: URL(string: connectedAssociation.getLogo())!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         activityIndicator.isHidden = true
         setupNavigationBar()
         setupPicker()
         validButton.layer.cornerRadius = validButton.bounds.size.height/2
         eventTF.delegate = self
-        self.hideKeyboardWhenTappedAround()
+        hideKeyboardWhenTappedAround()
     }
     
-    func setupPicker() {
-        eventNamesList = eventList.map{ $0.name }
+    private func setupPicker() {
+        eventNamesList = eventList.map{ $0.getName() }
         if(eventList.count > 0) {
-            self.isPublicPost.isOn = false
-            self.eventPicker = UIPickerView()
-            self.eventPicker.dataSource = self
-            self.eventPicker.delegate = self
-            self.eventTF.inputView = eventPicker
-            self.eventTF.text = self.eventNamesList?[0]
-            self.selectedEvent = eventList[0]
+            eventPicker = UIPickerView()
+            eventPicker.dataSource = self
+            eventPicker.delegate = self
+            isPublicPost.isOn = false
+            eventTF.inputView = eventPicker
+            eventTF.text = self.eventNamesList?[0]
+            selectedEvent = eventList[0]
         } else {
-            self.eventTF.isEnabled = false
-            self.isPublicPost.isOn = true
-            self.isPublicPost.isUserInteractionEnabled = false
+            eventTF.isEnabled = false
+            isPublicPost.isOn = true
+            isPublicPost.isUserInteractionEnabled = false
         }
     }
     
-    func setupNavigationBar() {
-        // Navigation bar main config
-        self.navigationItem.hidesBackButton = true
-        self.navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
-        self.navigationItem.title = "Nouveau post"
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
+    private func setupNavigationBar() {
+        navigationItem.hidesBackButton = true
+        navigationController?.navigationBar.barTintColor = UIColor(named: "NavigationBackgroundColor")
+        navigationItem.title = "Nouveau post"
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "Monofonto-Regular", size: 25)!]
        
-        // Left item config
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
             image: UIImage(named: "SF_multiply_circle_fill"),
             style: .plain,
             target: self,
             action: #selector(Back))
-        self.navigationItem.leftBarButtonItem?.tintColor = UIColor.black
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.black
     }
     
-    @IBAction func switchPublicClicked(_ sender: Any) {
-        if(self.isPublicPost.isOn) {
-            self.eventTF.isEnabled = false
-            self.eventTF.text = ""
+    @IBAction private func switchPublicClicked(_ sender: Any) {
+        if(isPublicPost.isOn) {
+            eventTF.isEnabled = false
+            eventTF.text = ""
         } else {
-            self.eventTF.isEnabled = true
-            self.eventTF.text = self.eventNamesList?[0]
+            eventTF.isEnabled = true
+            eventTF.text = self.eventNamesList?[0]
         }
     }
     
-    @IBAction func Validate(_ sender: Any) {
+    @IBAction private func eventTFClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
+    @IBAction private func Validate(_ sender: Any) {
         if(postMessageText.text! != "") {
             var checkCallback = false
-            self.activityIndicator.startLoading()
+            activityIndicator.startLoading()
             if(self.isPublicPost.isOn) {
                 self.selectedEvent = generalEvent
             }
             let postToCreate = Post(message: postMessageText.text, date: Date())
-            postToCreate.idEvent = selectedEvent.idEvent
-            postToCreate.idAssociation = connectedAsso?.idAssociation
-            self.postWS.newPost(post: postToCreate) { (sucess) in
+            postToCreate.setIdEvent(idEvent: selectedEvent.getIdEvent())
+            postToCreate.setIdAssociation(idAssociation: connectedAssociation.getIdAssociation())
+            postWS.newPost(post: postToCreate) { (sucess) in
                 if (sucess || checkCallback) {
-                    self.postWS.getPosts(idAsso: (self.connectedAsso?.idAssociation)!) { (posts) in
-                        self.eventWS.getEventsByAssociation(idAsso: self.connectedAsso!.idAssociation!) { (events) in
-                            self.userWS.getUsersByIdAsso(idAsso: self.connectedAsso!.idAssociation!) { (users) in
-                                checkCallback = true
-                                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, connectedAsso: self.connectedAsso, events: events, users: users), animated: false)
+                    checkCallback = true
+                    self.postWS.getPosts(idAsso: self.connectedAssociation.getIdAssociation()) { (posts) in
+                        self.eventWS.getEventsByAssociation(idAsso: self.connectedAssociation.getIdAssociation()) { (events) in
+                            self.userWS.getUsersByIdAsso(idAsso: self.connectedAssociation.getIdAssociation()) { (users) in
+                                self.navigationController?.pushViewController(HomeViewController.newInstance(posts: posts, events: events, users: users), animated: false)
                             }
                         }
                     }
@@ -128,8 +132,8 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
         }
     }
     
-    @objc func Back() {
-        self.navigationController?.popViewController(animated: false)
+    @objc private func Back() {
+        navigationController?.popViewController(animated: false)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -147,7 +151,7 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         eventTF.text = eventNamesList![row] == "" ? "Aucun" : eventNamesList![row]
         selectedEvent = eventList[row]
-        self.view.endEditing(true)
+        view.endEditing(true)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
@@ -159,9 +163,4 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
            }
            return true
     }
-    
-    @IBAction func eventTFClicked(_ sender: Any) {
-        errorTF.isHidden = true
-    }
-    
 }

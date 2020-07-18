@@ -10,16 +10,25 @@ import Foundation
 
 import Foundation
 
-class Category: CustomStringConvertible {
+class Category {
 
-    var idCategory: Int?
-    var name: String
+    private var idCategory: Int?
+    private var name: String
     
     init(name: String) {
         self.name = name
     }
-
-    var description: String {
-        return "{Catégorie \(self.idCategory!) : \(self.name)}"
+    
+    func getIdCategory() -> Int {
+        return idCategory!
     }
+    
+    func setIdCategory(idCategory: Int) {
+        self.idCategory = idCategory
+    }
+    
+    func getName() -> String {
+        return name
+    }
+
 }

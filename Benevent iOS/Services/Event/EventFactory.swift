@@ -15,28 +15,29 @@ class EventFactory {
               let dd = dictionary["startdate"] as? String,
               let de = dictionary["enddate"] as? String,
               let l = dictionary["location"] as? String,
-              let mB = dictionary["maxbenevole"] as? Int else {
+              let mB = dictionary["maxbenevole"] as? Int,
+              let fe = dictionary["fakeevent"] as? Bool else {
                 return nil
         }
-        let event = Event(name: n, apercu: a, startDate: dateConverter(dateMySQL: dd)!, endDate: dateConverter(dateMySQL: de)!, location: l, maxBenevole: mB)
-        event.idAssociation = dictionary["idassociation"] as? Int
-        event.idCategory = dictionary["idcategory"] as? Int
-        event.idEvent = dictionary["idevent"] as? Int
-        event.fakeEvent = dictionary["fakeevent"] as? Bool
+        let event = Event(name: n, apercu: a, startDate: dateConverter(dateMySQL: dd)!, endDate: dateConverter(dateMySQL: de)!, location: l, maxBenevole: mB, fakeEvent: fe)
+        event.setIdAssociation(idAssociation: dictionary["idassociation"] as! Int)
+        event.setIdCategory(idCategory: dictionary["idcategory"] as! Int)
+        event.setIdEvent(idEvent: dictionary["idevent"] as! Int)
         return event
         }
     
     static func dictionnaryFrom(event: Event) -> [String: Any] {
+            
            return [
-            "name": event.name,
-            "description": event.apercu,
-            "startdate": mySQLFromDate(date: event.startDate),
-            "enddate": mySQLFromDate(date: event.endDate),
-            "location": event.location,
-            "maxbenevole": event.maxBenevole,
-            "idassociation": event.idAssociation!,
-            "idcategory": event.idCategory!
-           ]
+            "name": event.getName(),
+            "description": event.getApercu(),
+            "startdate": mySQLFromDate(date: event.getStartDate()),
+            "enddate": mySQLFromDate(date: event.getEndDate()),
+            "location": event.getLocation(),
+            "maxbenevole": event.getMaxBenevole(),
+            "idcategory": event.getIdCategory(),
+            "idassociation": event.getIdAssociation()
+        ]
        }
     
     static func dateConverter(dateMySQL: String) -> Date? {

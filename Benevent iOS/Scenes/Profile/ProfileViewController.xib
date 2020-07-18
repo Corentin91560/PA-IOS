@@ -16,6 +16,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="Benevent_iOS" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="B90-Ny-LYE" id="j3D-20-DIg"/>
                 <outlet property="assoAcronyme" destination="JM0-Ox-RQR" id="TgW-bQ-bd3"/>
                 <outlet property="assoLogo" destination="Bxn-Lo-QEM" id="js8-5K-qJH"/>
                 <outlet property="assoMail" destination="tF9-Rm-10u" id="PS8-wG-L8K"/>
@@ -44,7 +45,7 @@
                     <rect key="frame" x="111.5" y="645" width="892.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="assoNameClicked:" destination="-1" eventType="touchDown" id="UbC-6D-jSq"/>
                     </connections>
@@ -53,7 +54,7 @@
                     <rect key="frame" x="125.5" y="719.5" width="878.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress"/>
                     <connections>
                         <action selector="assoMailClicked:" destination="-1" eventType="touchDown" id="Bns-6w-ydJ"/>
                     </connections>
@@ -62,7 +63,7 @@
                     <rect key="frame" x="192.5" y="794" width="811.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="phonePad" textContentType="tel"/>
                     <connections>
                         <action selector="assoPhoneClicked:" destination="-1" eventType="touchDown" id="AEk-cW-nxK"/>
                     </connections>
@@ -71,7 +72,7 @@
                     <rect key="frame" x="213.5" y="868.5" width="790.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="assoWebsiteClicked:" destination="-1" eventType="touchDown" id="2Dr-TE-x77"/>
                     </connections>
@@ -80,7 +81,7 @@
                     <rect key="frame" x="160.5" y="943" width="843.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="assoSupportClicked:" destination="-1" eventType="touchDown" id="7cZ-6S-Zud"/>
                     </connections>
@@ -130,7 +131,7 @@
                     <rect key="frame" x="187.5" y="1017.5" width="826.5" height="44.5"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="assoAcronymeClicked:" destination="-1" eventType="touchDown" id="g7J-0F-W8r"/>
                     </connections>
@@ -175,6 +176,10 @@
                         <action selector="deleteAsso:" destination="-1" eventType="touchDown" id="wCb-Qw-PoO"/>
                     </connections>
                 </button>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="B90-Ny-LYE">
+                    <rect key="frame" x="493.5" y="1092" width="37" height="37"/>
+                    <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" systemColor="systemGray6Color" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -190,6 +195,7 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tPg-ys-tI9" secondAttribute="trailing" constant="20" id="7v1-ll-eY7"/>
                 <constraint firstItem="YBW-3W-fl2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="A4v-FX-zEm"/>
                 <constraint firstItem="ekR-Pa-rMq" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="Bcc-Bt-BKX"/>
+                <constraint firstItem="B90-Ny-LYE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Cc3-rx-vH6"/>
                 <constraint firstItem="tF9-Rm-10u" firstAttribute="leading" secondItem="UDd-Zp-qVN" secondAttribute="trailing" constant="15" id="CfX-wv-mom"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="QDe-IN-McU" secondAttribute="bottom" constant="95" id="Dnx-mC-LCv"/>
                 <constraint firstItem="JM0-Ox-RQR" firstAttribute="leading" secondItem="Qbo-Nd-Ylh" secondAttribute="trailing" constant="15" id="Eal-55-qLf"/>
@@ -197,6 +203,7 @@
                 <constraint firstItem="Qbo-Nd-Ylh" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="FXS-Oa-jLw"/>
                 <constraint firstItem="Qbo-Nd-Ylh" firstAttribute="top" secondItem="YBW-3W-fl2" secondAttribute="bottom" constant="40" id="G9B-dE-BXa"/>
                 <constraint firstItem="HvA-9g-h8X" firstAttribute="leading" secondItem="YBW-3W-fl2" secondAttribute="trailing" constant="15" id="H0r-kw-U7S"/>
+                <constraint firstItem="3Ie-vP-ZGC" firstAttribute="top" secondItem="B90-Ny-LYE" secondAttribute="bottom" constant="20" id="Jik-02-2G3"/>
                 <constraint firstItem="YBW-3W-fl2" firstAttribute="top" secondItem="ekR-Pa-rMq" secondAttribute="bottom" constant="40" id="JlC-9v-Nrh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="JM0-Ox-RQR" secondAttribute="trailing" constant="10" id="M8f-du-5Ls"/>
                 <constraint firstItem="JM0-Ox-RQR" firstAttribute="top" secondItem="HvA-9g-h8X" secondAttribute="bottom" constant="30" id="NpL-G7-XR0"/>

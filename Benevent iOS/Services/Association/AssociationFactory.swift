@@ -19,25 +19,25 @@ class AssociationFactory {
         }
         let asso =  Association(name: name, email: email, password: password)
         
-        asso.logo = dictionary["logo"] as? String ?? AppConfig.basicAssociationLogoURL
-        asso.idAssociation = dictionary["idassociation"] as? Int
-        asso.idCategory = dictionary["idcategory"] as? Int
-        asso.acronym = dictionary["acronym"] as? String
-        asso.phone = dictionary["phone"] as? String
-        asso.website = dictionary["website"] as? String
-        asso.support = dictionary["support"] as? String
+        asso.setLogo(logo: dictionary["logo"] as? String ?? AppConfig.basicAssociationLogoURL)
+        asso.setIdAssociation(idAssociation: dictionary["idassociation"] as! Int)
+        asso.setIdCategory(idCategory: dictionary["idcategory"] as! Int)
+        asso.setAcronym(acronym: dictionary["acronym"] as? String)
+        asso.setPhone(phone: dictionary["phone"] as? String)
+        asso.setWebsite(website: dictionary["website"] as? String)
+        asso.setSupport(support: dictionary["support"] as? String)
         return asso
     }
     
     static func dictionnaryFrom(asso: Association) -> [String: Any] {
           return [
-            "name": asso.name,
-            "email": asso.email,
-            "phone": asso.phone ?? "",
-            "website": asso.website ?? "",
-            "acronym": asso.acronym ?? "",
-            "logo": asso.logo ?? "",
-            "support": asso.support ?? "",
+            "name": asso.getName(),
+            "email": asso.getEmail(),
+            "phone": asso.getPhone() ?? "",
+            "website": asso.getWebsite() ?? "",
+            "acronym": asso.getAcronym() ?? "",
+            "logo": asso.getLogo(),
+            "support": asso.getSupport() ?? "",
         ]
       }
     

@@ -46,7 +46,7 @@
                     <rect key="frame" x="330" y="434.5" width="684" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="eventNameClicked:" destination="-1" eventType="touchDown" id="Pak-3g-k8S"/>
                     </connections>
@@ -131,7 +131,7 @@
                     <rect key="frame" x="212.5" y="1023" width="801.5" height="44.5"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                     <connections>
                         <action selector="eventLocationClicked:" destination="-1" eventType="touchDown" id="Pc1-Or-tdi"/>
                     </connections>
@@ -257,7 +257,7 @@
         </view>
     </objects>
     <resources>
-        <image name="AppIconImage" width="496" height="370"/>
+        <image name="AppIconImage" width="331" height="247"/>
         <image name="SF_trash_slash_fill" width="75" height="75"/>
         <namedColor name="BackgroundGrey">
             <color red="0.88999998569488525" green="0.87800002098083496" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
