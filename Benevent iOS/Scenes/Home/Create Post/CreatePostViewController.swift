@@ -156,11 +156,9 @@ class CreatePostViewController: UIViewController, UITextFieldDelegate, UIPickerV
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
     {
-        if textField == eventTF {
-               let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
-               let characterSet = CharacterSet(charactersIn: string)
-               return allowedCharacters.isSuperset(of: characterSet)
-           }
+        if (textField == eventTF) {
+            return false
+        }
            return true
     }
 }

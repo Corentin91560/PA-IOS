@@ -60,10 +60,6 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         activityIndicator.isHidden = true
         deleteEventButton.isHidden = true
         hideKeyboardWhenTappedAround()
-        eventDescriptionTF.delegate = self
-        eventStartDateTF.delegate = self
-        eventEndDateTF.delegate = self
-        eventCategoryTF.delegate = self
         if(event!.isInProgress()) {
             participantsButton.layer.cornerRadius = participantsButton.bounds.size.height/3 //TODO inverser le fonctionnement (cacher de base)
             QRButton.layer.cornerRadius = QRButton.bounds.size.height/3
@@ -72,7 +68,6 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
             QRButton.isHidden = true
         }
         validButton.layer.cornerRadius = validButton.bounds.size.height/2
-        eventMaxBenevoleTF.delegate = self
         setupNavigationBar()
         setupTextFields()
         setupPickers()
@@ -101,6 +96,13 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         formatterDate.dateFormat = "dd/MM/yyyy HH:mm"
         formatterDate.timeZone = TimeZone(abbreviation: "UTC")
         
+        eventNameTF.delegate = self
+        eventDescriptionTF.delegate = self
+        eventStartDateTF.delegate = self
+        eventEndDateTF.delegate = self
+        eventCategoryTF.delegate = self
+        eventLocationTF.delegate = self
+        eventMaxBenevoleTF.delegate = self
         eventNameTF.text = event?.getName()
         eventDescriptionTF.text = event?.getApercu()
         eventCategoryTF.text = selectedCategory.getName()
@@ -274,21 +276,7 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
         errorTF.isHidden = true
         validButton.isEnabled = true
     }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-        if (textField == eventStartDateTF || textField == eventEndDateTF || textField == eventCategoryTF) {
-           let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
-           let characterSet = CharacterSet(charactersIn: string)
-           return allowedCharacters.isSuperset(of: characterSet)
-        } else if (textField == eventMaxBenevoleTF) {
-           let allowedCharacters = CharacterSet.decimalDigits
-           let characterSet = CharacterSet(charactersIn: string)
-           return allowedCharacters.isSuperset(of: characterSet)
-        }
-        return true
-    }
-    
+      
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
           return 1
     }
@@ -311,5 +299,35 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
        validButton.backgroundColor = UIColor(named: "BackgroundGreen")
        errorTF.isHidden = true
        validButton.isEnabled = true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField {
+        case eventNameTF:
+            let maxLength = 40
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case eventCategoryTF:
+            return false
+        case eventStartDateTF:
+           return false
+        case eventEndDateTF:
+            return false
+        case eventLocationTF:
+            let maxLength = 250
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+         case eventMaxBenevoleTF:
+                  let maxLength = 5
+                  let currentString: NSString = textField.text! as NSString
+                  let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+                  let allowedCharacters = CharacterSet.decimalDigits
+                  let characterSet = CharacterSet(charactersIn: string)
+                  return (allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength)
+        default:
+            return true
+        }
     }
 }

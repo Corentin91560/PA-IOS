@@ -56,6 +56,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
         activityIndicator.isHidden = true
+        eventNameTF.delegate = self
         eventMaxBenevoleTF.delegate = self
         eventStartDateTF.delegate = self
         eventEndDateTF.delegate = self
@@ -178,17 +179,33 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         self.view.endEditing(true)
     }
        
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-        if (textField == eventStartDateTF || textField == eventEndDateTF || textField == categoryTF) {
-            let allowedCharacters = CharacterSet(charactersIn:"")//Here change this characters based on your requirement
-            let characterSet = CharacterSet(charactersIn: string)
-            return allowedCharacters.isSuperset(of: characterSet)
-        } else if (textField == eventMaxBenevoleTF) {
-            let allowedCharacters = CharacterSet.decimalDigits
-            let characterSet = CharacterSet(charactersIn: string)
-            return allowedCharacters.isSuperset(of: characterSet)
-        }
-        return true
-    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+           switch textField {
+           case eventNameTF:
+               let maxLength = 40
+               let currentString: NSString = textField.text! as NSString
+               let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+               return newString.length <= maxLength
+           case categoryTF:
+               return false
+           case eventStartDateTF:
+              return false
+           case eventEndDateTF:
+               return false
+           case eventLocationTF:
+               let maxLength = 250
+               let currentString: NSString = textField.text! as NSString
+               let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+               return newString.length <= maxLength
+            case eventMaxBenevoleTF:
+                     let maxLength = 5
+                     let currentString: NSString = textField.text! as NSString
+                     let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+                     let allowedCharacters = CharacterSet.decimalDigits
+                     let characterSet = CharacterSet(charactersIn: string)
+                     return (allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength)
+           default:
+               return true
+           }
+       }
 }

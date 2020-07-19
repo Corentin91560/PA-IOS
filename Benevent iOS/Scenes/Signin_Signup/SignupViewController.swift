@@ -82,6 +82,9 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
     @IBAction private func Validate(_ sender: Any) {
         if (assoNameTF.text == "" || assoEmailTF.text == "" || assoPasswordTF.text == "" ) {
             nullErrorTF.isHidden = false
+        } else if (!assoEmailTF.text!.isValidEmail()) {
+            errorTF.text = "Une adresse mail valide est obligatoire ! "
+            errorTF.isHidden = false
         } else if (assoPasswordTF.text!.count < 6) {
             errorTF.text = "Votre mot de passe doit contenir au moins 6 caractères !"
             errorTF.isHidden = false
@@ -153,14 +156,28 @@ class SignupViewController: UIViewController,UITextFieldDelegate, UIPickerViewDe
         view.endEditing(true)
     }
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
-    {
-        if (textField == assoCategoryTF) {
-            let allowedCharacters = CharacterSet(charactersIn:"")
-            let characterSet = CharacterSet(charactersIn: string)
-            return allowedCharacters.isSuperset(of: characterSet)
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        switch textField {
+        case assoNameTF:
+            let maxLength = 50
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoEmailTF:
+            let maxLength = 75
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoPasswordTF:
+            let maxLength = 50
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoCategoryTF:
+            return false
+        default:
+            return true
         }
-        return true
     }
 }
 

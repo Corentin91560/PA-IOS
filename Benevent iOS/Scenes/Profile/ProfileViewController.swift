@@ -48,7 +48,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         assoLogo.load(url: URL(string: connectedAsso.getLogo())!)
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         assoLogo.layer.cornerRadius = 25
-        assoPhone.delegate = self
         activityIndicator.isHidden = true
         setupPicker()
         setupTextFields()
@@ -89,6 +88,12 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     private func setupTextFields () {
+        assoName.delegate = self
+        assoMail.delegate = self
+        assoPhone.delegate = self
+        assoWebsite.delegate = self
+        assoSupport.delegate = self
+        assoAcronyme.delegate = self
         assoName.text = connectedAsso.getName()
         assoMail.text = connectedAsso.getEmail()
         assoPhone.text = connectedAsso.getPhone()
@@ -165,6 +170,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     @IBAction private func Validate(_ sender: Any) {
         if (assoName.text == "" ||  assoMail.text == "") {
             errorTextField.text = "Les champs 'Nom' et 'Email' sont obligatoires ! "
+            errorTextField.isHidden = false
+        } else if (!assoMail.text!.isValidEmail()) {
+            errorTextField.text = "Une adresse mail valide est obligatoire ! "
             errorTextField.isHidden = false
         } else {
             activityIndicator.startLoading()
@@ -253,8 +261,41 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-      let allowedCharacters = CharacterSet.decimalDigits
-      let characterSet = CharacterSet(charactersIn: string)
-      return allowedCharacters.isSuperset(of: characterSet)
+        switch textField {
+        case assoName:
+            let maxLength = 50
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoMail:
+            let maxLength = 250
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoPhone:
+            let maxLength = 10
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return (allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength)
+        case assoWebsite:
+            let maxLength = 250
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoSupport:
+            let maxLength = 250
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        case assoAcronyme:
+            let maxLength = 5
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        default:
+            return true
+        }
     }
 }

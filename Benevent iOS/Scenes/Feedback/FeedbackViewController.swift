@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FeedbackViewController: UIViewController, UITabBarDelegate {
+class FeedbackViewController: UIViewController, UITabBarDelegate, UITextFieldDelegate {
     
     private let userWS: UserWebService = UserWebService()
     private let postsWS: PostWebService = PostWebService()
@@ -49,6 +49,7 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
         ratingView.isHidden = true
         sendBugButton.layer.cornerRadius = self.sendBugButton.bounds.size.height/2
         sendRatingButton.layer.cornerRadius = self.sendRatingButton.bounds.size.height/2
+        bugTitle.delegate = self
         setupNavigationBar()
         setupTabBar()
     }
@@ -185,4 +186,14 @@ class FeedbackViewController: UIViewController, UITabBarDelegate {
              }
         }
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if (textField == bugTitle) {
+            let maxLength = 100
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            return newString.length <= maxLength
+        }
+        return true
+      }
 }
