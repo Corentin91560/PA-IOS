@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="ipad12_9rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -51,6 +51,9 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                    <connections>
+                        <action selector="eventTFIsClicked:" destination="-1" eventType="touchDown" id="uc5-eP-rMC"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nom de l'événement :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JBe-lk-8s3">
                     <rect key="frame" x="10" y="505" width="295" height="35"/>
@@ -75,6 +78,9 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="endDateTFIsClicked:" destination="-1" eventType="touchDown" id="oDW-36-jUo"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date de fin : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFG-ZK-Djs">
                     <rect key="frame" x="10" y="1008" width="171" height="35"/>
@@ -87,6 +93,9 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                    <connections>
+                        <action selector="locationTFIsClicked:" destination="-1" eventType="touchDown" id="4QV-QV-AcN"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Localisation :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2GX-uC-Zq8">
                     <rect key="frame" x="10" y="1087.5" width="177.5" height="35"/>
@@ -99,6 +108,9 @@
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="Monofonto-Regular" family="Monofonto" pointSize="30"/>
                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <action selector="mabBenevoleTFIsClicked:" destination="-1" eventType="touchDown" id="BOG-gl-tMj"/>
+                    </connections>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nombre de bénévoles max : " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3h5-NV-Kmx">
                     <rect key="frame" x="10" y="1169" width="386" height="35"/>

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class CreateEventViewController: UIViewController, UITextFieldDelegate, UITextViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
   
     private let eventWS: EventWebService = EventWebService()
     private let postWS: PostWebService = PostWebService()
@@ -56,6 +56,7 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
         assoLogo.frame = CGRect(x: self.view.frame.width/2 - 150, y: 50 + (self.navigationController?.navigationBar.frame.height)!, width: 300, height: 300)
         ValidButton.layer.cornerRadius = ValidButton.bounds.size.height/2
         activityIndicator.isHidden = true
+        eventDescriptionTF.delegate = self
         eventNameTF.delegate = self
         eventMaxBenevoleTF.delegate = self
         eventStartDateTF.delegate = self
@@ -125,42 +126,69 @@ class CreateEventViewController: UIViewController, UITextFieldDelegate, UIPicker
     }
     
     @IBAction private func Valid(_ sender: Any) {
-        var checkCallback = false
-        activityIndicator.startLoading()
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
-        dateFormatter.timeZone = TimeZone.autoupdatingCurrent
-        let startDateString = eventStartDateTF.text!
-        let endDateString = eventEndDateTF.text!
-        let startDate = dateFormatter.date(from: startDateString)!
-        let endDate = dateFormatter.date(from: endDateString)!
-        endDatePicker?.minimumDate = startDatePicker?.date
-      
-        let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!, fakeEvent: false)
-        eventToCreate.setIdAssociation(idAssociation: connectedAsso.getIdAssociation())
-        eventToCreate.setIdCategory(idCategory: selectedCategory.getIdCategory())
         
-        eventWS.newEvent(event: eventToCreate) { (sucess) in
-            if(sucess || checkCallback) {
-                if(!checkCallback) {
-                    let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.getName()) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.getMaxBenevole()) bénévoles, inscrivez vous sur Benevent", date: Date())
-                    postToCreate.setIdEvent(idEvent: self.generalEvent.getIdEvent())
-                    postToCreate.setIdAssociation(idAssociation: self.connectedAsso.getIdAssociation())
-                    self.postWS.newPost(post: postToCreate) { (_) in }
-                }
-                checkCallback = true
-                self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.getIdAssociation())!) { (eventsList) in
-                    let EventVC = EventViewController.newInstance(events: eventsList)
-                    self.navigationController?.pushViewController(EventVC, animated: false)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopLoading()
-                    self.errorTF.isHidden = false
+        if (eventNameTF.text == "" || eventDescriptionTF.text == "" || eventEndDateTF.text == "" || eventLocationTF.text == "" || eventMaxBenevoleTF.text == "") {
+        errorTF.text = "Tous les champs sont obligatoires ! "
+        errorTF.isHidden = false
+        } else {
+            var checkCallback = false
+            activityIndicator.startLoading()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+            dateFormatter.timeZone = TimeZone.autoupdatingCurrent
+            let startDateString = eventStartDateTF.text!
+            let endDateString = eventEndDateTF.text!
+            let startDate = dateFormatter.date(from: startDateString)!
+            let endDate = dateFormatter.date(from: endDateString)!
+            endDatePicker?.minimumDate = startDatePicker?.date
+            
+            let eventToCreate = Event(name: eventNameTF.text!, apercu: eventDescriptionTF.text!, startDate: startDate, endDate: endDate, location: eventLocationTF.text!, maxBenevole: Int(eventMaxBenevoleTF.text!)!, fakeEvent: false)
+            eventToCreate.setIdAssociation(idAssociation: connectedAsso.getIdAssociation())
+            eventToCreate.setIdCategory(idCategory: selectedCategory.getIdCategory())
+            
+            eventWS.newEvent(event: eventToCreate) { (sucess) in
+                if(sucess || checkCallback) {
+                    if(!checkCallback) {
+                        let postToCreate = Post(message: "Un nouvel événement est organisé: \(eventToCreate.getName()) \n Il se déroulera du \(startDateString) au \(endDateString) \n Nous aurons besoin de \(eventToCreate.getMaxBenevole()) bénévoles, inscrivez vous sur Benevent", date: Date())
+                        postToCreate.setIdEvent(idEvent: self.generalEvent.getIdEvent())
+                        postToCreate.setIdAssociation(idAssociation: self.connectedAsso.getIdAssociation())
+                        self.postWS.newPost(post: postToCreate) { (_) in }
+                    }
+                    checkCallback = true
+                    self.eventWS.getEventsByAssociation(idAsso: (self.connectedAsso?.getIdAssociation())!) { (eventsList) in
+                        let EventVC = EventViewController.newInstance(events: eventsList)
+                        self.navigationController?.pushViewController(EventVC, animated: false)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.activityIndicator.stopLoading()
+                        self.errorTF.isHidden = false
+                    }
                 }
             }
         }
     }
+    
+    @IBAction func eventTFIsClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
+    @IBAction func endDateTFIsClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
+    @IBAction func locationTFIsClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
+    @IBAction func mabBenevoleTFIsClicked(_ sender: Any) {
+        errorTF.isHidden = true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+       errorTF.isHidden = true
+    }
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
           return 1
     }

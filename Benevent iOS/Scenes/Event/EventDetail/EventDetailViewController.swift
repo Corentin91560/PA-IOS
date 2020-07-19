@@ -319,13 +319,13 @@ class EventDetailViewController: UIViewController, UITextFieldDelegate, UITextVi
             let currentString: NSString = textField.text! as NSString
             let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
             return newString.length <= maxLength
-         case eventMaxBenevoleTF:
-                  let maxLength = 5
-                  let currentString: NSString = textField.text! as NSString
-                  let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
-                  let allowedCharacters = CharacterSet.decimalDigits
-                  let characterSet = CharacterSet(charactersIn: string)
-                  return (allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength)
+        case eventMaxBenevoleTF:
+            let maxLength = 5
+            let currentString: NSString = textField.text! as NSString
+            let newString: NSString = currentString.replacingCharacters(in: range, with: string) as NSString
+            let allowedCharacters = CharacterSet.decimalDigits
+            let characterSet = CharacterSet(charactersIn: string)
+            return (allowedCharacters.isSuperset(of: characterSet) && newString.length <= maxLength)
         default:
             return true
         }
